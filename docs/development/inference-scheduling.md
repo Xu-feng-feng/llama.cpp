@@ -31,6 +31,32 @@ Start with the smallest examples before reading the server:
 3. `tools/server/README-dev.md`
    - Gives the server-level architecture and batching overview.
 
+Locate the user request entry points:
+
+1. `tools/server/server.cpp`
+   - Registers HTTP endpoints such as `/completion`, `/completions`,
+     `/v1/completions`, `/chat/completions`, and `/v1/chat/completions`.
+   - These handlers call the corresponding `server_routes` function.
+2. `tools/server/server-context.cpp`
+   - `server_routes::init_routes()` parses request bodies for completion and
+     chat-completion routes.
+   - `post_completions` and `post_completions_oai` parse JSON and pass it to
+     `handle_completions_impl()`.
+   - `post_chat_completions` first converts OpenAI-compatible chat JSON into a
+     prompt-shaped completion request, then calls `handle_completions_impl()`.
+   - `handle_completions_impl()` tokenizes the prompt, evaluates request
+     parameters, constructs `server_task` objects, and posts them through
+     `server_response_reader`.
+3. `tools/cli/cli.cpp`
+   - The interactive loop reads the user line or initial `--prompt`, handles
+     local commands, appends a user message, and calls
+     `cli_context::generate_completion()`.
+   - `generate_completion()` formats chat history, creates a
+     `SERVER_TASK_TYPE_COMPLETION` task, and posts it to the same
+     `server_context` queue used by the HTTP server.
+   - CLI prompt tokenization happens later in
+     `server_context_impl::tokenize_cli_input()`.
+
 Then read the server scheduling path:
 
 1. `tools/server/server-queue.cpp`
