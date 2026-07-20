@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>llama.cpp Qwen3.5 Decode Dataflow</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #cbd5e1;
+      --panel: #f8fafc;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --green: #16a34a;
+      --orange: #f59e0b;
+      --canvas-w: 1900px;
+      --canvas-h: 1555px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #eef2f7;
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body { overflow: hidden; }
+
+    .toolbar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 20px;
+      background: #fff;
+      border-bottom: 1px solid #dbe3ee;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .title-block { min-width: 0; flex: 1; }
+    h1 { margin: 0; font-size: 21px; line-height: 1.25; }
+    .subtitle { margin-top: 3px; color: var(--muted); font-size: 13px; }
+
+    .controls { display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+    button {
+      min-width: 36px;
+      height: 36px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+      color: #334155;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:hover { border-color: var(--blue); color: var(--blue); background: #eff6ff; }
+
+    .viewport {
+      width: 100vw;
+      height: calc(100vh - 72px);
+      overflow: auto;
+      padding: 22px;
+    }
+
+    .stage { position: relative; margin: 0 auto; }
+    .canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--canvas-w);
+      height: var(--canvas-h);
+      transform-origin: top left;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+
+    .diagram-title {
+      position: absolute;
+      left: 38px;
+      top: 26px;
+      margin: 0;
+      font-size: 29px;
+      letter-spacing: -0.02em;
+    }
+
+    .diagram-subtitle {
+      position: absolute;
+      left: 40px;
+      top: 65px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .panel {
+      position: absolute;
+      left: 34px;
+      width: 1832px;
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+    }
+    .runtime-panel { top: 98px; height: 225px; }
+    .batch-panel { top: 345px; height: 210px; }
+    .model-panel { top: 580px; height: 910px; }
+
+    .panel h2 {
+      position: absolute;
+      left: 28px;
+      top: 18px;
+      margin: 0;
+      font-size: 22px;
+    }
+    .panel-note {
+      position: absolute;
+      left: 28px;
+      top: 52px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .node {
+      position: absolute;
+      display: block;
+      height: 96px;
+      padding: 18px 12px 10px;
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.09);
+      color: inherit;
+      text-decoration: none;
+      text-align: center;
+      z-index: 3;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .node:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 9px 18px rgba(15, 23, 42, 0.14);
+    }
+    .node::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: -2px;
+      height: 8px;
+      border-radius: 14px 14px 5px 5px;
+      background: var(--accent, var(--blue));
+    }
+    .node .name { display: block; font-size: 17px; font-weight: 800; white-space: nowrap; }
+    .node .detail { display: block; margin-top: 12px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .node .badge {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: var(--accent, var(--blue));
+      color: #fff;
+      font-size: 12px;
+      vertical-align: -7px;
+    }
+    .node.blue { --accent: var(--blue); }
+    .node.purple { --accent: var(--purple); }
+    .node.green { --accent: var(--green); }
+    .node.orange { --accent: var(--orange); }
+
+    .decision {
+      position: absolute;
+      width: 164px;
+      height: 108px;
+      z-index: 3;
+      filter: drop-shadow(0 5px 8px rgba(15, 23, 42, 0.12));
+    }
+    .decision::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #fff7ed;
+      border: 3px solid var(--orange);
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    }
+    .decision span {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      font-weight: 800;
+      color: #7c2d12;
+      line-height: 1.28;
+    }
+
+    .store {
+      position: absolute;
+      width: 172px;
+      height: 110px;
+      padding: 27px 10px 10px;
+      border: 2px solid var(--green);
+      border-radius: 50% / 18%;
+      background: #f0fdf4;
+      text-align: center;
+      z-index: 3;
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.08);
+    }
+    .store::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: -2px;
+      height: 24px;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      background: #dcfce7;
+    }
+    .store strong { position: relative; display: block; color: #166534; font-size: 17px; }
+    .store small { position: relative; display: block; margin-top: 8px; color: #3f6212; line-height: 1.3; }
+
+    .branch-label {
+      position: absolute;
+      z-index: 3;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+    .full-label { color: #1d4ed8; }
+    .recurrent-label { color: #047857; }
+
+    .edge-layer {
+      position: absolute;
+      inset: 0;
+      width: 1900px;
+      height: 1555px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .edge {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .edge.blue { stroke: var(--blue); marker-end: url(#arrow-blue); }
+    .edge.purple { stroke: var(--purple); marker-end: url(#arrow-purple); }
+    .edge.green { stroke: var(--green); marker-end: url(#arrow-green); }
+    .edge.orange { stroke: var(--orange); marker-end: url(#arrow-orange); }
+    .edge.dashed { stroke-dasharray: 9 8; }
+    .edge-label {
+      font: 700 12px Inter, Arial, sans-serif;
+      paint-order: stroke;
+      stroke: #fff;
+      stroke-width: 7px;
+      stroke-linejoin: round;
+    }
+
+    .legend {
+      position: absolute;
+      left: 55px;
+      bottom: 18px;
+      right: 55px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 42px;
+      padding: 0 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 13px;
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 3;
+    }
+    .key { display: inline-flex; align-items: center; gap: 9px; }
+    .dot { width: 13px; height: 13px; border-radius: 50%; background: var(--color); }
+
+    .source-tip {
+      position: absolute;
+      right: 55px;
+      top: 600px;
+      z-index: 4;
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .model-flow {
+      position: absolute;
+      inset: 0;
+      transform: translateY(235px);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .model-flow > * { pointer-events: auto; }
+
+    .ubatch-summary {
+      position: absolute;
+      left: 1135px;
+      top: 408px;
+      width: 500px;
+      height: 126px;
+      padding: 14px 16px;
+      border: 2px solid var(--purple);
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.09);
+      color: inherit;
+      text-decoration: none;
+      z-index: 3;
+    }
+    .ubatch-summary strong { display: block; margin-bottom: 8px; font-size: 17px; color: #5b21b6; }
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 15px;
+      color: #475569;
+      font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .field-grid b { color: var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .node { transition: none; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { overflow: visible; background: #fff; }
+      .toolbar { display: none; }
+      .viewport { height: auto; overflow: visible; padding: 0; }
+      .stage { width: 1900px !important; height: 1555px !important; }
+      .canvas { transform: scale(0.47) !important; transform-origin: top left; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="toolbar">
+    <div class="title-block">
+      <h1>Qwen3.5 Decode Flowchart</h1>
+      <div class="subtitle">Standalone HTML - click a node to open its llama.cpp source location</div>
+    </div>
+    <div class="controls" aria-label="Diagram controls">
+      <button id="zoom-out" type="button" title="Zoom out">-</button>
+      <button id="zoom-reset" type="button" title="Reset to 100%">100%</button>
+      <button id="zoom-in" type="button" title="Zoom in">+</button>
+      <button id="zoom-fit" type="button" title="Fit diagram to viewport">Fit</button>
+      <button id="print" type="button" title="Print diagram">Print</button>
+    </div>
+  </header>
+
+  <main id="viewport" class="viewport">
+    <div id="stage" class="stage">
+      <div id="canvas" class="canvas">
+        <h2 class="diagram-title">llama.cpp Qwen3.5 Decode Dataflow</h2>
+        <div class="diagram-subtitle">4 concurrent sequences, continuous batching, unified KV memory</div>
+
+        <section class="panel runtime-panel" aria-labelledby="runtime-title">
+          <h2 id="runtime-title">1. Runtime orchestration</h2>
+          <div class="panel-note">One decode call may mix prompt chunks and one-token decode work from different slots.</div>
+        </section>
+
+        <section class="panel batch-panel" aria-labelledby="batch-title">
+          <h2 id="batch-title">2. llama_batch -> llama_ubatch</h2>
+          <div class="panel-note">Validate and complete public batch fields, choose a split, copy selected rows, then bind pointers to owned ubatch data.</div>
+        </section>
+
+        <section class="panel model-panel" aria-labelledby="model-title">
+          <h2 id="model-title">3. Qwen3.5 model graph per ubatch</h2>
+          <div class="panel-note">Observed 0.8B layout: 24 blocks; full attention at 3, 7, 11, 15, 19, 23; other blocks use Gated DeltaNet.</div>
+        </section>
+
+        <div class="source-tip">Hover for details. Click a node to open source.</div>
+
+        <svg class="edge-layer" viewBox="0 0 1900 1555" style="height:1555px" aria-hidden="true">
+          <defs>
+            <marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#2563eb"/></marker>
+            <marker id="arrow-purple" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#7c3aed"/></marker>
+            <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#16a34a"/></marker>
+            <marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#f59e0b"/></marker>
+          </defs>
+
+          <!-- Runtime orchestration -->
+          <path class="edge blue" d="M280 232 H320"/>
+          <path class="edge blue" d="M520 232 H560"/>
+          <path class="edge blue" d="M760 232 H800"/>
+          <path class="edge blue" d="M1020 232 H1060"/>
+          <path class="edge blue" d="M1280 232 H1320"/>
+
+          <!-- llama_batch to llama_ubatch expansion -->
+          <path class="edge blue dashed" d="M910 280 V332 H55 V468 H70"/>
+          <path class="edge blue" d="M270 468 H300"/>
+          <path class="edge blue" d="M540 468 H570"/>
+          <path class="edge blue" d="M810 468 H840"/>
+          <path class="edge purple" d="M1080 468 H1135"/>
+          <path class="edge green" d="M1635 468 H1660"/>
+          <path class="edge blue dashed" d="M1750 420 V330 H1170 V280"/>
+          <text class="edge-label" x="680" y="324" fill="#1d4ed8">expanded below</text>
+          <text class="edge-label" x="1650" y="455" fill="#047857">prepare both memories</text>
+
+          <!-- Hidden-state path -->
+          <g transform="translate(0 235)">
+          <path class="edge purple" d="M260 456 H300"/>
+          <path class="edge purple" d="M500 456 H530"/>
+          <path class="edge purple" d="M730 456 H760"/>
+          <path class="edge orange" d="M940 456 H968"/>
+
+          <!-- Full-attention branch -->
+          <path class="edge blue" d="M1132 440 H1170"/>
+          <path class="edge blue" d="M1370 456 H1390"/>
+          <path class="edge blue" d="M1590 456 H1610"/>
+          <path class="edge green" d="M1700 504 V548"/>
+          <path class="edge blue" d="M1490 504 V680"/>
+          <path class="edge green" d="M1615 603 H1585 V728"/>
+          <path class="edge blue" d="M1590 728 H1610"/>
+          <text class="edge-label" x="1140" y="426" fill="#1d4ed8">no</text>
+          <text class="edge-label" x="1501" y="535" fill="#1d4ed8">Q</text>
+          <text class="edge-label" x="1580" y="626" fill="#047857">read K,V</text>
+
+          <!-- Position and mask metadata -->
+          <path class="edge purple" d="M260 586 H300"/>
+          <path class="edge purple dashed" d="M560 586 H1360 V475 H1390"/>
+          <path class="edge orange" d="M260 726 H300"/>
+          <path class="edge orange dashed" d="M550 726 H1360 V728 H1390"/>
+          <text class="edge-label" x="650" y="576" fill="#7c3aed">I32 graph input -> Q,K</text>
+          <text class="edge-label" x="780" y="716" fill="#b45309">same seq_id and causal position</text>
+
+          <!-- Recurrent branch -->
+          <path class="edge green" d="M1050 510 V880 H1170"/>
+          <path class="edge green" d="M1370 896 H1390"/>
+          <path class="edge green" d="M1590 896 H1610"/>
+          <path class="edge green" d="M1490 1002 V944"/>
+          <path class="edge green dashed" d="M1700 944 V1030 H1575"/>
+          <text class="edge-label" x="1060" y="545" fill="#047857">yes</text>
+          <text class="edge-label" x="1503" y="982" fill="#047857">read state</text>
+          <text class="edge-label" x="1605" y="1020" fill="#047857">write state</text>
+
+          <!-- Common layer tail -->
+          <path class="edge blue" d="M1700 776 H1840 V1164 H1280"/>
+          <path class="edge green" d="M1700 944 H1815 V1135 H1280"/>
+          <path class="edge purple dashed" d="M1020 1164 H925 V535 H630 V504"/>
+          <path class="edge purple" d="M1020 1184 H960"/>
+          <path class="edge orange" d="M700 1164 H660"/>
+          <path class="edge orange dashed" d="M400 1164 H50 V45 H170"/>
+          <text class="edge-label" x="930" y="1152" fill="#7c3aed">next block</text>
+          <text class="edge-label" x="963" y="1204" fill="#7c3aed">last block</text>
+          <text class="edge-label" x="292" y="1148" fill="#b45309">next decode iteration</text>
+          </g>
+        </svg>
+
+        <!-- Runtime nodes -->
+        <a class="node orange" style="left:60px;top:184px;width:220px" href="../../tools/server/server-context.cpp#L448" title="server_slot::handle_last_sampled_token">
+          <span class="name"><span class="badge">S</span>Server slots</span><span class="detail">handle_last_sampled_token<br>server-context.cpp:448</span>
+        </a>
+        <a class="node blue" style="left:320px;top:184px;width:200px" href="../../tools/server/server-context.cpp#L2993" title="Continuous batch assembly">
+          <span class="name"><span class="badge">B</span>server_batch</span><span class="detail">continuous batching<br>server-context.cpp:2993</span>
+        </a>
+        <a class="node blue" style="left:560px;top:184px;width:200px" href="../../tools/server/server-context.cpp#L3562" title="Server calls llama_decode">
+          <span class="name"><span class="badge">D</span>llama_decode</span><span class="detail">server-context.cpp:3562<br>llama-context.cpp:1680</span>
+        </a>
+        <a class="node blue" style="left:800px;top:184px;width:220px" href="../../src/llama-batch.cpp#L25" title="Validate and complete the public llama_batch">
+          <span class="name"><span class="badge">B</span>balloc->init</span><span class="detail">llama_batch_allocr::init<br>llama-batch.cpp:25</span>
+        </a>
+        <a class="node green" style="left:1060px;top:184px;width:220px" href="../../src/llama-memory-hybrid.cpp#L67" title="Split llama_batch and prepare recurrent and attention memory">
+          <span class="name"><span class="badge">M</span>hybrid init_batch</span><span class="detail">split + memory prepare<br>memory-hybrid.cpp:67</span>
+        </a>
+        <a class="node purple" style="left:1320px;top:184px;width:500px" href="../../src/llama-context.cpp#L1304" title="Build or reuse the GGML graph, set input tensors, then execute it">
+          <span class="name"><span class="badge">G</span>Build/reuse graph -> set inputs -> compute</span><span class="detail">llama_context::process_ubatch<br>llama-context.cpp:1304-1364</span>
+        </a>
+
+        <!-- llama_batch to llama_ubatch details -->
+        <div class="node blue" style="left:70px;top:420px;width:200px" title="Public input passed to llama_decode">
+          <span class="name"><span class="badge">B</span>llama_batch</span><span class="detail">token/embd, pos, seq_id<br>logits/output request</span>
+        </div>
+        <a class="node blue" style="left:300px;top:420px;width:240px" href="../../src/llama-batch.cpp#L25" title="Validate tokens and sequence IDs; auto-generate missing positions, sequence IDs, and output flags">
+          <span class="name"><span class="badge">I</span>sanitize + auto-fill</span><span class="detail">llama_batch_allocr::init<br>llama-batch.cpp:25-388</span>
+        </a>
+        <a class="node blue" style="left:570px;top:420px;width:240px" href="../../src/llama-batch.cpp#L508" title="Hybrid Qwen3.5 memory requests equal-length sequence sets">
+          <span class="name"><span class="badge">S</span>split_equal</span><span class="detail">hybrid path selects rows<br>llama-batch.cpp:508-676</span>
+        </a>
+        <a class="node purple" style="left:840px;top:420px;width:240px" href="../../src/llama-batch.cpp#L748" title="Copy selected batch rows into llama_ubatch::data_t vectors">
+          <span class="name"><span class="badge">U</span>ubatch_add</span><span class="detail">copy idxs into udata<br>llama-batch.cpp:748-815</span>
+        </a>
+        <a class="ubatch-summary" href="../../src/llama-batch.cpp#L817" title="Construct the lightweight llama_ubatch view over owned udata vectors">
+          <strong>llama_ubatch res - llama-batch.cpp:817</strong>
+          <span class="field-grid">
+            <span><b>shape:</b> equal_seqs, n_tokens, n_seq_tokens, n_seqs</span>
+            <span><b>embedding:</b> token or embd</span>
+            <span><b>position:</b> pos, n_pos</span>
+            <span><b>identity:</b> n_seq_id, seq_id, seq_id_unq, seq_idx</span>
+            <span><b>selection:</b> output</span>
+            <span><b>lifetime:</b> data owns udata vectors</span>
+          </span>
+        </a>
+        <a class="node green" style="left:1660px;top:420px;width:180px" href="../../src/llama-memory-hybrid.cpp#L104" title="The same ubatches prepare recurrent state and attention KV slots">
+          <span class="name"><span class="badge">M</span>memory prepare</span><span class="detail">recurrent first, KV next<br>hybrid.cpp:104-119</span>
+        </a>
+
+        <!-- Model input and shared hidden-state path -->
+        <div class="model-flow">
+        <div class="node purple" style="left:70px;top:408px;width:190px" title="llama_ubatch::token">
+          <span class="name"><span class="badge">T</span>Token IDs</span><span class="detail">I32 [n_tokens]<br>ubatch.token</span>
+        </div>
+        <a class="node purple" style="left:300px;top:408px;width:200px" href="../../src/llama-graph.cpp#L2130" title="Token embedding lookup with ggml_get_rows">
+          <span class="name"><span class="badge">E</span>Embedding lookup</span><span class="detail">build_inp_embd<br>llama-graph.cpp:2130</span>
+        </a>
+        <a class="node purple" style="left:530px;top:408px;width:200px" href="../../src/models/qwen35.cpp#L148" title="Logical tensor shape is [n_embd, n_tokens]">
+          <span class="name"><span class="badge">H</span>Hidden states H_l</span><span class="detail">[n_embd, n_tokens]<br>qwen35.cpp:148,205</span>
+        </a>
+        <a class="node purple" style="left:760px;top:408px;width:180px" href="../../src/models/qwen35.cpp#L163" title="Per-layer attention RMSNorm">
+          <span class="name"><span class="badge">N</span>RMSNorm</span><span class="detail">per block<br>qwen35.cpp:163</span>
+        </a>
+        <a class="decision" style="left:968px;top:402px" href="../../src/models/qwen35.cpp#L169" title="Select full attention or recurrent Gated DeltaNet"><span>is_recr(il)?<br>qwen35.cpp:169</span></a>
+
+        <!-- Full attention -->
+        <div class="branch-label full-label" style="left:1170px;top:380px">FULL ATTENTION BLOCK</div>
+        <a class="node blue" style="left:1170px;top:408px;width:200px" href="../../src/models/qwen35.cpp#L257" title="Joint Q and gate projection, plus K and V projections">
+          <span class="name"><span class="badge">Q</span>Q/K/V + Q gate</span><span class="detail">build_layer_attn<br>qwen35.cpp:257-299</span>
+        </a>
+        <a class="node purple" style="left:1390px;top:408px;width:200px" href="../../src/models/qwen35.cpp#L301" title="MRoPE modifies Q and K, not hidden states directly">
+          <span class="name"><span class="badge">P</span>MRoPE(Q,K)</span><span class="detail">ggml_rope_multi<br>qwen35.cpp:301-312</span>
+        </a>
+        <a class="node green" style="left:1610px;top:408px;width:180px" href="../../src/llama-graph.cpp#L2641" title="Write only current K and V into the KV cache">
+          <span class="name"><span class="badge">W</span>KV write</span><span class="detail">cpy_k/cpy_v<br>llama-graph.cpp:2641</span>
+        </a>
+
+        <div class="node purple" style="left:70px;top:538px;width:190px" title="Position metadata carried by llama_ubatch">
+          <span class="name"><span class="badge">P</span>ubatch.pos</span><span class="detail">[n_tokens * n_pos]<br>from llama-batch.cpp</span>
+        </div>
+        <a class="node purple" style="left:300px;top:538px;width:260px" href="../../src/llama-graph.cpp#L124" title="Called through llm_graph_result::set_inputs before graph_compute; text positions become [p,p,p,0]">
+          <span class="name"><span class="badge">P</span>set_input(pos)</span><span class="detail">text: [p,p,p,0] -> inp_pos<br>llama-graph.cpp:124-143</span>
+        </a>
+        <div class="store" style="left:1615px;top:548px" title="Persistent K and V tensors for full-attention blocks">
+          <strong>KV cache</strong><small>full-attention<br>blocks only</small>
+        </div>
+
+        <div class="node orange" style="left:70px;top:678px;width:190px;height:100px" title="Per-token sequence ID and position metadata">
+          <span class="name"><span class="badge">I</span>seq_id + position</span><span class="detail">query seq and p1<br>KV cell seq and p0</span>
+        </div>
+        <a class="node orange" style="left:300px;top:678px;width:250px;height:100px" href="../../src/llama-kv-cache.cpp#L1559" title="Keep only same-sequence non-future KV cells">
+          <span class="name"><span class="badge">A</span>Build KQ mask</span><span class="detail">same seq and p0 &lt;= p1<br>llama-kv-cache.cpp:1559-1675</span>
+        </a>
+        <a class="node blue" style="left:1390px;top:680px;width:200px" href="../../src/llama-graph.cpp#L2363" title="Flash Attention or explicit QK, masked softmax, and V multiplication">
+          <span class="name"><span class="badge">A</span>Masked MHA</span><span class="detail">flash_attn_ext OR<br>soft_max_ext + V</span>
+        </a>
+        <a class="node blue" style="left:1610px;top:680px;width:180px" href="../../src/models/qwen35.cpp#L326" title="Apply sigmoid query gate and output projection">
+          <span class="name"><span class="badge">O</span>Gate + Wo</span><span class="detail">sigmoid gate<br>qwen35.cpp:326-333</span>
+        </a>
+
+        <!-- Recurrent attention -->
+        <div class="branch-label recurrent-label" style="left:1170px;top:830px">RECURRENT BLOCK</div>
+        <a class="node green" style="left:1170px;top:848px;width:200px" href="../../src/models/qwen35.cpp#L338" title="Linear-attention input projections and decay/update gates">
+          <span class="name"><span class="badge">Q</span>QKVZ + alpha/beta</span><span class="detail">build_layer_attn_linear<br>qwen35.cpp:338-379</span>
+        </a>
+        <a class="node green" style="left:1390px;top:848px;width:200px" href="../../src/models/qwen35.cpp#L381" title="Read convolution and SSM state and prepare recurrent input">
+          <span class="name"><span class="badge">C</span>Conv + state prep</span><span class="detail">build_conv_state/build_rs<br>qwen35.cpp:381-423</span>
+        </a>
+        <a class="node green" style="left:1610px;top:848px;width:180px" href="../../src/models/qwen35.cpp#L450" title="Gated DeltaNet recurrent attention, gated norm, and output projection">
+          <span class="name"><span class="badge">R</span>Gated DeltaNet</span><span class="detail">recurrent_attn<br>qwen35.cpp:450-467</span>
+        </a>
+        <div class="store" style="left:1404px;top:1002px;width:172px" title="Convolution and SSM state; this is not the KV cache">
+          <strong>Recurrent state</strong><small>conv + SSM<br>not KV cache</small>
+        </div>
+
+        <!-- Shared layer tail and sampling loop -->
+        <a class="node purple" style="left:1020px;top:1116px;width:260px" href="../../src/models/qwen35.cpp#L182" title="Attention residual, post-attention RMSNorm, FFN, and FFN residual">
+          <span class="name"><span class="badge">+</span>Residual + FFN</span><span class="detail">next H_l<br>qwen35.cpp:182-205</span>
+        </a>
+        <a class="node purple" style="left:700px;top:1116px;width:260px" href="../../src/models/qwen35.cpp#L209" title="Final normalization, output projection, and logits">
+          <span class="name"><span class="badge">L</span>Final norm -> LM head</span><span class="detail">logits<br>qwen35.cpp:209-225</span>
+        </a>
+        <a class="node orange" style="left:400px;top:1116px;width:260px" href="../../tools/server/server-context.cpp#L3724" title="Sample a token and feed it to the next server iteration">
+          <span class="name"><span class="badge">S</span>Sample next token</span><span class="detail">common_sampler_sample<br>server-context.cpp:3724</span>
+        </a>
+        </div>
+
+        <div class="legend" aria-label="Diagram legend">
+          <span class="key"><span class="dot" style="--color:#2563eb"></span>primary compute</span>
+          <span class="key"><span class="dot" style="--color:#7c3aed"></span>tensor transform</span>
+          <span class="key"><span class="dot" style="--color:#16a34a"></span>persistent memory/state</span>
+          <span class="key"><span class="dot" style="--color:#f59e0b"></span>routing and mask</span>
+          <span class="key">dashed line = metadata or loop control</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const baseWidth = 1900;
+      const baseHeight = 1555;
+      const viewport = document.getElementById("viewport");
+      const stage = document.getElementById("stage");
+      const canvas = document.getElementById("canvas");
+      const resetButton = document.getElementById("zoom-reset");
+      let scale = 1;
+
+      function applyScale(next) {
+        scale = Math.max(0.35, Math.min(1.8, next));
+        canvas.style.transform = `scale(${scale})`;
+        stage.style.width = `${baseWidth * scale}px`;
+        stage.style.height = `${baseHeight * scale}px`;
+        resetButton.textContent = `${Math.round(scale * 100)}%`;
+      }
+
+      function fit() {
+        const available = Math.max(320, viewport.clientWidth - 44);
+        applyScale(Math.min(1, available / baseWidth));
+        viewport.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+      }
+
+      document.getElementById("zoom-in").addEventListener("click", () => applyScale(scale + 0.1));
+      document.getElementById("zoom-out").addEventListener("click", () => applyScale(scale - 0.1));
+      resetButton.addEventListener("click", () => applyScale(1));
+      document.getElementById("zoom-fit").addEventListener("click", fit);
+      document.getElementById("print").addEventListener("click", () => window.print());
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "+" || event.key === "=") applyScale(scale + 0.1);
+        if (event.key === "-") applyScale(scale - 0.1);
+        if (event.key === "0") applyScale(1);
+        if (event.key.toLowerCase() === "f") fit();
+      });
+
+      fit();
+    })();
+  </script>
+</body>
+</html>

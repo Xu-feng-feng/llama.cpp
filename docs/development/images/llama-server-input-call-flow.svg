@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1280" width="1200" height="1280">
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; fill: #111827; }
+    .title { font-size: 24px; font-weight: 700; }
+    .subtitle { font-size: 13px; fill: #6b7280; }
+    .lane-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+    .node-title { font-size: 15px; font-weight: 650; }
+    .node-sub { font-size: 12px; fill: #4b5563; }
+    .edge-label { font-size: 11px; font-weight: 600; }
+    .legend { font-size: 12px; fill: #6b7280; }
+  </style>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#111827" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="1280" fill="#ffffff"/>
+  <text x="48" y="36" class="title">llama-server Input Call Flow</text>
+  <text x="48" y="58" class="subtitle">Single or continuous-batched slots, prefill or decode, token IDs or external embeddings</text>
+
+  <rect x="40" y="78" width="1120" height="232" rx="10" fill="#eff6ff" fill-opacity="0.45" stroke="#93c5fd" stroke-dasharray="7,4"/>
+  <text x="56" y="100" class="lane-label" fill="#1d4ed8">SERVER TEXT PATH</text>
+
+  <rect x="88" y="124" width="200" height="72" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="188" y="151" text-anchor="middle" class="node-title">Active slots</text>
+  <text x="188" y="172" text-anchor="middle" class="node-sub">1 slot or N compatible slots</text>
+
+  <polygon points="430,108 530,160 430,212 330,160" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="430" y="156" text-anchor="middle" class="node-title">Phase?</text>
+  <text x="430" y="176" text-anchor="middle" class="node-sub">per slot</text>
+
+  <rect x="596" y="96" width="200" height="64" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="696" y="122" text-anchor="middle" class="node-title">Prompt prefill</text>
+  <text x="696" y="143" text-anchor="middle" class="node-sub">many current tokens</text>
+
+  <rect x="596" y="190" width="200" height="64" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="696" y="216" text-anchor="middle" class="node-title">Decode step</text>
+  <text x="696" y="237" text-anchor="middle" class="node-sub">sampled token per slot</text>
+
+  <rect x="884" y="124" width="224" height="76" rx="9" fill="#dbeafe" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="996" y="151" text-anchor="middle" class="node-title">server_batch::add</text>
+  <text x="996" y="173" text-anchor="middle" class="node-sub">id, token, pos, output</text>
+
+  <rect x="884" y="226" width="224" height="62" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="996" y="251" text-anchor="middle" class="node-title">render()</text>
+  <text x="996" y="272" text-anchor="middle" class="node-sub">llama_batch.token; seq_id = slot.id</text>
+
+  <path d="M 288 160 L 330 160" fill="none" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow-orange)"/>
+  <path d="M 515 135 L 556 135 L 556 128 L 596 128" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 515 185 L 556 185 L 556 222 L 596 222" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 796 128 L 840 128 L 840 147 L 884 147" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 796 222 L 840 222 L 840 177 L 884 177" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 996 200 L 996 226" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <g>
+    <rect x="535" y="112" width="50" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="560" y="125" text-anchor="middle" class="edge-label" fill="#2563eb">prompt</text>
+  </g>
+  <g>
+    <rect x="530" y="195" width="64" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="562" y="208" text-anchor="middle" class="edge-label" fill="#059669">next token</text>
+  </g>
+
+  <rect x="40" y="334" width="1120" height="150" rx="10" fill="#faf5ff" fill-opacity="0.50" stroke="#c4b5fd" stroke-dasharray="7,4"/>
+  <text x="56" y="356" class="lane-label" fill="#6d28d9">EXTERNAL EMBEDDING PATH</text>
+
+  <rect x="88" y="382" width="200" height="66" rx="8" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="188" y="408" text-anchor="middle" class="node-title">Multimodal chunk</text>
+  <text x="188" y="429" text-anchor="middle" class="node-sub">image or encoded features</text>
+
+  <rect x="382" y="382" width="240" height="66" rx="8" fill="#ede9fe" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="502" y="408" text-anchor="middle" class="node-title">mtmd helper decode</text>
+  <text x="502" y="429" text-anchor="middle" class="node-sub">build embedding batch</text>
+
+  <rect x="718" y="382" width="220" height="66" rx="8" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="828" y="408" text-anchor="middle" class="node-title">llama_batch.embd</text>
+  <text x="828" y="429" text-anchor="middle" class="node-sub">F32 external vectors</text>
+
+  <path d="M 288 415 L 382 415" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <path d="M 622 415 L 718 415" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <rect x="40" y="510" width="1120" height="740" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-dasharray="7,4"/>
+  <text x="56" y="532" class="lane-label" fill="#374151">CORE DECODE AND MODEL INPUT</text>
+
+  <rect x="500" y="556" width="200" height="60" rx="9" fill="#dbeafe" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="582" text-anchor="middle" class="node-title">llama_decode()</text>
+  <text x="600" y="603" text-anchor="middle" class="node-sub">public core entry</text>
+
+  <rect x="486" y="652" width="228" height="60" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="600" y="678" text-anchor="middle" class="node-title">llama_context::decode</text>
+  <text x="600" y="699" text-anchor="middle" class="node-sub">validate and reserve outputs</text>
+
+  <rect x="450" y="748" width="300" height="68" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="600" y="775" text-anchor="middle" class="node-title">batch allocator and memory</text>
+  <text x="600" y="797" text-anchor="middle" class="node-sub">balloc::init -> memory::init_batch</text>
+
+  <rect x="500" y="852" width="200" height="60" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="600" y="878" text-anchor="middle" class="node-title">llama_ubatch</text>
+  <text x="600" y="899" text-anchor="middle" class="node-sub">token or embd, pos, seq_id</text>
+
+  <polygon points="600,944 700,996 600,1048 500,996" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="600" y="992" text-anchor="middle" class="node-title">Input kind?</text>
+  <text x="600" y="1012" text-anchor="middle" class="node-sub">graph selection</text>
+
+  <rect x="214" y="1080" width="250" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="339" y="1106" text-anchor="middle" class="node-title">Token IDs</text>
+  <text x="339" y="1128" text-anchor="middle" class="node-sub">get_rows(model.tok_embd)</text>
+
+  <rect x="736" y="1080" width="250" height="70" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="861" y="1106" text-anchor="middle" class="node-title">External embeddings</text>
+  <text x="861" y="1128" text-anchor="middle" class="node-sub">use inp_embd directly</text>
+
+  <rect x="462" y="1178" width="276" height="64" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="1204" text-anchor="middle" class="node-title">inpL [H, N]</text>
+  <text x="600" y="1226" text-anchor="middle" class="node-sub">Llama graph -> attention and KV cache</text>
+
+  <path d="M 996 288 L 1118 288 L 1118 540 L 560 540 L 560 556" fill="none" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <path d="M 828 448 L 828 526 L 640 526 L 640 556" fill="none" stroke="#7c3aed" stroke-width="2.2" marker-end="url(#arrow-purple)"/>
+  <path d="M 600 616 L 600 652" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 600 712 L 600 748" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 600 816 L 600 852" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 600 912 L 600 944" fill="none" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow-orange)"/>
+  <path d="M 510 1028 L 470 1058 L 339 1058 L 339 1080" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 690 1028 L 730 1058 L 861 1058 L 861 1080" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <path d="M 339 1150 L 339 1164 L 554 1164 L 554 1178" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 861 1150 L 861 1164 L 646 1164 L 646 1178" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <g>
+    <rect x="430" y="1044" width="64" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="462" y="1057" text-anchor="middle" class="edge-label" fill="#2563eb">token</text>
+  </g>
+  <g>
+    <rect x="706" y="1044" width="64" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="738" y="1057" text-anchor="middle" class="edge-label" fill="#7c3aed">embd</text>
+  </g>
+
+  <g transform="translate(52,1258)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <text x="40" y="4" class="legend">token data</text>
+    <line x1="150" y1="0" x2="180" y2="0" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+    <text x="190" y="4" class="legend">embedding data</text>
+    <line x1="330" y1="0" x2="360" y2="0" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="370" y="4" class="legend">decode recurrence</text>
+    <line x1="540" y1="0" x2="570" y2="0" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow-orange)"/>
+    <text x="580" y="4" class="legend">control decision</text>
+  </g>
+</svg>

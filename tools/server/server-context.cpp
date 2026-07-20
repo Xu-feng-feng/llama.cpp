@@ -4620,7 +4620,7 @@ void server_routes::init_routes() {
         std::vector<server_tokens> tokenized_prompts = tokenize_input_prompts(ctx_server.vocab, ctx_server.mctx, prompt, false, true);
         SRV_DBG("creating infill tasks, n_prompts = %d\n", (int) tokenized_prompts.size());
         data["prompt"] = format_prompt_infill(
-            ctx_server.vocab,
+            ctx_server.vocab,2
             data.at("input_prefix"),
             data.at("input_suffix"),
             data.at("input_extra"),

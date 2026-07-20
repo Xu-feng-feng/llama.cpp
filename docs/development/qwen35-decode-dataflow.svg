@@ -1,0 +1,310 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1180" viewBox="0 0 1920 1180">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="context-stroke"/></marker>
+<filter id="shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.10"/></filter>
+</defs>
+<rect width="1920" height="1180" fill="#FFFFFF"/>
+<text x="60" y="48" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="800" fill="#172033" text-anchor="start">llama.cpp Qwen3.5 Decode Dataflow</text>
+<text x="60" y="76" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="400" fill="#64748B" text-anchor="start">4 concurrent sequences, continuous batching, unified KV memory</text>
+<rect x="40" y="98" width="1840" height="222" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+<text x="68" y="137" font-family="Inter,Arial,sans-serif" font-size="23" font-weight="700" fill="#172033" text-anchor="start">1. Runtime orchestration</text>
+<text x="68" y="165" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="400" fill="#64748B" text-anchor="start">A decode call may contain prompt chunks and one-token decode work from different slots.</text>
+<rect x="74" y="183" width="210" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="74" y="183" width="210" height="8" rx="4" fill="#F59E0B"/>
+<circle cx="102" cy="217" r="16" fill="#F59E0B"/>
+<text x="102" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">S</text>
+<text x="126" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Server slots</text>
+<text x="179.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="179.0" dy="0">handle_last_sampled_token</tspan>
+<tspan x="179.0" dy="17">server-context.cpp:448</tspan>
+</text>
+<rect x="330" y="183" width="220" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="330" y="183" width="220" height="8" rx="4" fill="#2563EB"/>
+<circle cx="358" cy="217" r="16" fill="#2563EB"/>
+<text x="358" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">B</text>
+<text x="382" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">server_batch</text>
+<text x="440.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="440.0" dy="0">continuous batching</tspan>
+<tspan x="440.0" dy="17">server-context.cpp:2993</tspan>
+</text>
+<rect x="596" y="183" width="220" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="596" y="183" width="220" height="8" rx="4" fill="#2563EB"/>
+<circle cx="624" cy="217" r="16" fill="#2563EB"/>
+<text x="624" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">D</text>
+<text x="648" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">llama_decode</text>
+<text x="706.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="706.0" dy="0">server-context.cpp:3562</tspan>
+<tspan x="706.0" dy="17">llama-context.cpp:1680</tspan>
+</text>
+<rect x="862" y="183" width="244" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="862" y="183" width="244" height="8" rx="4" fill="#16A34A"/>
+<circle cx="890" cy="217" r="16" fill="#16A34A"/>
+<text x="890" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">M</text>
+<text x="914" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Batch + memory init</text>
+<text x="984.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="984.0" dy="0">balloc/init_batch</tspan>
+<tspan x="984.0" dy="17">llama-context.cpp:1731,1771</tspan>
+</text>
+<rect x="1152" y="183" width="232" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1152" y="183" width="232" height="8" rx="4" fill="#2563EB"/>
+<circle cx="1180" cy="217" r="16" fill="#2563EB"/>
+<text x="1180" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">U</text>
+<text x="1204" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">ubatch loop</text>
+<text x="1268.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1268.0" dy="0">get_ubatch/process</tspan>
+<tspan x="1268.0" dy="17">llama-context.cpp:1823-1843</tspan>
+</text>
+<rect x="1430" y="183" width="404" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1430" y="183" width="404" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="1458" cy="217" r="16" fill="#7C3AED"/>
+<text x="1458" y="223" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">G</text>
+<text x="1482" y="223" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Build/reuse graph -&gt; set inputs -&gt; compute</text>
+<text x="1632.0" y="250" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1632.0" dy="0">llama_context::process_ubatch</tspan>
+<tspan x="1632.0" dy="17">llama-context.cpp:1316-1364</tspan>
+</text>
+<polyline points="284,231 330,231" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="550,231 596,231" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="816,231 862,231" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1106,231 1152,231" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1384,231 1430,231" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="344" width="1840" height="750" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+<text x="68" y="383" font-family="Inter,Arial,sans-serif" font-size="23" font-weight="700" fill="#172033" text-anchor="start">2. Qwen3.5 model graph per ubatch</text>
+<text x="68" y="411" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="400" fill="#64748B" text-anchor="start">Observed 0.8B layout: 24 blocks; full attention at 3, 7, 11, 15, 19, 23; other blocks use Gated DeltaNet.</text>
+<rect x="75" y="425" width="202" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="75" y="425" width="202" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="103" cy="459" r="16" fill="#7C3AED"/>
+<text x="103" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">T</text>
+<text x="127" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Token IDs</text>
+<text x="176.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="176.0" dy="0">I32 [n_tokens]</tspan>
+<tspan x="176.0" dy="17">ubatch.token</tspan>
+</text>
+<rect x="322" y="425" width="216" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="322" y="425" width="216" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="350" cy="459" r="16" fill="#7C3AED"/>
+<text x="350" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">E</text>
+<text x="374" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Embedding lookup</text>
+<text x="430.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="430.0" dy="0">build_inp_embd</tspan>
+<tspan x="430.0" dy="17">llama-graph.cpp:2130</tspan>
+</text>
+<rect x="583" y="425" width="202" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="583" y="425" width="202" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="611" cy="459" r="16" fill="#7C3AED"/>
+<text x="611" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">H</text>
+<text x="635" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Hidden states H_l</text>
+<text x="684.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="684.0" dy="0">logical [n_embd,n_tokens]</tspan>
+<tspan x="684.0" dy="17">qwen35.cpp:148,205</tspan>
+</text>
+<rect x="830" y="425" width="180" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="830" y="425" width="180" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="858" cy="459" r="16" fill="#7C3AED"/>
+<text x="858" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">N</text>
+<text x="882" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">RMSNorm</text>
+<text x="920.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="920.0" dy="0">qwen35.cpp:163</tspan>
+<tspan x="920.0" dy="17">per layer</tspan>
+</text>
+<polygon points="1100,419.0 1185.0,471 1100,523.0 1015.0,471" fill="#FFF7ED" stroke="#F59E0B" stroke-width="3" filter="url(#shadow)"/>
+<text x="1100" y="462" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#7C2D12" text-anchor="middle">
+<tspan x="1100" dy="0">is_recr(il)?</tspan>
+<tspan x="1100" dy="21">qwen35.cpp:169</tspan>
+</text>
+<polyline points="277,471 322,471" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="538,471 583,471" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="785,471 830,471" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1010,471 1015,471" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1195" y="389" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="800" fill="#1D4ED8" text-anchor="start">FULL ATTENTION BLOCK</text>
+<rect x="1215" y="425" width="200" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1215" y="425" width="200" height="8" rx="4" fill="#2563EB"/>
+<circle cx="1243" cy="459" r="16" fill="#2563EB"/>
+<text x="1243" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Q</text>
+<text x="1267" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Q/K/V + Q gate</text>
+<text x="1315.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1315.0" dy="0">build_layer_attn</tspan>
+<tspan x="1315.0" dy="17">qwen35.cpp:257-299</tspan>
+</text>
+<rect x="1460" y="425" width="194" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1460" y="425" width="194" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="1488" cy="459" r="16" fill="#7C3AED"/>
+<text x="1488" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">P</text>
+<text x="1512" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">MRoPE(Q,K)</text>
+<text x="1557.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1557.0" dy="0">ggml_rope_multi</tspan>
+<tspan x="1557.0" dy="17">qwen35.cpp:301-312</tspan>
+</text>
+<rect x="1697" y="425" width="150" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1697" y="425" width="150" height="8" rx="4" fill="#16A34A"/>
+<circle cx="1725" cy="459" r="16" fill="#16A34A"/>
+<text x="1725" y="465" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">W</text>
+<text x="1749" y="465" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">KV write</text>
+<text x="1772.0" y="488" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1772.0" dy="0">cpy_k/cpy_v</tspan>
+<tspan x="1772.0" dy="17">graph.cpp:2641</tspan>
+</text>
+<polyline points="1185,452 1215,452" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1184" y="423" width="27" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1189" y="439" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#475569" text-anchor="start">no</text>
+<polyline points="1415,471 1460,471" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1654,471 1697,471" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1557,517 1557,690" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1562" y="530" width="77" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1567" y="546" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#1D4ED8" text-anchor="start">Q to MHA</text>
+<rect x="75" y="556" width="202" height="96" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="75" y="556" width="202" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="103" cy="590" r="16" fill="#7C3AED"/>
+<text x="103" y="596" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">P</text>
+<text x="127" y="596" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Position IDs</text>
+<text x="176.0" y="623" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="176.0" dy="0">text: [p,p,p,0]</tspan>
+<tspan x="176.0" dy="17">graph.cpp:124-139</tspan>
+</text>
+<polyline points="277,604 1430,604 1430,471 1460,471" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<rect x="645" y="578" width="161" height="22" rx="6" fill="#FFFFFF"/>
+<text x="650" y="594" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#7C3AED" text-anchor="start">applied to Q and K</text>
+<rect x="75" y="690" width="202" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="75" y="690" width="202" height="8" rx="4" fill="#F59E0B"/>
+<circle cx="103" cy="724" r="16" fill="#F59E0B"/>
+<text x="103" y="730" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">I</text>
+<text x="127" y="730" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">seq_id + positions</text>
+<text x="176.0" y="765" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="176.0" dy="0">query seq and p1</tspan>
+<tspan x="176.0" dy="17">KV cell seq and p0</tspan>
+</text>
+<rect x="322" y="690" width="260" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="322" y="690" width="260" height="8" rx="4" fill="#F59E0B"/>
+<circle cx="350" cy="724" r="16" fill="#F59E0B"/>
+<text x="350" y="730" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">A</text>
+<text x="374" y="730" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Build KQ mask</text>
+<text x="452.0" y="765" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="452.0" dy="0">same seq &amp;&amp; p0 &lt;= p1</tspan>
+<tspan x="452.0" dy="17">kv-cache.cpp:1559-1675</tspan>
+</text>
+<polyline points="277,742 322,742" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 1697 565 C 1697 548, 1847 548, 1847 565 L 1847 655 C 1847 672, 1697 672, 1697 655 Z" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" filter="url(#shadow)"/>
+<ellipse cx="1772.0" cy="565" rx="75.0" ry="13" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+<text x="1772.0" y="601" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#166534" text-anchor="middle">KV cache</text>
+<text x="1772.0" y="624" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#3F6212" text-anchor="middle">
+<tspan x="1772.0" dy="0">full-attn</tspan>
+<tspan x="1772.0" dy="17">blocks only</tspan>
+</text>
+<polyline points="1772,517 1772,552" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1460" y="690" width="194" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1460" y="690" width="194" height="8" rx="4" fill="#2563EB"/>
+<circle cx="1488" cy="724" r="16" fill="#2563EB"/>
+<text x="1488" y="730" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">A</text>
+<text x="1512" y="730" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Masked MHA</text>
+<text x="1557.0" y="765" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1557.0" dy="0">flash_attn_ext OR</tspan>
+<tspan x="1557.0" dy="17">soft_max_ext + V</tspan>
+<tspan x="1557.0" dy="17">graph.cpp:2363</tspan>
+</text>
+<polyline points="1697,610 1654,610 1654,724" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1654" y="579" width="77" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1659" y="595" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#16A34A" text-anchor="start">read K,V</text>
+<polyline points="582,742 1430,742 1430,724 1460,724" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<rect x="1697" y="700" width="150" height="92" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1697" y="700" width="150" height="8" rx="4" fill="#2563EB"/>
+<circle cx="1725" cy="734" r="16" fill="#2563EB"/>
+<text x="1725" y="740" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">O</text>
+<text x="1749" y="740" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Gate + Wo</text>
+<text x="1772.0" y="763" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1772.0" dy="0">sigmoid gate</tspan>
+<tspan x="1772.0" dy="17">qwen35.cpp:326</tspan>
+</text>
+<polyline points="1654,742 1697,742" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1195" y="832" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="800" fill="#047857" text-anchor="start">RECURRENT BLOCK</text>
+<rect x="1215" y="856" width="200" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1215" y="856" width="200" height="8" rx="4" fill="#16A34A"/>
+<circle cx="1243" cy="890" r="16" fill="#16A34A"/>
+<text x="1243" y="896" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Q</text>
+<text x="1267" y="896" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">QKVZ + alpha/beta</text>
+<text x="1315.0" y="931" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1315.0" dy="0">build_layer_attn_linear</tspan>
+<tspan x="1315.0" dy="17">qwen35.cpp:338-379</tspan>
+</text>
+<rect x="1460" y="856" width="194" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1460" y="856" width="194" height="8" rx="4" fill="#16A34A"/>
+<circle cx="1488" cy="890" r="16" fill="#16A34A"/>
+<text x="1488" y="896" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">C</text>
+<text x="1512" y="896" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Conv + state prep</text>
+<text x="1557.0" y="931" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1557.0" dy="0">build_conv_state/build_rs</tspan>
+<tspan x="1557.0" dy="17">qwen35.cpp:381-423</tspan>
+</text>
+<rect x="1697" y="856" width="150" height="104" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1697" y="856" width="150" height="8" rx="4" fill="#16A34A"/>
+<circle cx="1725" cy="890" r="16" fill="#16A34A"/>
+<text x="1725" y="896" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">R</text>
+<text x="1749" y="896" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Gated DeltaNet</text>
+<text x="1772.0" y="931" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1772.0" dy="0">recurrent_attn</tspan>
+<tspan x="1772.0" dy="17">qwen35.cpp:450</tspan>
+</text>
+<polyline points="1100,523 1100,908 1215,908" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1105" y="526" width="35" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1110" y="542" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#047857" text-anchor="start">yes</text>
+<polyline points="1415,908 1460,908" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1654,908 1697,908" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 1460 994 C 1460 977, 1654 977, 1654 994 L 1654 1056 C 1654 1073, 1460 1073, 1460 1056 Z" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" filter="url(#shadow)"/>
+<ellipse cx="1557.0" cy="994" rx="97.0" ry="13" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+<text x="1557.0" y="1030" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#166534" text-anchor="middle">Recurrent state</text>
+<text x="1557.0" y="1053" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#3F6212" text-anchor="middle">
+<tspan x="1557.0" dy="0">conv + SSM</tspan>
+<tspan x="1557.0" dy="17">not KV cache</tspan>
+</text>
+<polyline points="1557,981 1557,960" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1562" y="960" width="94" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1567" y="976" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#047857" text-anchor="start">read state</text>
+<polyline points="1790,960 1790,1002 1654,1002" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1685" y="977" width="102" height="22" rx="6" fill="#FFFFFF"/>
+<text x="1690" y="993" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#047857" text-anchor="start">write state</text>
+<rect x="1080" y="986" width="300" height="82" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1080" y="986" width="300" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="1108" cy="1020" r="16" fill="#7C3AED"/>
+<text x="1108" y="1026" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">+</text>
+<text x="1132" y="1026" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Residual + FFN -&gt; next H_l</text>
+<text x="1230.0" y="1039" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="1230.0" dy="0">qwen35.cpp:182-205</tspan>
+</text>
+<polyline points="1772,792 1870,792 1870,1027 1380,1027" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1697,935 1672,935 1672,1027 1380,1027" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1080,1027 1038,1027 1038,543 684,543 684,517" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<rect x="853" y="1022" width="119" height="22" rx="6" fill="#FFFFFF"/>
+<text x="858" y="1038" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#7C3AED" text-anchor="start">repeat blocks</text>
+<rect x="626" y="986" width="354" height="82" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="626" y="986" width="354" height="8" rx="4" fill="#7C3AED"/>
+<circle cx="654" cy="1020" r="16" fill="#7C3AED"/>
+<text x="654" y="1026" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">L</text>
+<text x="678" y="1026" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Final norm -&gt; LM head -&gt; logits</text>
+<text x="803.0" y="1039" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="803.0" dy="0">qwen35.cpp:209-225</tspan>
+</text>
+<polyline points="1080,1050 980,1050" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="322" y="986" width="236" height="82" rx="15" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" filter="url(#shadow)"/>
+<rect x="322" y="986" width="236" height="8" rx="4" fill="#F59E0B"/>
+<circle cx="350" cy="1020" r="16" fill="#F59E0B"/>
+<text x="350" y="1026" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">S</text>
+<text x="374" y="1026" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#172033" text-anchor="start">Sample next token</text>
+<text x="440.0" y="1039" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="400" fill="#64748B" text-anchor="middle">
+<tspan x="440.0" dy="0">server-context.cpp:3724</tspan>
+<tspan x="440.0" dy="17">n_decoded += 1</tspan>
+</text>
+<polyline points="626,1027 558,1027" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="322,1027 299,1027 299,300 179,300 179,279" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<rect x="74" y="1000" width="186" height="22" rx="6" fill="#FFFFFF"/>
+<text x="79" y="1016" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#B45309" text-anchor="start">next decode iteration</text>
+<rect x="60" y="1114" width="1800" height="46" rx="14" fill="#F8FAFC" stroke="#E2E8F0"/>
+<circle cx="90" cy="1137" r="7" fill="#2563EB"/>
+<text x="106" y="1143" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">primary compute</text>
+<circle cx="340" cy="1137" r="7" fill="#7C3AED"/>
+<text x="356" y="1143" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">tensor transform</text>
+<circle cx="610" cy="1137" r="7" fill="#16A34A"/>
+<text x="626" y="1143" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">persistent memory/state</text>
+<circle cx="920" cy="1137" r="7" fill="#F59E0B"/>
+<text x="936" y="1143" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">routing and mask</text>
+<circle cx="1220" cy="1137" r="7" fill="#64748B"/>
+<text x="1236" y="1143" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">dashed = metadata/control</text>
+</svg>

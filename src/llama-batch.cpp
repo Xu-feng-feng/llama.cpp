@@ -744,6 +744,7 @@ void llama_batch_allocr::clear() {
     std::fill(seq_idx.begin(), seq_idx.end(), -1);
 }
 
+// 只切分 token、embedding、position、seq_id 等输入数据
 llama_ubatch llama_batch_allocr::ubatch_add(const std::vector<int32_t> & idxs, uint32_t n_seqs, bool equal_seqs) {
     const uint32_t n_tokens = idxs.size();
 

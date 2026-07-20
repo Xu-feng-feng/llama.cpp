@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1080" width="1200" height="1080">
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; fill: #111827; }
+    .title { font-size: 24px; font-weight: 700; }
+    .subtitle { font-size: 13px; fill: #6b7280; }
+    .lane-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+    .node-title { font-size: 15px; font-weight: 650; }
+    .node-sub { font-size: 12px; fill: #4b5563; }
+    .edge-label { font-size: 11px; font-weight: 600; }
+    .legend { font-size: 12px; fill: #6b7280; }
+  </style>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#111827" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="1080" fill="#ffffff"/>
+  <text x="48" y="36" class="title">llama-server Output Call Flow</text>
+  <text x="48" y="58" class="subtitle">Output-row selection, generation logits, token embeddings, pooled embeddings, and internal hidden-state output</text>
+
+  <rect x="40" y="78" width="1120" height="268" rx="10" fill="#fff7ed" fill-opacity="0.40" stroke="#fdba74" stroke-dasharray="7,4"/>
+  <text x="56" y="100" class="lane-label" fill="#c2410c">OUTPUT ROW SELECTION</text>
+
+  <rect x="70" y="120" width="220" height="76" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="180" y="147" text-anchor="middle" class="node-title">Generation task</text>
+  <text x="180" y="168" text-anchor="middle" class="node-sub">final prompt or decode token</text>
+
+  <rect x="70" y="228" width="220" height="76" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="180" y="255" text-anchor="middle" class="node-title">Embedding task</text>
+  <text x="180" y="276" text-anchor="middle" class="node-sub">all prompt tokens requested</text>
+
+  <rect x="382" y="166" width="216" height="82" rx="9" fill="#ffffff" stroke="#fb923c" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="490" y="194" text-anchor="middle" class="node-title">batch.logits[i]</text>
+  <text x="490" y="216" text-anchor="middle" class="node-sub">misnamed per-token output flag</text>
+  <text x="490" y="234" text-anchor="middle" class="node-sub">true means produce a row</text>
+
+  <rect x="680" y="166" width="196" height="82" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="778" y="194" text-anchor="middle" class="node-title">llama_ubatch.output</text>
+  <text x="778" y="216" text-anchor="middle" class="node-sub">count n_outputs</text>
+  <text x="778" y="234" text-anchor="middle" class="node-sub">preserve sequence identity</text>
+
+  <rect x="954" y="166" width="174" height="82" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="1041" y="194" text-anchor="middle" class="node-title">inp_out_ids</text>
+  <text x="1041" y="216" text-anchor="middle" class="node-sub">selected token rows</text>
+  <text x="1041" y="234" text-anchor="middle" class="node-sub">I32 graph input</text>
+
+  <path d="M 290 158 L 336 158 L 336 190 L 382 190" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 290 266 L 336 266 L 336 224 L 382 224" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <path d="M 598 207 L 680 207" fill="none" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow-orange)"/>
+  <path d="M 876 207 L 954 207" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <g>
+    <rect x="304" y="137" width="66" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="337" y="150" text-anchor="middle" class="edge-label" fill="#059669">one row</text>
+  </g>
+  <g>
+    <rect x="304" y="270" width="66" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="337" y="283" text-anchor="middle" class="edge-label" fill="#7c3aed">all rows</text>
+  </g>
+
+  <rect x="40" y="370" width="1120" height="150" rx="10" fill="#eff6ff" fill-opacity="0.45" stroke="#93c5fd" stroke-dasharray="7,4"/>
+  <text x="56" y="392" class="lane-label" fill="#1d4ed8">MODEL GRAPH OUTPUT</text>
+
+  <rect x="426" y="416" width="348" height="72" rx="10" fill="#dbeafe" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="443" text-anchor="middle" class="node-title">Select rows in the final Llama layer</text>
+  <text x="600" y="465" text-anchor="middle" class="node-sub">result_norm -> t_embd; lm_head -> t_logits</text>
+
+  <path d="M 1041 248 L 1041 354 L 600 354 L 600 416" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <rect x="40" y="544" width="1120" height="446" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-dasharray="7,4"/>
+  <text x="56" y="566" class="lane-label" fill="#374151">CONSUMER AND RESPONSE</text>
+
+  <rect x="84" y="602" width="240" height="64" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="204" y="628" text-anchor="middle" class="node-title">t_logits</text>
+  <text x="204" y="649" text-anchor="middle" class="node-sub">selected rows by vocabulary</text>
+
+  <rect x="84" y="702" width="240" height="64" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+  <text x="204" y="728" text-anchor="middle" class="node-title">common_sampler_sample</text>
+  <text x="204" y="749" text-anchor="middle" class="node-sub">choose and accept token</text>
+
+  <rect x="84" y="802" width="240" height="64" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+  <text x="204" y="828" text-anchor="middle" class="node-title">process_token</text>
+  <text x="204" y="849" text-anchor="middle" class="node-sub">stream, stop, or final response</text>
+
+  <rect x="84" y="900" width="240" height="56" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="204" y="923" text-anchor="middle" class="node-title">Next shared batch</text>
+  <text x="204" y="943" text-anchor="middle" class="node-sub">only if generation continues</text>
+
+  <rect x="454" y="602" width="240" height="64" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="574" y="628" text-anchor="middle" class="node-title">t_embd, pooling NONE</text>
+  <text x="574" y="649" text-anchor="middle" class="node-sub">one vector per selected token</text>
+
+  <rect x="454" y="702" width="240" height="64" rx="8" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="574" y="728" text-anchor="middle" class="node-title">get_embeddings_ith</text>
+  <text x="574" y="749" text-anchor="middle" class="node-sub">token embedding vectors</text>
+
+  <rect x="824" y="602" width="272" height="64" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="960" y="628" text-anchor="middle" class="node-title">pooled embedding or rank</text>
+  <text x="960" y="649" text-anchor="middle" class="node-sub">MEAN, CLS, LAST, or RANK</text>
+
+  <rect x="824" y="702" width="272" height="64" rx="8" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="960" y="728" text-anchor="middle" class="node-title">get_embeddings_seq</text>
+  <text x="960" y="749" text-anchor="middle" class="node-sub">sequence vector or rerank score</text>
+
+  <rect x="422" y="886" width="356" height="70" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="600" y="912" text-anchor="middle" class="node-title">Internal optional output: t_h_nextn</text>
+  <text x="600" y="934" text-anchor="middle" class="node-sub">speculative path input; not a normal HTTP response</text>
+
+  <path d="M 540 488 L 540 556 L 204 556 L 204 602" fill="none" stroke="#059669" stroke-width="2.2" marker-end="url(#arrow-green)"/>
+  <path d="M 600 488 L 600 570 L 574 570 L 574 602" fill="none" stroke="#7c3aed" stroke-width="2.2" marker-end="url(#arrow-purple)"/>
+  <path d="M 660 488 L 660 556 L 960 556 L 960 602" fill="none" stroke="#7c3aed" stroke-width="2.2" marker-end="url(#arrow-purple)"/>
+  <path d="M 204 666 L 204 702" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 204 766 L 204 802" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 204 866 L 204 900" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 574 666 L 574 702" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <path d="M 960 666 L 960 702" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <path d="M 720 488 L 780 488 L 780 850 L 600 850 L 600 886" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-gray)"/>
+
+  <g>
+    <rect x="292" y="545" width="76" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="330" y="558" text-anchor="middle" class="edge-label" fill="#059669">generation</text>
+  </g>
+  <g>
+    <rect x="548" y="546" width="70" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="583" y="559" text-anchor="middle" class="edge-label" fill="#7c3aed">per token</text>
+  </g>
+  <g>
+    <rect x="832" y="545" width="84" height="18" rx="4" fill="#ffffff" opacity="0.95"/>
+    <text x="874" y="558" text-anchor="middle" class="edge-label" fill="#7c3aed">pooled/rank</text>
+  </g>
+
+  <g transform="translate(52,1026)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <text x="40" y="4" class="legend">graph data</text>
+    <line x1="150" y1="0" x2="180" y2="0" stroke="#059669" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="190" y="4" class="legend">generation loop</text>
+    <line x1="350" y1="0" x2="380" y2="0" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+    <text x="390" y="4" class="legend">embedding output</text>
+    <line x1="570" y1="0" x2="600" y2="0" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow-orange)"/>
+    <text x="610" y="4" class="legend">output selection</text>
+    <line x1="790" y1="0" x2="820" y2="0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-gray)"/>
+    <text x="830" y="4" class="legend">internal optional</text>
+  </g>
+</svg>

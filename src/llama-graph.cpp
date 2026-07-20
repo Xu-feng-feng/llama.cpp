@@ -2126,7 +2126,10 @@ ggml_tensor * llm_graph_context::build_moe_ffn(
     return moe_out;
 }
 
+
 // input embeddings with optional lora
+// 输入：token embedding,tok_embd 是模型的 token embedding 表。
+// 输出：inp_embed: [n_embed, n_tokens]
 ggml_tensor * llm_graph_context::build_inp_embd(ggml_tensor * tok_embd) const {
     const int64_t n_embd_inp = hparams.n_embd_inp();
     const int64_t n_embd     = hparams.n_embd;
@@ -2152,7 +2155,7 @@ ggml_tensor * llm_graph_context::build_inp_embd(ggml_tensor * tok_embd) const {
     {
         auto & cur = inps[0];
 
-        cur = ggml_get_rows(ctx0, tok_embd, inp->tokens);
+        cur = ggml_get_rows(ctx0, tok_embd, inp->tokens); // 每个 token_id → 一个 hidden vector
 
         // apply lora for embedding tokens if needed
         for (const auto & lora : *loras) {
