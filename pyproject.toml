@@ -14,6 +14,11 @@ dependencies = [
     'protobuf (>=4.21.0,<5.0.0)',
     'torch (>=2.6.0,<3.0.0)',
     'gguf @ ./gguf-py',
+    "modelscope>=1.39.1",
+    "accelerate>=1.14.0",
+    "swanlab>=0.7.20",
+    "datasets>=5.0.1",
+    "nvitop>=1.7.1",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -55,11 +60,16 @@ url = "https://download.pytorch.org/whl/cpu"
 priority = "explicit"
 
 [tool.uv.sources]
-torch = { index = "pytorch" }
+torch = { index = "pytorch-cu130" }
 
 [[tool.uv.index]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
 explicit = true
 
 [build-system]

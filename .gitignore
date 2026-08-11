@@ -15,6 +15,7 @@
 *.gguf.json
 *.lastModified
 *.log
+!logs/qwen_continuous_batch_debug/continuous_detailed.log
 *.metallib
 *.o
 *.so
@@ -153,3 +154,11 @@ a.out.*
 
 AGENTS.local.md
 .pi/SYSTEM.md
+repro_20260804/
+qwen3-0.6/
+qwen3-1.7b/
+logs/qwen_tensor_trace/single_decode/*.npy
+logs/qwen_tensor_trace/single_prefill/*.npy
+qwen3-0.6b/*
+qwen3-4b/*
+sources/
