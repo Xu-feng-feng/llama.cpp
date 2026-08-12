@@ -1,0 +1,93 @@
+phase	role	trigger	trigger_op	tensor	type	ggml_shape	npy
+00_prefill_4	graph_input_tokens	embd	GET_ROWS	inp_tokens	i32	[240,1,1,1]	00_prefill_4/graph_input_tokens.npy
+00_prefill_4	input_embedding_layer0_hidden	embd	GET_ROWS	embd	f32	[2048,240,1,1]	00_prefill_4/input_embedding_layer0_hidden.npy
+00_prefill_4	attention_norm_hidden_layer0	attn_norm-0	MUL	attn_norm-0	f32	[2048,240,1,1]	00_prefill_4/attention_norm_hidden_layer0.npy
+00_prefill_4	q_before_rope_layer0	Qcur_normed-0	MUL	Qcur_normed-0	f32	[128,16,240,1]	00_prefill_4/q_before_rope_layer0.npy
+00_prefill_4	position_ids_graph	Qcur-0	ROPE	leaf_6	i32	[240,1,1,1]	00_prefill_4/position_ids_graph.npy
+00_prefill_4	q_after_rope_layer0	Qcur-0	ROPE	Qcur-0	f32	[128,16,240,1]	00_prefill_4/q_after_rope_layer0.npy
+00_prefill_4	v_current_flat_layer0	Vcur-0	MUL_MAT	Vcur-0	f32	[1024,240,1,1]	00_prefill_4/v_current_flat_layer0.npy
+00_prefill_4	k_before_rope_layer0	Kcur_normed-0	MUL	Kcur_normed-0	f32	[128,8,240,1]	00_prefill_4/k_before_rope_layer0.npy
+00_prefill_4	k_after_rope_layer0	Kcur-0	ROPE	Kcur-0	f32	[128,8,240,1]	00_prefill_4/k_after_rope_layer0.npy
+00_prefill_4	kv_slot_indices	cache_k_l0 (view)	SET_ROWS	leaf_10	i64	[240,1,1,1]	00_prefill_4/kv_slot_indices.npy
+00_prefill_4	physical_k_cache_after_write_layer0	cache_k_l0 (view)	SET_ROWS	cache_k_l0 (view)	f16	[1024,512,1,1]	00_prefill_4/physical_k_cache_after_write_layer0.npy
+00_prefill_4	active_k_permuted_layer0	kq-0	MUL_MAT	cache_k_l0 (view) (permuted)	f16	[128,256,8,1]	00_prefill_4/active_k_permuted_layer0.npy
+00_prefill_4	attention_scores_layer0	kq-0	MUL_MAT	kq-0	f32	[256,240,16,1]	00_prefill_4/attention_scores_layer0.npy
+00_prefill_4	attention_mask_layer0	kq_soft_max-0	SOFT_MAX	attn_inp_kq_mask	f32	[256,240,1,1]	00_prefill_4/attention_mask_layer0.npy
+00_prefill_4	attention_probabilities_layer0	kq_soft_max-0	SOFT_MAX	kq_soft_max-0	f32	[256,240,16,1]	00_prefill_4/attention_probabilities_layer0.npy
+00_prefill_4	active_v_permuted_layer0	kqv-0	MUL_MAT	cache_v_l0 (view) (permuted)	f16	[256,128,8,1]	00_prefill_4/active_v_permuted_layer0.npy
+00_prefill_4	attention_context_layer0	kqv-0	MUL_MAT	kqv-0	f32	[128,240,16,1]	00_prefill_4/attention_context_layer0.npy
+00_prefill_4	attention_merged_heads_layer0	kqv_out-0	CONT	kqv_out-0	f32	[2048,240,1,1]	00_prefill_4/attention_merged_heads_layer0.npy
+00_prefill_4	post_attention_hidden_layer0	ffn_inp-0	ADD	ffn_inp-0	f32	[2048,240,1,1]	00_prefill_4/post_attention_hidden_layer0.npy
+00_prefill_4	ffn_output_layer0	ffn_out-0	MUL_MAT	ffn_out-0	f32	[2048,240,1,1]	00_prefill_4/ffn_output_layer0.npy
+00_prefill_4	decoder_output_hidden_layer0	l_out-0	ADD	l_out-0	f32	[2048,240,1,1]	00_prefill_4/decoder_output_hidden_layer0.npy
+00_prefill_4	decoder_output_hidden_last_layer	l_out-27	ADD	l_out-27	f32	[2048,4,1,1]	00_prefill_4/decoder_output_hidden_last_layer.npy
+00_prefill_4	final_norm_hidden	result_norm	MUL	result_norm	f32	[2048,4,1,1]	00_prefill_4/final_norm_hidden.npy
+01_decode_4	graph_input_tokens	embd	GET_ROWS	inp_tokens	i32	[4,1,1,1]	01_decode_4/graph_input_tokens.npy
+01_decode_4	input_embedding_layer0_hidden	embd	GET_ROWS	embd	f32	[2048,4,1,1]	01_decode_4/input_embedding_layer0_hidden.npy
+01_decode_4	attention_norm_hidden_layer0	attn_norm-0	MUL	attn_norm-0	f32	[2048,4,1,1]	01_decode_4/attention_norm_hidden_layer0.npy
+01_decode_4	q_before_rope_layer0	Qcur_normed-0	MUL	Qcur_normed-0	f32	[128,16,4,1]	01_decode_4/q_before_rope_layer0.npy
+01_decode_4	position_ids_graph	Qcur-0	ROPE	leaf_6	i32	[4,1,1,1]	01_decode_4/position_ids_graph.npy
+01_decode_4	q_after_rope_layer0	Qcur-0	ROPE	Qcur-0	f32	[128,16,4,1]	01_decode_4/q_after_rope_layer0.npy
+01_decode_4	v_current_flat_layer0	Vcur-0	MUL_MAT	Vcur-0	f32	[1024,4,1,1]	01_decode_4/v_current_flat_layer0.npy
+01_decode_4	k_before_rope_layer0	Kcur_normed-0	MUL	Kcur_normed-0	f32	[128,8,4,1]	01_decode_4/k_before_rope_layer0.npy
+01_decode_4	k_after_rope_layer0	Kcur-0	ROPE	Kcur-0	f32	[128,8,4,1]	01_decode_4/k_after_rope_layer0.npy
+01_decode_4	kv_slot_indices	cache_k_l0 (view)	SET_ROWS	leaf_10	i64	[4,1,1,1]	01_decode_4/kv_slot_indices.npy
+01_decode_4	physical_k_cache_after_write_layer0	cache_k_l0 (view)	SET_ROWS	cache_k_l0 (view)	f16	[1024,512,1,1]	01_decode_4/physical_k_cache_after_write_layer0.npy
+01_decode_4	active_k_permuted_layer0	kq-0	MUL_MAT	cache_k_l0 (view) (permuted)	f16	[128,256,8,1]	01_decode_4/active_k_permuted_layer0.npy
+01_decode_4	attention_scores_layer0	kq-0	MUL_MAT	kq-0	f32	[256,4,16,1]	01_decode_4/attention_scores_layer0.npy
+01_decode_4	attention_mask_layer0	kq_soft_max-0	SOFT_MAX	attn_inp_kq_mask	f32	[256,4,1,1]	01_decode_4/attention_mask_layer0.npy
+01_decode_4	attention_probabilities_layer0	kq_soft_max-0	SOFT_MAX	kq_soft_max-0	f32	[256,4,16,1]	01_decode_4/attention_probabilities_layer0.npy
+01_decode_4	active_v_permuted_layer0	kqv-0	MUL_MAT	cache_v_l0 (view) (permuted)	f16	[256,128,8,1]	01_decode_4/active_v_permuted_layer0.npy
+01_decode_4	attention_context_layer0	kqv-0	MUL_MAT	kqv-0	f32	[128,4,16,1]	01_decode_4/attention_context_layer0.npy
+01_decode_4	attention_merged_heads_layer0	kqv_out-0	CONT	kqv_out-0	f32	[2048,4,1,1]	01_decode_4/attention_merged_heads_layer0.npy
+01_decode_4	post_attention_hidden_layer0	ffn_inp-0	ADD	ffn_inp-0	f32	[2048,4,1,1]	01_decode_4/post_attention_hidden_layer0.npy
+01_decode_4	ffn_output_layer0	ffn_out-0	MUL_MAT	ffn_out-0	f32	[2048,4,1,1]	01_decode_4/ffn_output_layer0.npy
+01_decode_4	decoder_output_hidden_layer0	l_out-0	ADD	l_out-0	f32	[2048,4,1,1]	01_decode_4/decoder_output_hidden_layer0.npy
+01_decode_4	decoder_output_hidden_last_layer	l_out-27	ADD	l_out-27	f32	[2048,4,1,1]	01_decode_4/decoder_output_hidden_last_layer.npy
+01_decode_4	final_norm_hidden	result_norm	MUL	result_norm	f32	[2048,4,1,1]	01_decode_4/final_norm_hidden.npy
+02_join_new_request	graph_input_tokens	embd	GET_ROWS	inp_tokens	i32	[24,1,1,1]	02_join_new_request/graph_input_tokens.npy
+02_join_new_request	input_embedding_layer0_hidden	embd	GET_ROWS	embd	f32	[2048,24,1,1]	02_join_new_request/input_embedding_layer0_hidden.npy
+02_join_new_request	attention_norm_hidden_layer0	attn_norm-0	MUL	attn_norm-0	f32	[2048,24,1,1]	02_join_new_request/attention_norm_hidden_layer0.npy
+02_join_new_request	q_before_rope_layer0	Qcur_normed-0	MUL	Qcur_normed-0	f32	[128,16,24,1]	02_join_new_request/q_before_rope_layer0.npy
+02_join_new_request	position_ids_graph	Qcur-0	ROPE	leaf_6	i32	[24,1,1,1]	02_join_new_request/position_ids_graph.npy
+02_join_new_request	q_after_rope_layer0	Qcur-0	ROPE	Qcur-0	f32	[128,16,24,1]	02_join_new_request/q_after_rope_layer0.npy
+02_join_new_request	v_current_flat_layer0	Vcur-0	MUL_MAT	Vcur-0	f32	[1024,24,1,1]	02_join_new_request/v_current_flat_layer0.npy
+02_join_new_request	k_before_rope_layer0	Kcur_normed-0	MUL	Kcur_normed-0	f32	[128,8,24,1]	02_join_new_request/k_before_rope_layer0.npy
+02_join_new_request	k_after_rope_layer0	Kcur-0	ROPE	Kcur-0	f32	[128,8,24,1]	02_join_new_request/k_after_rope_layer0.npy
+02_join_new_request	kv_slot_indices	cache_k_l0 (view)	SET_ROWS	leaf_10	i64	[24,1,1,1]	02_join_new_request/kv_slot_indices.npy
+02_join_new_request	physical_k_cache_after_write_layer0	cache_k_l0 (view)	SET_ROWS	cache_k_l0 (view)	f16	[1024,512,1,1]	02_join_new_request/physical_k_cache_after_write_layer0.npy
+02_join_new_request	active_k_permuted_layer0	kq-0	MUL_MAT	cache_k_l0 (view) (permuted)	f16	[128,512,8,1]	02_join_new_request/active_k_permuted_layer0.npy
+02_join_new_request	attention_scores_layer0	kq-0	MUL_MAT	kq-0	f32	[512,24,16,1]	02_join_new_request/attention_scores_layer0.npy
+02_join_new_request	attention_mask_layer0	kq_soft_max-0	SOFT_MAX	attn_inp_kq_mask	f32	[512,24,1,1]	02_join_new_request/attention_mask_layer0.npy
+02_join_new_request	attention_probabilities_layer0	kq_soft_max-0	SOFT_MAX	kq_soft_max-0	f32	[512,24,16,1]	02_join_new_request/attention_probabilities_layer0.npy
+02_join_new_request	active_v_permuted_layer0	kqv-0	MUL_MAT	cache_v_l0 (view) (permuted)	f16	[512,128,8,1]	02_join_new_request/active_v_permuted_layer0.npy
+02_join_new_request	attention_context_layer0	kqv-0	MUL_MAT	kqv-0	f32	[128,24,16,1]	02_join_new_request/attention_context_layer0.npy
+02_join_new_request	attention_merged_heads_layer0	kqv_out-0	CONT	kqv_out-0	f32	[2048,24,1,1]	02_join_new_request/attention_merged_heads_layer0.npy
+02_join_new_request	post_attention_hidden_layer0	ffn_inp-0	ADD	ffn_inp-0	f32	[2048,24,1,1]	02_join_new_request/post_attention_hidden_layer0.npy
+02_join_new_request	ffn_output_layer0	ffn_out-0	MUL_MAT	ffn_out-0	f32	[2048,24,1,1]	02_join_new_request/ffn_output_layer0.npy
+02_join_new_request	decoder_output_hidden_layer0	l_out-0	ADD	l_out-0	f32	[2048,24,1,1]	02_join_new_request/decoder_output_hidden_layer0.npy
+02_join_new_request	decoder_output_hidden_last_layer	l_out-27	ADD	l_out-27	f32	[2048,5,1,1]	02_join_new_request/decoder_output_hidden_last_layer.npy
+02_join_new_request	final_norm_hidden	result_norm	MUL	result_norm	f32	[2048,5,1,1]	02_join_new_request/final_norm_hidden.npy
+03_decode_5	graph_input_tokens	embd	GET_ROWS	inp_tokens	i32	[5,1,1,1]	03_decode_5/graph_input_tokens.npy
+03_decode_5	input_embedding_layer0_hidden	embd	GET_ROWS	embd	f32	[2048,5,1,1]	03_decode_5/input_embedding_layer0_hidden.npy
+03_decode_5	attention_norm_hidden_layer0	attn_norm-0	MUL	attn_norm-0	f32	[2048,5,1,1]	03_decode_5/attention_norm_hidden_layer0.npy
+03_decode_5	q_before_rope_layer0	Qcur_normed-0	MUL	Qcur_normed-0	f32	[128,16,5,1]	03_decode_5/q_before_rope_layer0.npy
+03_decode_5	position_ids_graph	Qcur-0	ROPE	leaf_6	i32	[5,1,1,1]	03_decode_5/position_ids_graph.npy
+03_decode_5	q_after_rope_layer0	Qcur-0	ROPE	Qcur-0	f32	[128,16,5,1]	03_decode_5/q_after_rope_layer0.npy
+03_decode_5	v_current_flat_layer0	Vcur-0	MUL_MAT	Vcur-0	f32	[1024,5,1,1]	03_decode_5/v_current_flat_layer0.npy
+03_decode_5	k_before_rope_layer0	Kcur_normed-0	MUL	Kcur_normed-0	f32	[128,8,5,1]	03_decode_5/k_before_rope_layer0.npy
+03_decode_5	k_after_rope_layer0	Kcur-0	ROPE	Kcur-0	f32	[128,8,5,1]	03_decode_5/k_after_rope_layer0.npy
+03_decode_5	kv_slot_indices	cache_k_l0 (view)	SET_ROWS	leaf_10	i64	[5,1,1,1]	03_decode_5/kv_slot_indices.npy
+03_decode_5	physical_k_cache_after_write_layer0	cache_k_l0 (view)	SET_ROWS	cache_k_l0 (view)	f16	[1024,512,1,1]	03_decode_5/physical_k_cache_after_write_layer0.npy
+03_decode_5	active_k_permuted_layer0	kq-0	MUL_MAT	cache_k_l0 (view) (permuted)	f16	[128,512,8,1]	03_decode_5/active_k_permuted_layer0.npy
+03_decode_5	attention_scores_layer0	kq-0	MUL_MAT	kq-0	f32	[512,5,16,1]	03_decode_5/attention_scores_layer0.npy
+03_decode_5	attention_mask_layer0	kq_soft_max-0	SOFT_MAX	attn_inp_kq_mask	f32	[512,5,1,1]	03_decode_5/attention_mask_layer0.npy
+03_decode_5	attention_probabilities_layer0	kq_soft_max-0	SOFT_MAX	kq_soft_max-0	f32	[512,5,16,1]	03_decode_5/attention_probabilities_layer0.npy
+03_decode_5	active_v_permuted_layer0	kqv-0	MUL_MAT	cache_v_l0 (view) (permuted)	f16	[512,128,8,1]	03_decode_5/active_v_permuted_layer0.npy
+03_decode_5	attention_context_layer0	kqv-0	MUL_MAT	kqv-0	f32	[128,5,16,1]	03_decode_5/attention_context_layer0.npy
+03_decode_5	attention_merged_heads_layer0	kqv_out-0	CONT	kqv_out-0	f32	[2048,5,1,1]	03_decode_5/attention_merged_heads_layer0.npy
+03_decode_5	post_attention_hidden_layer0	ffn_inp-0	ADD	ffn_inp-0	f32	[2048,5,1,1]	03_decode_5/post_attention_hidden_layer0.npy
+03_decode_5	ffn_output_layer0	ffn_out-0	MUL_MAT	ffn_out-0	f32	[2048,5,1,1]	03_decode_5/ffn_output_layer0.npy
+03_decode_5	decoder_output_hidden_layer0	l_out-0	ADD	l_out-0	f32	[2048,5,1,1]	03_decode_5/decoder_output_hidden_layer0.npy
+03_decode_5	decoder_output_hidden_last_layer	l_out-27	ADD	l_out-27	f32	[2048,5,1,1]	03_decode_5/decoder_output_hidden_last_layer.npy
+03_decode_5	final_norm_hidden	result_norm	MUL	result_norm	f32	[2048,5,1,1]	03_decode_5/final_norm_hidden.npy

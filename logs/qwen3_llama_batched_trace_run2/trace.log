@@ -1,0 +1,189 @@
+[config] trace_dir=logs/qwen3_llama_batched_trace_run2 n_ctx=512 n_batch=512 n_ubatch=512 n_seq_max=5 n_embd=2048 n_head=16 n_head_kv=8 head_dim=128 n_layer=28 kv_unified=1 flash_attn=off cpu=1
+[phase] 00_prefill_4 n_tokens=240
+[batch] i=  0 seq=0 pos=  0 token=14076 output=0
+[batch] i=  1 seq=0 pos=  1 token=7168 output=0
+[batch] i=  2 seq=0 pos=  2 token=7822 output=0
+[batch] i=  3 seq=0 pos=  3 token=81113 output=0
+[batch] i=  4 seq=0 pos=  4 token=13 output=0
+[batch] ...
+[batch] i= 47 seq=0 pos= 47 token=7822 output=1
+[batch] i=103 seq=1 pos= 55 token=3840 output=1
+[batch] i=167 seq=2 pos= 63 token=87075 output=1
+[batch] i=235 seq=3 pos= 67 token=702 output=0
+[batch] i=236 seq=3 pos= 68 token=1181 output=0
+[batch] i=237 seq=3 pos= 69 token=1828 output=0
+[batch] i=238 seq=3 pos= 70 token=3840 output=0
+[batch] i=239 seq=3 pos= 71 token=323 output=1
+[tensor] graph_input_tokens             ggml=[240,1,1,1] type=i32 finite=240 zero=0 -inf=0 min=13 max=87075 mean=7930.9
+[tensor] input_embedding_layer0_hidden  ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-0.12793 max=0.166016 mean=-0.000195428
+[tensor] attention_norm_hidden_layer0   ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-1.52117 max=1.99067 mean=-0.0021399
+[tensor] q_before_rope_layer0           ggml=[128,16,240,1] type=f32 finite=491520 zero=0 -inf=0 min=-24.4192 max=20.3454 mean=0.000635409
+[tensor] position_ids_graph             ggml=[240,1,1,1] type=i32 finite=240 zero=4 -inf=0 min=0 max=71 mean=30.1667
+[tensor] q_after_rope_layer0            ggml=[128,16,240,1] type=f32 finite=491520 zero=0 -inf=0 min=-24.4177 max=20.3467 mean=-0.000568521
+[tensor] v_current_flat_layer0          ggml=[1024,240,1,1] type=f32 finite=245760 zero=0 -inf=0 min=-1.60602 max=0.93127 mean=0.000709227
+[tensor] k_before_rope_layer0           ggml=[128,8,240,1] type=f32 finite=245760 zero=0 -inf=0 min=-345.517 max=335.116 mean=-0.00623829
+[tensor] k_after_rope_layer0            ggml=[128,8,240,1] type=f32 finite=245760 zero=0 -inf=0 min=-345.519 max=335.116 mean=0.014717
+[tensor] kv_slot_indices                ggml=[240,1,1,1] type=i64 finite=240 zero=1 -inf=0 min=0 max=239 mean=119.5
+[tensor] physical_k_cache_after_write_layer0 ggml=[1024,512,1,1] type=f16 finite=524288 zero=278528 -inf=0 min=-345.5 max=335 mean=0.00689932
+[kv-write] slots=0,1,2,3,4,5,6,7,...,231,232,233,234,235,236,237,238,239
+[tensor] active_k_permuted_layer0       ggml=[128,256,8,1] type=f16 finite=262144 zero=16384 -inf=0 min=-345.5 max=335 mean=0.0137986
+[tensor] attention_scores_layer0        ggml=[256,240,16,1] type=f32 finite=983040 zero=61440 -inf=0 min=-146.882 max=359.739 mean=62.8809
+[tensor] attention_mask_layer0          ggml=[256,240,1,1] type=f32 finite=7480 zero=7480 -inf=53960 min=0 max=0 mean=0
+[tensor] attention_probabilities_layer0 ggml=[256,240,16,1] type=f32 finite=983040 zero=863360 -inf=0 min=0 max=1 mean=0.00390625
+[tensor] active_v_permuted_layer0       ggml=[256,128,8,1] type=f16 finite=262144 zero=16384 -inf=0 min=-1.60645 max=0.931152 mean=0.000664552
+[tensor] attention_context_layer0       ggml=[128,240,16,1] type=f32 finite=491520 zero=0 -inf=0 min=-1.37269 max=0.928896 mean=0.000781494
+[tensor] attention_merged_heads_layer0  ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-1.37269 max=0.928896 mean=0.000781494
+[tensor] post_attention_hidden_layer0   ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-2.9254 max=5.76553 mean=0.00234911
+[tensor] ffn_output_layer0              ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-3.33629 max=8.53566 mean=0.00327918
+[tensor] decoder_output_hidden_layer0   ggml=[2048,240,1,1] type=f32 finite=491520 zero=0 -inf=0 min=-6.24334 max=13.9681 mean=0.0056283
+[tensor] decoder_output_hidden_last_layer ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-570.325 max=1864.56 mean=0.970285
+[tensor] final_norm_hidden              ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-57.0363 max=37.1703 mean=-0.0768476
+[memory] seq=0 pos_min=0 pos_max=47 logical_tokens=48
+[memory] seq=1 pos_min=0 pos_max=55 logical_tokens=56
+[memory] seq=2 pos_min=0 pos_max=63 logical_tokens=64
+[memory] seq=3 pos_min=0 pos_max=71 logical_tokens=72
+[memory] total_logical_tokens=240
+[sample] seq=0 next_pos=48 token=81113 piece=' astronomy'
+[sample] seq=1 next_pos=56 token=323 piece=' and'
+[sample] seq=2 next_pos=64 token=13 piece='.'
+[sample] seq=3 next_pos=72 token=2309 piece=' position'
+[phase] 01_decode_4 n_tokens=4
+[batch] i=  0 seq=0 pos= 48 token=81113 output=1
+[batch] i=  1 seq=1 pos= 56 token=323 output=1
+[batch] i=  2 seq=2 pos= 64 token=13 output=1
+[batch] i=  3 seq=3 pos= 72 token=2309 output=1
+[tensor] graph_input_tokens             ggml=[4,1,1,1] type=i32 finite=4 zero=0 -inf=0 min=13 max=81113 mean=20939.5
+[tensor] input_embedding_layer0_hidden  ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-0.10791 max=0.107422 mean=-0.000234303
+[tensor] attention_norm_hidden_layer0   ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-1.52117 max=0.868884 mean=-0.0021478
+[tensor] q_before_rope_layer0           ggml=[128,16,4,1] type=f32 finite=8192 zero=0 -inf=0 min=-19.9207 max=18.6836 mean=0.00790546
+[tensor] position_ids_graph             ggml=[4,1,1,1] type=i32 finite=4 zero=0 -inf=0 min=48 max=72 mean=60
+[tensor] q_after_rope_layer0            ggml=[128,16,4,1] type=f32 finite=8192 zero=0 -inf=0 min=-19.8498 max=18.6656 mean=-0.0131227
+[tensor] v_current_flat_layer0          ggml=[1024,4,1,1] type=f32 finite=4096 zero=0 -inf=0 min=-1.60602 max=0.93127 mean=0.00320477
+[tensor] k_before_rope_layer0           ggml=[128,8,4,1] type=f32 finite=4096 zero=0 -inf=0 min=-345.517 max=335.116 mean=-0.0373361
+[tensor] k_after_rope_layer0            ggml=[128,8,4,1] type=f32 finite=4096 zero=0 -inf=0 min=-345.519 max=335.116 mean=-0.0425377
+[tensor] kv_slot_indices                ggml=[4,1,1,1] type=i64 finite=4 zero=0 -inf=0 min=240 max=243 mean=241.5
+[tensor] physical_k_cache_after_write_layer0 ggml=[1024,512,1,1] type=f16 finite=524288 zero=274432 -inf=0 min=-345.5 max=335 mean=0.00656735
+[kv-write] slots=240,241,242,243
+[tensor] active_k_permuted_layer0       ggml=[128,256,8,1] type=f16 finite=262144 zero=12288 -inf=0 min=-345.5 max=335 mean=0.0131347
+[tensor] attention_scores_layer0        ggml=[256,4,16,1] type=f32 finite=16384 zero=768 -inf=0 min=-104.014 max=359.729 mean=53.3927
+[tensor] attention_mask_layer0          ggml=[256,4,1,1] type=f32 finite=244 zero=244 -inf=780 min=0 max=0 mean=0
+[tensor] attention_probabilities_layer0 ggml=[256,4,16,1] type=f32 finite=16384 zero=12480 -inf=0 min=0 max=0.998619 mean=0.00390625
+[tensor] active_v_permuted_layer0       ggml=[256,128,8,1] type=f16 finite=262144 zero=12288 -inf=0 min=-1.60645 max=0.931152 mean=0.000714602
+[tensor] attention_context_layer0       ggml=[128,4,16,1] type=f32 finite=8192 zero=0 -inf=0 min=-1.36062 max=0.921834 mean=0.00143541
+[tensor] attention_merged_heads_layer0  ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-1.36062 max=0.921834 mean=0.00143541
+[tensor] post_attention_hidden_layer0   ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-2.88005 max=5.76526 mean=0.0038753
+[tensor] ffn_output_layer0              ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-1.89066 max=3.27688 mean=0.00375635
+[tensor] decoder_output_hidden_layer0   ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-4.77071 max=9.04215 mean=0.00763165
+[tensor] decoder_output_hidden_last_layer ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-542.804 max=1501.92 mean=0.768159
+[tensor] final_norm_hidden              ggml=[2048,4,1,1] type=f32 finite=8192 zero=0 -inf=0 min=-66.4939 max=41.7744 mean=-0.0796149
+[memory] seq=0 pos_min=0 pos_max=48 logical_tokens=49
+[memory] seq=1 pos_min=0 pos_max=56 logical_tokens=57
+[memory] seq=2 pos_min=0 pos_max=64 logical_tokens=65
+[memory] seq=3 pos_min=0 pos_max=72 logical_tokens=73
+[memory] total_logical_tokens=244
+[sample] seq=0 next_pos=49 token=13 piece='.'
+[sample] seq=1 next_pos=57 token=2309 piece=' position'
+[sample] seq=2 next_pos=65 token=1096 piece=' This'
+[sample] seq=3 next_pos=73 token=5546 piece=' counter'
+[phase] 02_join_new_request n_tokens=24
+[batch] i=  0 seq=0 pos= 49 token=13 output=1
+[batch] i=  1 seq=1 pos= 57 token=2309 output=1
+[batch] i=  2 seq=2 pos= 65 token=1096 output=1
+[batch] i=  3 seq=3 pos= 73 token=5546 output=1
+[batch] i=  4 seq=4 pos=  0 token=14076 output=0
+[batch] i=  5 seq=4 pos=  1 token=3040 output=0
+[batch] i=  6 seq=4 pos=  2 token=28682 output=0
+[batch] i=  7 seq=4 pos=  3 token=2937 output=0
+[batch] i=  8 seq=4 pos=  4 token=323 output=0
+[batch] i=  9 seq=4 pos=  5 token=7822 output=0
+[batch] i= 10 seq=4 pos=  6 token=4627 output=0
+[batch] i= 11 seq=4 pos=  7 token=13 output=0
+[batch] i= 12 seq=4 pos=  8 token=1096 output=0
+[batch] i= 13 seq=4 pos=  9 token=1681 output=0
+[batch] i= 14 seq=4 pos= 10 token=702 output=0
+[batch] i= 15 seq=4 pos= 11 token=1181 output=0
+[batch] i= 16 seq=4 pos= 12 token=1828 output=0
+[batch] i= 17 seq=4 pos= 13 token=3840 output=0
+[batch] i= 18 seq=4 pos= 14 token=323 output=0
+[batch] i= 19 seq=4 pos= 15 token=2309 output=0
+[batch] i= 20 seq=4 pos= 16 token=5546 output=0
+[batch] i= 21 seq=4 pos= 17 token=13 output=0
+[batch] i= 22 seq=4 pos= 18 token=28871 output=0
+[batch] i= 23 seq=4 pos= 19 token=3040 output=1
+[tensor] graph_input_tokens             ggml=[24,1,1,1] type=i32 finite=24 zero=0 -inf=0 min=13 max=28871 mean=5038.08
+[tensor] input_embedding_layer0_hidden  ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-0.12793 max=0.125 mean=-0.000253068
+[tensor] attention_norm_hidden_layer0   ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-1.62309 max=1.99067 mean=-0.00222693
+[tensor] q_before_rope_layer0           ggml=[128,16,24,1] type=f32 finite=49152 zero=0 -inf=0 min=-24.4192 max=20.3454 mean=0.00111126
+[tensor] position_ids_graph             ggml=[24,1,1,1] type=i32 finite=24 zero=1 -inf=0 min=0 max=73 mean=18.0833
+[tensor] q_after_rope_layer0            ggml=[128,16,24,1] type=f32 finite=49152 zero=0 -inf=0 min=-24.4165 max=20.3464 mean=0.00147244
+[tensor] v_current_flat_layer0          ggml=[1024,24,1,1] type=f32 finite=24576 zero=0 -inf=0 min=-1.60602 max=0.93127 mean=0.00153976
+[tensor] k_before_rope_layer0           ggml=[128,8,24,1] type=f32 finite=24576 zero=0 -inf=0 min=-345.517 max=335.116 mean=0.00495139
+[tensor] k_after_rope_layer0            ggml=[128,8,24,1] type=f32 finite=24576 zero=0 -inf=0 min=-345.519 max=335.116 mean=0.0494056
+[tensor] kv_slot_indices                ggml=[24,1,1,1] type=i64 finite=24 zero=0 -inf=0 min=244 max=267 mean=255.5
+[tensor] physical_k_cache_after_write_layer0 ggml=[1024,512,1,1] type=f16 finite=524288 zero=249856 -inf=0 min=-345.5 max=335 mean=0.00888301
+[kv-write] slots=244,245,246,247,248,249,250,251,...,259,260,261,262,263,264,265,266,267
+[tensor] active_k_permuted_layer0       ggml=[128,512,8,1] type=f16 finite=524288 zero=249856 -inf=0 min=-345.5 max=335 mean=0.00888301
+[tensor] attention_scores_layer0        ggml=[512,24,16,1] type=f32 finite=196608 zero=93696 -inf=0 min=-100.603 max=359.729 mean=35.7913
+[tensor] attention_mask_layer0          ggml=[512,24,1,1] type=f32 finite=458 zero=458 -inf=11830 min=0 max=0 mean=0
+[tensor] attention_probabilities_layer0 ggml=[512,24,16,1] type=f32 finite=196608 zero=189280 -inf=0 min=0 max=1 mean=0.00195313
+[tensor] active_v_permuted_layer0       ggml=[512,128,8,1] type=f16 finite=524288 zero=249856 -inf=0 min=-1.60645 max=0.931152 mean=0.000429462
+[tensor] attention_context_layer0       ggml=[128,24,16,1] type=f32 finite=49152 zero=0 -inf=0 min=-1.55321 max=0.92648 mean=0.00110898
+[tensor] attention_merged_heads_layer0  ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-1.55321 max=0.92648 mean=0.00110898
+[tensor] post_attention_hidden_layer0   ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-2.92639 max=5.94222 mean=0.00120826
+[tensor] ffn_output_layer0              ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-3.24695 max=6.58306 mean=0.00205136
+[tensor] decoder_output_hidden_layer0   ggml=[2048,24,1,1] type=f32 finite=49152 zero=0 -inf=0 min=-6.10372 max=12.4228 mean=0.00325962
+[tensor] decoder_output_hidden_last_layer ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-528.806 max=1933.2 mean=1.03494
+[tensor] final_norm_hidden              ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-51.4988 max=44.7524 mean=-0.0707585
+[memory] seq=0 pos_min=0 pos_max=49 logical_tokens=50
+[memory] seq=1 pos_min=0 pos_max=57 logical_tokens=58
+[memory] seq=2 pos_min=0 pos_max=65 logical_tokens=66
+[memory] seq=3 pos_min=0 pos_max=73 logical_tokens=74
+[memory] seq=4 pos_min=0 pos_max=19 logical_tokens=20
+[memory] total_logical_tokens=268
+[sample] seq=0 next_pos=50 token=1096 piece=' This'
+[sample] seq=1 next_pos=58 token=5546 piece=' counter'
+[sample] seq=2 next_pos=66 token=1681 piece=' request'
+[sample] seq=3 next_pos=74 token=13 piece='.'
+[sample] seq=4 next_pos=20 token=28682 piece=' joins'
+[phase] 03_decode_5 n_tokens=5
+[batch] i=  0 seq=0 pos= 50 token=1096 output=1
+[batch] i=  1 seq=1 pos= 58 token=5546 output=1
+[batch] i=  2 seq=2 pos= 66 token=1681 output=1
+[batch] i=  3 seq=3 pos= 74 token=13 output=1
+[batch] i=  4 seq=4 pos= 20 token=28682 output=1
+[tensor] graph_input_tokens             ggml=[5,1,1,1] type=i32 finite=5 zero=0 -inf=0 min=13 max=28682 mean=7403.6
+[tensor] input_embedding_layer0_hidden  ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-0.10791 max=0.121094 mean=0.000106534
+[tensor] attention_norm_hidden_layer0   ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-1.38911 max=1.54006 mean=-0.00130787
+[tensor] q_before_rope_layer0           ggml=[128,16,5,1] type=f32 finite=10240 zero=0 -inf=0 min=-24.4192 max=19.9027 mean=-0.000471989
+[tensor] position_ids_graph             ggml=[5,1,1,1] type=i32 finite=5 zero=0 -inf=0 min=20 max=74 mean=53.6
+[tensor] q_after_rope_layer0            ggml=[128,16,5,1] type=f32 finite=10240 zero=0 -inf=0 min=-24.3771 max=19.9033 mean=-0.000584221
+[tensor] v_current_flat_layer0          ggml=[1024,5,1,1] type=f32 finite=5120 zero=0 -inf=0 min=-1.32991 max=0.93127 mean=0.00371702
+[tensor] k_before_rope_layer0           ggml=[128,8,5,1] type=f32 finite=5120 zero=0 -inf=0 min=-304.414 max=294.778 mean=0.0414156
+[tensor] k_after_rope_layer0            ggml=[128,8,5,1] type=f32 finite=5120 zero=0 -inf=0 min=-304.415 max=294.779 mean=0.00560013
+[tensor] kv_slot_indices                ggml=[5,1,1,1] type=i64 finite=5 zero=0 -inf=0 min=268 max=272 mean=270
+[tensor] physical_k_cache_after_write_layer0 ggml=[1024,512,1,1] type=f16 finite=524288 zero=244736 -inf=0 min=-345.5 max=335 mean=0.00893733
+[kv-write] slots=268,269,270,271,272
+[tensor] active_k_permuted_layer0       ggml=[128,512,8,1] type=f16 finite=524288 zero=244736 -inf=0 min=-345.5 max=335 mean=0.00893733
+[tensor] attention_scores_layer0        ggml=[512,5,16,1] type=f32 finite=40960 zero=19120 -inf=0 min=-121.356 max=359.727 mean=31.0641
+[tensor] attention_mask_layer0          ggml=[512,5,1,1] type=f32 finite=273 zero=273 -inf=2287 min=0 max=0 mean=0
+[tensor] attention_probabilities_layer0 ggml=[512,5,16,1] type=f32 finite=40960 zero=36592 -inf=0 min=0 max=0.999584 mean=0.00195312
+[tensor] active_v_permuted_layer0       ggml=[512,128,8,1] type=f16 finite=524288 zero=244736 -inf=0 min=-1.60645 max=0.931152 mean=0.000465759
+[tensor] attention_context_layer0       ggml=[128,5,16,1] type=f32 finite=10240 zero=0 -inf=0 min=-1.37069 max=0.916648 mean=0.00229823
+[tensor] attention_merged_heads_layer0  ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-1.37069 max=0.916648 mean=0.00229823
+[tensor] post_attention_hidden_layer0   ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-2.80165 max=5.72174 mean=0.00170842
+[tensor] ffn_output_layer0              ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-2.22843 max=3.3142 mean=-0.000478918
+[tensor] decoder_output_hidden_layer0   ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-5.03008 max=9.03594 mean=0.0012295
+[tensor] decoder_output_hidden_last_layer ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-492.956 max=1823.27 mean=1.12663
+[tensor] final_norm_hidden              ggml=[2048,5,1,1] type=f32 finite=10240 zero=0 -inf=0 min=-55.0539 max=39.607 mean=-0.0661856
+[memory] seq=0 pos_min=0 pos_max=50 logical_tokens=51
+[memory] seq=1 pos_min=0 pos_max=58 logical_tokens=59
+[memory] seq=2 pos_min=0 pos_max=66 logical_tokens=67
+[memory] seq=3 pos_min=0 pos_max=74 logical_tokens=75
+[memory] seq=4 pos_min=0 pos_max=20 logical_tokens=21
+[memory] total_logical_tokens=273
+[sample] seq=0 next_pos=51 token=1681 piece=' request'
+[sample] seq=1 next_pos=59 token=13 piece='.'
+[sample] seq=2 next_pos=67 token=702 piece=' has'
+[sample] seq=3 next_pos=75 token=28871 piece=' Sequence'
+[sample] seq=4 next_pos=21 token=2937 piece=' later'
+[done] trace completed
