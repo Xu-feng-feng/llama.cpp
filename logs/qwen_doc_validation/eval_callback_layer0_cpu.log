@@ -1,0 +1,25 @@
+common_debug_cb_eval:                   Qcur-0 = (f32)    MUL_MAT(blk.0.attn_q.weight{2048, 2048, 1, 1}, attn_norm-0{2048, 1, 1, 1}}) = {2048, 1, 1, 1}
+common_debug_cb_eval:                   Qcur-0 = (f32)    RESHAPE(Qcur-0{2048, 1, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval:                   norm-0 = (f32)   RMS_NORM(Qcur-0{128, 16, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval:                   Qcur-0 = (f32)       ROPE(Qcur_normed-0{128, 16, 1, 1}, leaf_6{1, 1, 1, 1}}) = {128, 16, 1, 1}
+common_debug_cb_eval:                   Vcur-0 = (f32)    MUL_MAT(blk.0.attn_v.weight{2048, 1024, 1, 1}, attn_norm-0{2048, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   Vcur-0 = (f32)    RESHAPE(Vcur-0{1024, 1, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)    MUL_MAT(blk.0.attn_k.weight{2048, 1024, 1, 1}, attn_norm-0{2048, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)    RESHAPE(Kcur-0{1024, 1, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:                   norm-0 = (f32)   RMS_NORM(Kcur-0{128, 8, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)       ROPE(Kcur_normed-0{128, 8, 1, 1}, leaf_6{1, 1, 1, 1}}) = {128, 8, 1, 1}
+common_debug_cb_eval:            Kcur-0 (view) = (f32)       VIEW(Kcur-0{128, 8, 1, 1}, }) = {1024, 1, 1, 1}
+common_debug_cb_eval:        cache_k_l0 (view) = (f16)   SET_ROWS(Kcur-0 (view){1024, 1, 1, 1}, leaf_10{1, 1, 1, 1}}) = {1024, 256, 1, 1}
+common_debug_cb_eval:        Vcur-0 (reshaped) = (f32)    RESHAPE(Vcur-0{128, 8, 1, 1}, }) = {1024, 1, 1, 1}
+common_debug_cb_eval: Vcur-0 (reshaped) (reshaped) = (f32)    RESHAPE(Vcur-0 (reshaped){1024, 1, 1, 1}, }) = {1, 1024, 1, 1}
+common_debug_cb_eval: cache_v_l0 (reshaped) (view) = (f16)   SET_ROWS(Vcur-0 (reshaped) (reshaped){1, 1024, 1, 1}, leaf_12{1024, 1, 1, 1}}) = {1, 262144, 1, 1}
+common_debug_cb_eval:            Qcur-0 (view) = (f32)       VIEW(Qcur-0{128, 16, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval: Qcur-0 (view) (permuted) = (f32)    PERMUTE(Qcur-0 (view){128, 16, 1, 1}, }) = {128, 1, 16, 1}
+common_debug_cb_eval:                     kq-0 = (f32)    MUL_MAT(cache_k_l0 (view) (permuted){128, 256, 8, 1}, Qcur-0 (view) (permuted){128, 1, 16, 1}}) = {256, 1, 16, 1}
+common_debug_cb_eval:            kq_soft_max-0 = (f32)   SOFT_MAX(kq-0{256, 1, 16, 1}, attn_inp_kq_mask{256, 1, 1, 1}}) = {256, 1, 16, 1}
+common_debug_cb_eval:                    kqv-0 = (f32)    MUL_MAT(cache_v_l0 (view) (permuted){256, 128, 8, 1}, kq_soft_max-0{256, 1, 16, 1}}) = {128, 1, 16, 1}
+common_debug_cb_eval:                kqv_out-0 = (f32)       CONT(kqv-0 (permuted){128, 16, 1, 1}, }) = {2048, 1, 1, 1}
+common_debug_cb_eval:                  node_32 = (f32)    MUL_MAT(blk.0.attn_output.weight{2048, 2048, 1, 1}, kqv_out-0{2048, 1, 1, 1}}) = {2048, 1, 1, 1}
+common_debug_cb_eval:                ffn_out-0 = (f32)    MUL_MAT(blk.0.ffn_down.weight{6144, 2048, 1, 1}, ffn_swiglu-0{6144, 1, 1, 1}}) = {2048, 1, 1, 1}
+common_debug_cb_eval:                  l_out-0 = (f32)        ADD(ffn_out-0{2048, 1, 1, 1}, ffn_inp-0{2048, 1, 1, 1}}) = {2048, 1, 1, 1}
+common_debug_cb_eval:            result_output = (f32)    MUL_MAT(output.weight{2048, 151936, 1, 1}, result_norm{2048, 1, 1, 1}}) = {151936, 1, 1, 1}

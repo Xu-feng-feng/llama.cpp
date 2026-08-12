@@ -1,0 +1,315 @@
+2026-08-10 19:01:44,384 INFO logging to logs/qwen_continuous_batch_debug/continuous.log
+2026-08-10 19:01:44,384 INFO run config: mode=continuous, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:01:44,385 INFO old concurrent prefill input_ids: (2, 5)
+2026-08-10 19:01:44,385 INFO old concurrent prefill attention_mask: [[1, 1, 1, 1, 1], [0, 0, 0, 1, 1]]
+2026-08-10 19:01:44,385 INFO [old concurrent prefill] position_ids: (2, 5) [[0, 1, 2, 3, 4], [1, 1, 1, 0, 1]]
+2026-08-10 19:01:44,385 INFO [old concurrent prefill] input embedding: (2, 5) -> (2, 5, 1024)
+2026-08-10 19:01:44,388 INFO [old concurrent prefill] RoPE cos/sin: (2, 5, 128) (2, 5, 128)
+2026-08-10 19:01:44,388 INFO [old concurrent prefill] decoder.0 input: (2, 5, 1024)
+2026-08-10 19:01:44,388 INFO [old concurrent prefill] attention input: (2, 5, 1024), mask: (2, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:01:44,389 INFO [old concurrent prefill] q_proj: (2, 5, 1024) -> (2, 5, 2048)
+2026-08-10 19:01:44,389 INFO [old concurrent prefill] k_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:01:44,389 INFO [old concurrent prefill] v_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:01:44,456 INFO [old concurrent prefill] final RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:01:44,469 INFO [old concurrent prefill] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:01:44,469 INFO timing old concurrent prefill: 83.908 ms
+2026-08-10 19:01:44,469 INFO old concurrent prefill logits: (2, 1, 151936)
+2026-08-10 19:01:44,469 INFO old concurrent prefill cache layer 0 K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:01:44,469 INFO old concurrent prefill cache layer last K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:01:44,469 INFO old concurrent decode input_ids: (2, 1)
+2026-08-10 19:01:44,469 INFO old concurrent decode attention_mask: (2, 6)
+2026-08-10 19:01:44,469 INFO [old concurrent decode] position_ids: (2, 1) [[5], [2]]
+2026-08-10 19:01:44,470 INFO [old concurrent decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:01:44,472 INFO [old concurrent decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:01:44,472 INFO [old concurrent decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:01:44,473 INFO [old concurrent decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 6), cache_position: [5]
+2026-08-10 19:01:44,473 INFO [old concurrent decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:01:44,473 INFO [old concurrent decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,473 INFO [old concurrent decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,529 INFO [old concurrent decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,542 INFO [old concurrent decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:01:44,542 INFO timing old concurrent decode: 72.762 ms
+2026-08-10 19:01:44,542 INFO old concurrent decode cache layer 0 K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:01:44,542 INFO old concurrent decode cache layer last K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:01:44,542 INFO timing old concurrent inference total: 157.351 ms
+2026-08-10 19:01:44,542 INFO new request prefill input_ids: (1, 2)
+2026-08-10 19:01:44,542 INFO new request prefill attention_mask: [[1, 1]]
+2026-08-10 19:01:44,542 INFO [new request prefill] position_ids: (1, 2) [[0, 1]]
+2026-08-10 19:01:44,543 INFO [new request prefill] input embedding: (1, 2) -> (1, 2, 1024)
+2026-08-10 19:01:44,545 INFO [new request prefill] RoPE cos/sin: (1, 2, 128) (1, 2, 128)
+2026-08-10 19:01:44,546 INFO [new request prefill] decoder.0 input: (1, 2, 1024)
+2026-08-10 19:01:44,546 INFO [new request prefill] attention input: (1, 2, 1024), mask: (1, 1, 2, 2), cache_position: [0, 1]
+2026-08-10 19:01:44,546 INFO [new request prefill] q_proj: (1, 2, 1024) -> (1, 2, 2048)
+2026-08-10 19:01:44,546 INFO [new request prefill] k_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:01:44,547 INFO [new request prefill] v_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:01:44,634 INFO [new request prefill] final RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:01:44,646 INFO [new request prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:01:44,646 INFO timing new request prefill: 103.886 ms
+2026-08-10 19:01:44,646 INFO new request prefill logits: (1, 1, 151936)
+2026-08-10 19:01:44,646 INFO new request prefill cache layer 0 K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:01:44,646 INFO new request prefill cache layer last K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:01:44,646 INFO merge KV cache and attention masks along dim=0
+2026-08-10 19:01:44,648 INFO timing new request cache and mask merge: 1.296 ms
+2026-08-10 19:01:44,648 INFO   old cache mask after alignment: (2, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1]]
+2026-08-10 19:01:44,648 INFO   new cache mask after alignment: (1, 6) [[1, 1, 0, 0, 0, 0]]
+2026-08-10 19:01:44,648 INFO   old layer 0 K: (2, 8, 6, 128)
+2026-08-10 19:01:44,648 INFO   new layer 0 K: (1, 8, 2, 128)
+2026-08-10 19:01:44,648 INFO   new layer 0 K after right padding: (1, 8, 6, 128)
+2026-08-10 19:01:44,648 INFO   merged layer 0 K: (3, 8, 6, 128)
+2026-08-10 19:01:44,648 INFO   merged past attention_mask: (3, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1], [1, 1, 0, 0, 0, 0]]
+2026-08-10 19:01:44,649 INFO merged decode input_ids: (3, 1)
+2026-08-10 19:01:44,649 INFO merged decode attention_mask: (3, 7) [[1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1, 1], [1, 1, 0, 0, 0, 0, 1]]
+2026-08-10 19:01:44,649 INFO [decode after new request join] position_ids: (3, 1) [[6], [3], [2]]
+2026-08-10 19:01:44,649 INFO [decode after new request join] input embedding: (3, 1) -> (3, 1, 1024)
+2026-08-10 19:01:44,652 INFO [decode after new request join] RoPE cos/sin: (3, 1, 128) (3, 1, 128)
+2026-08-10 19:01:44,652 INFO [decode after new request join] decoder.0 input: (3, 1, 1024)
+2026-08-10 19:01:44,652 INFO [decode after new request join] attention input: (3, 1, 1024), mask: (3, 1, 1, 7), cache_position: [6]
+2026-08-10 19:01:44,653 INFO [decode after new request join] q_proj: (3, 1, 1024) -> (3, 1, 2048)
+2026-08-10 19:01:44,653 INFO [decode after new request join] k_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:01:44,654 INFO [decode after new request join] v_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:01:44,730 INFO [decode after new request join] final RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:01:44,743 INFO [decode after new request join] lm_head: (3, 1, 1024) -> (3, 1, 151936)
+2026-08-10 19:01:44,743 INFO timing decode after new request join: 94.536 ms
+2026-08-10 19:01:44,743 INFO timing new request join total: 201.094 ms
+2026-08-10 19:01:44,743 INFO merged decode logits: (3, 1, 151936)
+2026-08-10 19:01:44,743 INFO merged decode cache layer 0 K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:01:44,743 INFO merged decode cache layer last K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:01:44,744 INFO [old standalone decode] position_ids: (2, 1) [[6], [3]]
+2026-08-10 19:01:44,744 INFO [old standalone decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:01:44,747 INFO [old standalone decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:01:44,747 INFO [old standalone decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:01:44,748 INFO [old standalone decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 7), cache_position: [6]
+2026-08-10 19:01:44,748 INFO [old standalone decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:01:44,748 INFO [old standalone decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,749 INFO [old standalone decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,811 INFO [old standalone decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:01:44,830 INFO [old standalone decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:01:44,831 INFO [new standalone decode] position_ids: (1, 1) [[2]]
+2026-08-10 19:01:44,831 INFO [new standalone decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:01:44,834 INFO [new standalone decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:01:44,834 INFO [new standalone decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:01:44,834 INFO [new standalone decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 3), cache_position: [2]
+2026-08-10 19:01:44,836 INFO [new standalone decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:01:44,836 INFO [new standalone decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,836 INFO [new standalone decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,935 INFO [new standalone decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,946 INFO [new standalone decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:01:44,950 INFO validation: merged decode logits match standalone decode logits
+2026-08-10 19:01:44,950 INFO continuous inference timing summary
+2026-08-10 19:01:44,950 INFO   old concurrent prefill: 83.908 ms
+2026-08-10 19:01:44,950 INFO   old concurrent decode: 72.762 ms
+2026-08-10 19:01:44,950 INFO   old concurrent inference total: 157.351 ms
+2026-08-10 19:01:44,950 INFO   new request prefill: 103.886 ms
+2026-08-10 19:01:44,950 INFO   new request cache and mask merge: 1.296 ms
+2026-08-10 19:01:44,950 INFO   decode after new request join: 94.536 ms
+2026-08-10 19:01:44,950 INFO   new request join total: 201.094 ms
+2026-08-10 19:08:28,562 INFO logging to logs/qwen_continuous_batch_debug/continuous.log
+2026-08-10 19:08:28,562 INFO run config: mode=continuous, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:08:28,562 INFO old concurrent prefill input_ids: (2, 5)
+2026-08-10 19:08:28,562 INFO old concurrent prefill attention_mask: [[1, 1, 1, 1, 1], [0, 0, 0, 1, 1]]
+2026-08-10 19:08:28,563 INFO [old concurrent prefill] position_ids: (2, 5) [[0, 1, 2, 3, 4], [1, 1, 1, 0, 1]]
+2026-08-10 19:08:28,563 INFO [old concurrent prefill] input embedding: (2, 5) -> (2, 5, 1024)
+2026-08-10 19:08:28,565 INFO [old concurrent prefill] RoPE cos/sin: (2, 5, 128) (2, 5, 128)
+2026-08-10 19:08:28,565 INFO [old concurrent prefill] decoder.0 input: (2, 5, 1024)
+2026-08-10 19:08:28,565 INFO [old concurrent prefill] attention input: (2, 5, 1024), mask: (2, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:08:28,565 INFO [old concurrent prefill] q_proj: (2, 5, 1024) -> (2, 5, 2048)
+2026-08-10 19:08:28,566 INFO [old concurrent prefill] k_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:08:28,566 INFO [old concurrent prefill] v_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:08:28,626 INFO [old concurrent prefill] final RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:08:28,639 INFO [old concurrent prefill] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:08:28,639 INFO timing old concurrent prefill: 76.673 ms
+2026-08-10 19:08:28,639 INFO old concurrent prefill logits: (2, 1, 151936)
+2026-08-10 19:08:28,639 INFO old concurrent prefill cache layer 0 K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:08:28,639 INFO old concurrent prefill cache layer last K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:08:28,639 INFO old concurrent decode input_ids: (2, 1)
+2026-08-10 19:08:28,640 INFO old concurrent decode attention_mask: (2, 6)
+2026-08-10 19:08:28,640 INFO [old concurrent decode] position_ids: (2, 1) [[5], [2]]
+2026-08-10 19:08:28,640 INFO [old concurrent decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:08:28,642 INFO [old concurrent decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:08:28,642 INFO [old concurrent decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:08:28,642 INFO [old concurrent decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 6), cache_position: [5]
+2026-08-10 19:08:28,642 INFO [old concurrent decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:08:28,643 INFO [old concurrent decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,643 INFO [old concurrent decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,691 INFO [old concurrent decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,704 INFO [old concurrent decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:08:28,704 INFO timing old concurrent decode: 64.762 ms
+2026-08-10 19:08:28,704 INFO old concurrent decode cache layer 0 K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:08:28,704 INFO old concurrent decode cache layer last K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:08:28,704 INFO timing old concurrent inference total: 142.089 ms
+2026-08-10 19:08:28,704 INFO new request prefill input_ids: (1, 2)
+2026-08-10 19:08:28,704 INFO new request prefill attention_mask: [[1, 1]]
+2026-08-10 19:08:28,705 INFO [new request prefill] position_ids: (1, 2) [[0, 1]]
+2026-08-10 19:08:28,705 INFO [new request prefill] input embedding: (1, 2) -> (1, 2, 1024)
+2026-08-10 19:08:28,707 INFO [new request prefill] RoPE cos/sin: (1, 2, 128) (1, 2, 128)
+2026-08-10 19:08:28,707 INFO [new request prefill] decoder.0 input: (1, 2, 1024)
+2026-08-10 19:08:28,707 INFO [new request prefill] attention input: (1, 2, 1024), mask: (1, 1, 2, 2), cache_position: [0, 1]
+2026-08-10 19:08:28,707 INFO [new request prefill] q_proj: (1, 2, 1024) -> (1, 2, 2048)
+2026-08-10 19:08:28,708 INFO [new request prefill] k_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:08:28,708 INFO [new request prefill] v_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:08:28,756 INFO [new request prefill] final RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:08:28,767 INFO [new request prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:08:28,767 INFO timing new request prefill: 62.595 ms
+2026-08-10 19:08:28,767 INFO new request prefill logits: (1, 1, 151936)
+2026-08-10 19:08:28,767 INFO new request prefill cache layer 0 K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:08:28,767 INFO new request prefill cache layer last K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:08:28,767 INFO merge KV cache and attention masks along dim=0
+2026-08-10 19:08:28,768 INFO timing new request cache and mask merge: 0.997 ms
+2026-08-10 19:08:28,768 INFO   old cache mask after alignment: (2, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1]]
+2026-08-10 19:08:28,768 INFO   new cache mask after alignment: (1, 6) [[1, 1, 0, 0, 0, 0]]
+2026-08-10 19:08:28,768 INFO   old layer 0 K: (2, 8, 6, 128)
+2026-08-10 19:08:28,768 INFO   new layer 0 K: (1, 8, 2, 128)
+2026-08-10 19:08:28,768 INFO   new layer 0 K after right padding: (1, 8, 6, 128)
+2026-08-10 19:08:28,768 INFO   merged layer 0 K: (3, 8, 6, 128)
+2026-08-10 19:08:28,768 INFO   merged past attention_mask: (3, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1], [1, 1, 0, 0, 0, 0]]
+2026-08-10 19:08:28,769 INFO merged decode input_ids: (3, 1)
+2026-08-10 19:08:28,769 INFO merged decode attention_mask: (3, 7) [[1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1, 1], [1, 1, 0, 0, 0, 0, 1]]
+2026-08-10 19:08:28,769 INFO [decode after new request join] position_ids: (3, 1) [[6], [3], [2]]
+2026-08-10 19:08:28,769 INFO [decode after new request join] input embedding: (3, 1) -> (3, 1, 1024)
+2026-08-10 19:08:28,771 INFO [decode after new request join] RoPE cos/sin: (3, 1, 128) (3, 1, 128)
+2026-08-10 19:08:28,771 INFO [decode after new request join] decoder.0 input: (3, 1, 1024)
+2026-08-10 19:08:28,771 INFO [decode after new request join] attention input: (3, 1, 1024), mask: (3, 1, 1, 7), cache_position: [6]
+2026-08-10 19:08:28,772 INFO [decode after new request join] q_proj: (3, 1, 1024) -> (3, 1, 2048)
+2026-08-10 19:08:28,772 INFO [decode after new request join] k_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:08:28,772 INFO [decode after new request join] v_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:08:28,821 INFO [decode after new request join] final RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:08:28,834 INFO [decode after new request join] lm_head: (3, 1, 1024) -> (3, 1, 151936)
+2026-08-10 19:08:28,834 INFO timing decode after new request join: 65.437 ms
+2026-08-10 19:08:28,834 INFO timing new request join total: 129.946 ms
+2026-08-10 19:08:28,834 INFO merged decode logits: (3, 1, 151936)
+2026-08-10 19:08:28,834 INFO merged decode cache layer 0 K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:08:28,834 INFO merged decode cache layer last K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:08:28,835 INFO [old standalone decode] position_ids: (2, 1) [[6], [3]]
+2026-08-10 19:08:28,835 INFO [old standalone decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:08:28,837 INFO [old standalone decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:08:28,837 INFO [old standalone decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:08:28,838 INFO [old standalone decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 7), cache_position: [6]
+2026-08-10 19:08:28,838 INFO [old standalone decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:08:28,838 INFO [old standalone decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,838 INFO [old standalone decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,886 INFO [old standalone decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:08:28,900 INFO [old standalone decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:08:28,900 INFO [new standalone decode] position_ids: (1, 1) [[2]]
+2026-08-10 19:08:28,900 INFO [new standalone decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:08:28,903 INFO [new standalone decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:08:28,903 INFO [new standalone decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:08:28,903 INFO [new standalone decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 3), cache_position: [2]
+2026-08-10 19:08:28,903 INFO [new standalone decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:08:28,903 INFO [new standalone decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,903 INFO [new standalone decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,941 INFO [new standalone decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,952 INFO [new standalone decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:08:28,953 INFO validation: merged decode logits match standalone decode logits
+2026-08-10 19:08:28,953 INFO continuous inference timing summary
+2026-08-10 19:08:28,954 INFO   old concurrent prefill: 76.673 ms
+2026-08-10 19:08:28,954 INFO   old concurrent decode: 64.762 ms
+2026-08-10 19:08:28,954 INFO   old concurrent inference total: 142.089 ms
+2026-08-10 19:08:28,954 INFO   new request prefill: 62.595 ms
+2026-08-10 19:08:28,954 INFO   new request cache and mask merge: 0.997 ms
+2026-08-10 19:08:28,954 INFO   decode after new request join: 65.437 ms
+2026-08-10 19:08:28,954 INFO   new request join total: 129.946 ms
+2026-08-10 19:29:06,475 INFO logging to logs/qwen_continuous_batch_debug/continuous.log
+2026-08-10 19:29:06,475 INFO run config: mode=continuous, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:29:06,479 INFO old concurrent prefill input_ids.shape: (2, 5)
+2026-08-10 19:29:06,479 INFO old concurrent prefill attention_mask: [[1, 1, 1, 1, 1], [0, 0, 0, 1, 1]]
+2026-08-10 19:29:06,479 INFO [old concurrent prefill] position_ids: (2, 5) [[0, 1, 2, 3, 4], [1, 1, 1, 0, 1]]
+2026-08-10 19:29:06,479 INFO [old concurrent prefill] input embedding: (2, 5) -> (2, 5, 1024)
+2026-08-10 19:29:06,482 INFO [old concurrent prefill] RoPE cos/sin: (2, 5, 128) (2, 5, 128)
+2026-08-10 19:29:06,482 INFO [old concurrent prefill] decoder.0 input: (2, 5, 1024)
+2026-08-10 19:29:06,482 INFO [old concurrent prefill] attention input: (2, 5, 1024), mask: (2, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:29:06,482 INFO [old concurrent prefill] q_proj: (2, 5, 1024) -> (2, 5, 2048)
+2026-08-10 19:29:06,483 INFO [old concurrent prefill] k_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:29:06,483 INFO [old concurrent prefill] v_proj: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:29:06,549 INFO [old concurrent prefill] final RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-10 19:29:06,562 INFO [old concurrent prefill] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:29:06,562 INFO timing old concurrent prefill: 83.186 ms
+2026-08-10 19:29:06,562 INFO old concurrent prefill logits: (2, 1, 151936)
+2026-08-10 19:29:06,562 INFO old concurrent prefill cache layer 0 K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:29:06,562 INFO old concurrent prefill cache layer last K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-10 19:29:06,563 INFO old concurrent decode input_ids.shape: (2, 1)
+2026-08-10 19:29:06,563 INFO old concurrent decode attention_mask: (2, 6)
+2026-08-10 19:29:06,563 INFO [old concurrent decode] position_ids: (2, 1) [[5], [2]]
+2026-08-10 19:29:06,563 INFO [old concurrent decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:29:06,565 INFO [old concurrent decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:29:06,566 INFO [old concurrent decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:29:06,566 INFO [old concurrent decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 6), cache_position: [5]
+2026-08-10 19:29:06,566 INFO [old concurrent decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:29:06,566 INFO [old concurrent decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,566 INFO [old concurrent decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,619 INFO [old concurrent decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,632 INFO [old concurrent decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:29:06,632 INFO timing old concurrent decode: 69.042 ms
+2026-08-10 19:29:06,632 INFO old concurrent decode cache layer 0 K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:29:06,632 INFO old concurrent decode cache layer last K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-10 19:29:06,632 INFO timing old concurrent inference total: 152.948 ms
+2026-08-10 19:29:06,632 INFO new request prefill input_ids.shape: (1, 2)
+2026-08-10 19:29:06,632 INFO new request prefill attention_mask: [[1, 1]]
+2026-08-10 19:29:06,632 INFO [new request prefill] position_ids: (1, 2) [[0, 1]]
+2026-08-10 19:29:06,632 INFO [new request prefill] input embedding: (1, 2) -> (1, 2, 1024)
+2026-08-10 19:29:06,635 INFO [new request prefill] RoPE cos/sin: (1, 2, 128) (1, 2, 128)
+2026-08-10 19:29:06,635 INFO [new request prefill] decoder.0 input: (1, 2, 1024)
+2026-08-10 19:29:06,635 INFO [new request prefill] attention input: (1, 2, 1024), mask: (1, 1, 2, 2), cache_position: [0, 1]
+2026-08-10 19:29:06,635 INFO [new request prefill] q_proj: (1, 2, 1024) -> (1, 2, 2048)
+2026-08-10 19:29:06,635 INFO [new request prefill] k_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:29:06,636 INFO [new request prefill] v_proj: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:29:06,688 INFO [new request prefill] final RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-10 19:29:06,698 INFO [new request prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:29:06,698 INFO timing new request prefill: 66.527 ms
+2026-08-10 19:29:06,698 INFO new request prefill logits: (1, 1, 151936)
+2026-08-10 19:29:06,698 INFO new request prefill cache layer 0 K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:29:06,698 INFO new request prefill cache layer last K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-10 19:29:06,699 INFO merge KV cache and attention masks along dim=0
+2026-08-10 19:29:06,700 INFO timing new request cache and mask merge: 1.230 ms
+2026-08-10 19:29:06,700 INFO   old cache mask after alignment: (2, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1]]
+2026-08-10 19:29:06,700 INFO   new cache mask after alignment: (1, 6) [[1, 1, 0, 0, 0, 0]]
+2026-08-10 19:29:06,700 INFO   old layer 0 K: (2, 8, 6, 128)
+2026-08-10 19:29:06,700 INFO   new layer 0 K: (1, 8, 2, 128)
+2026-08-10 19:29:06,700 INFO   new layer 0 K after right padding: (1, 8, 6, 128)
+2026-08-10 19:29:06,700 INFO   merged layer 0 K: (3, 8, 6, 128)
+2026-08-10 19:29:06,700 INFO   merged past attention_mask: (3, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1], [1, 1, 0, 0, 0, 0]]
+2026-08-10 19:29:06,700 INFO merged decode input_ids.shape: (3, 1)
+2026-08-10 19:29:06,701 INFO merged decode attention_mask: (3, 7) [[1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1, 1], [1, 1, 0, 0, 0, 0, 1]]
+2026-08-10 19:29:06,701 INFO [decode after new request join] position_ids: (3, 1) [[6], [3], [2]]
+2026-08-10 19:29:06,701 INFO [decode after new request join] input embedding: (3, 1) -> (3, 1, 1024)
+2026-08-10 19:29:06,703 INFO [decode after new request join] RoPE cos/sin: (3, 1, 128) (3, 1, 128)
+2026-08-10 19:29:06,703 INFO [decode after new request join] decoder.0 input: (3, 1, 1024)
+2026-08-10 19:29:06,704 INFO [decode after new request join] attention input: (3, 1, 1024), mask: (3, 1, 1, 7), cache_position: [6]
+2026-08-10 19:29:06,704 INFO [decode after new request join] q_proj: (3, 1, 1024) -> (3, 1, 2048)
+2026-08-10 19:29:06,704 INFO [decode after new request join] k_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:29:06,704 INFO [decode after new request join] v_proj: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:29:06,757 INFO [decode after new request join] final RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-10 19:29:06,770 INFO [decode after new request join] lm_head: (3, 1, 1024) -> (3, 1, 151936)
+2026-08-10 19:29:06,770 INFO timing decode after new request join: 69.602 ms
+2026-08-10 19:29:06,770 INFO timing new request join total: 138.425 ms
+2026-08-10 19:29:06,770 INFO merged decode logits: (3, 1, 151936)
+2026-08-10 19:29:06,770 INFO merged decode cache layer 0 K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:29:06,770 INFO merged decode cache layer last K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-10 19:29:06,771 INFO [old standalone decode] position_ids: (2, 1) [[6], [3]]
+2026-08-10 19:29:06,771 INFO [old standalone decode] input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-10 19:29:06,774 INFO [old standalone decode] RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-10 19:29:06,774 INFO [old standalone decode] decoder.0 input: (2, 1, 1024)
+2026-08-10 19:29:06,774 INFO [old standalone decode] attention input: (2, 1, 1024), mask: (2, 1, 1, 7), cache_position: [6]
+2026-08-10 19:29:06,774 INFO [old standalone decode] q_proj: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-10 19:29:06,775 INFO [old standalone decode] k_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,775 INFO [old standalone decode] v_proj: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,827 INFO [old standalone decode] final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-10 19:29:06,840 INFO [old standalone decode] lm_head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-10 19:29:06,840 INFO [new standalone decode] position_ids: (1, 1) [[2]]
+2026-08-10 19:29:06,840 INFO [new standalone decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:29:06,843 INFO [new standalone decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:29:06,843 INFO [new standalone decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:29:06,843 INFO [new standalone decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 3), cache_position: [2]
+2026-08-10 19:29:06,843 INFO [new standalone decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:29:06,843 INFO [new standalone decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,844 INFO [new standalone decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,884 INFO [new standalone decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,894 INFO [new standalone decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:29:06,896 INFO validation: merged decode logits match standalone decode logits
+2026-08-10 19:29:06,896 INFO continuous inference timing summary
+2026-08-10 19:29:06,896 INFO   old concurrent prefill: 83.186 ms
+2026-08-10 19:29:06,896 INFO   old concurrent decode: 69.042 ms
+2026-08-10 19:29:06,896 INFO   old concurrent inference total: 152.948 ms
+2026-08-10 19:29:06,896 INFO   new request prefill: 66.527 ms
+2026-08-10 19:29:06,896 INFO   new request cache and mask merge: 1.230 ms
+2026-08-10 19:29:06,896 INFO   decode after new request join: 69.602 ms
+2026-08-10 19:29:06,896 INFO   new request join total: 138.425 ms

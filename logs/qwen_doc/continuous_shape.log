@@ -1,0 +1,207 @@
+2026-08-11 11:27:04,203 INFO logging to logs/qwen_doc/continuous_shape.log
+2026-08-11 11:27:04,203 INFO run config: mode=continuous, model=./qwen3-0.6b, device=cpu, dtype=torch.float32, trace_layer=0, tensor_mode=shape, tensor_dir=logs/qwen_continuous_batch_debug/tensors
+2026-08-11 11:27:04,204 INFO old concurrent prefill input_ids.shape: (2, 5)
+2026-08-11 11:27:04,204 INFO old concurrent prefill attention_mask: [[1, 1, 1, 1, 1], [0, 0, 0, 1, 1]]
+2026-08-11 11:27:04,205 INFO === [old concurrent prefill] stage 1 input preparation ===
+2026-08-11 11:27:04,205 INFO [old concurrent prefill] position_ids: (2, 5) [[0, 1, 2, 3, 4], [1, 1, 1, 0, 1]]
+2026-08-11 11:27:04,205 INFO [old concurrent prefill] stage 1 input embedding: (2, 5) -> (2, 5, 1024)
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] stage 1 RoPE cos/sin: (2, 5, 128) (2, 5, 128)
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] stage 2 decoder.0 input hidden_states: (2, 5, 1024)
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] stage 2 attention RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] stage 2 attention input: (2, 5, 1024), mask: (2, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] Q projection: (2, 5, 1024) -> (2, 5, 2048)
+2026-08-11 11:27:04,208 INFO [old concurrent prefill] Q RMSNorm: (2, 5, 16, 128) -> (2, 5, 16, 128)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] K projection: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] K RMSNorm: (2, 5, 8, 128) -> (2, 5, 8, 128)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] V projection: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] stage 2 Q after RoPE: (2, 16, 5, 128)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] stage 2 K/V after RoPE and cache: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] stage 2 attention scores before mask/softmax: (2, 16, 5, 5)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] stage 2 attention weights after softmax: (2, 16, 5, 5)
+2026-08-11 11:27:04,209 INFO [old concurrent prefill] stage 2 attention context before O projection: (2, 5, 16, 128)
+2026-08-11 11:27:04,210 INFO [old concurrent prefill] attention O projection: (2, 5, 2048) -> (2, 5, 1024)
+2026-08-11 11:27:04,210 INFO [old concurrent prefill] stage 2 self-attention output: (2, 5, 1024)
+2026-08-11 11:27:04,210 INFO [old concurrent prefill] stage 3 MLP RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-11 11:27:04,210 INFO [old concurrent prefill] MLP gate projection: (2, 5, 1024) -> (2, 5, 3072)
+2026-08-11 11:27:04,211 INFO [old concurrent prefill] MLP up projection: (2, 5, 1024) -> (2, 5, 3072)
+2026-08-11 11:27:04,211 INFO [old concurrent prefill] stage 3 MLP SiLU(gate) * up: (2, 5, 3072)
+2026-08-11 11:27:04,211 INFO [old concurrent prefill] stage 3 MLP down projection output: (2, 5, 1024)
+2026-08-11 11:27:04,211 INFO [old concurrent prefill] stage 3 decoder.0 output hidden_states: (2, 5, 1024)
+2026-08-11 11:27:04,282 INFO [old concurrent prefill] stage 4 final RMSNorm: (2, 5, 1024) -> (2, 5, 1024)
+2026-08-11 11:27:04,296 INFO [old concurrent prefill] stage 4 LM head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-11 11:27:04,296 INFO timing old concurrent prefill: 91.275 ms
+2026-08-11 11:27:04,296 INFO old concurrent prefill logits: (2, 1, 151936)
+2026-08-11 11:27:04,296 INFO old concurrent prefill cache layer 0 K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-11 11:27:04,296 INFO old concurrent prefill cache layer last K/V: (2, 8, 5, 128) (2, 8, 5, 128)
+2026-08-11 11:27:04,297 INFO old concurrent decode input_ids.shape: (2, 1)
+2026-08-11 11:27:04,297 INFO old concurrent decode attention_mask: (2, 6)
+2026-08-11 11:27:04,297 INFO === [old concurrent decode] stage 1 input preparation ===
+2026-08-11 11:27:04,297 INFO [old concurrent decode] position_ids: (2, 1) [[5], [2]]
+2026-08-11 11:27:04,297 INFO [old concurrent decode] stage 1 input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-11 11:27:04,301 INFO [old concurrent decode] stage 1 RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-11 11:27:04,301 INFO [old concurrent decode] stage 2 decoder.0 input hidden_states: (2, 1, 1024)
+2026-08-11 11:27:04,301 INFO [old concurrent decode] stage 2 attention RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,301 INFO [old concurrent decode] stage 2 attention input: (2, 1, 1024), mask: (2, 1, 1, 6), cache_position: [5]
+2026-08-11 11:27:04,302 INFO [old concurrent decode] Q projection: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-11 11:27:04,302 INFO [old concurrent decode] Q RMSNorm: (2, 1, 16, 128) -> (2, 1, 16, 128)
+2026-08-11 11:27:04,302 INFO [old concurrent decode] K projection: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,303 INFO [old concurrent decode] K RMSNorm: (2, 1, 8, 128) -> (2, 1, 8, 128)
+2026-08-11 11:27:04,303 INFO [old concurrent decode] V projection: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,303 INFO [old concurrent decode] stage 2 Q after RoPE: (2, 16, 1, 128)
+2026-08-11 11:27:04,303 INFO [old concurrent decode] stage 2 K/V after RoPE and cache: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-11 11:27:04,303 INFO [old concurrent decode] stage 2 attention scores before mask/softmax: (2, 16, 1, 6)
+2026-08-11 11:27:04,304 INFO [old concurrent decode] stage 2 attention weights after softmax: (2, 16, 1, 6)
+2026-08-11 11:27:04,304 INFO [old concurrent decode] stage 2 attention context before O projection: (2, 1, 16, 128)
+2026-08-11 11:27:04,304 INFO [old concurrent decode] attention O projection: (2, 1, 2048) -> (2, 1, 1024)
+2026-08-11 11:27:04,304 INFO [old concurrent decode] stage 2 self-attention output: (2, 1, 1024)
+2026-08-11 11:27:04,304 INFO [old concurrent decode] stage 3 MLP RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,305 INFO [old concurrent decode] MLP gate projection: (2, 1, 1024) -> (2, 1, 3072)
+2026-08-11 11:27:04,305 INFO [old concurrent decode] MLP up projection: (2, 1, 1024) -> (2, 1, 3072)
+2026-08-11 11:27:04,305 INFO [old concurrent decode] stage 3 MLP SiLU(gate) * up: (2, 1, 3072)
+2026-08-11 11:27:04,306 INFO [old concurrent decode] stage 3 MLP down projection output: (2, 1, 1024)
+2026-08-11 11:27:04,306 INFO [old concurrent decode] stage 3 decoder.0 output hidden_states: (2, 1, 1024)
+2026-08-11 11:27:04,368 INFO [old concurrent decode] stage 4 final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,381 INFO [old concurrent decode] stage 4 LM head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-11 11:27:04,381 INFO timing old concurrent decode: 84.582 ms
+2026-08-11 11:27:04,381 INFO old concurrent decode cache layer 0 K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-11 11:27:04,381 INFO old concurrent decode cache layer last K/V: (2, 8, 6, 128) (2, 8, 6, 128)
+2026-08-11 11:27:04,382 INFO timing old concurrent inference total: 177.269 ms
+2026-08-11 11:27:04,382 INFO new request prefill input_ids.shape: (1, 2)
+2026-08-11 11:27:04,382 INFO new request prefill attention_mask: [[1, 1]]
+2026-08-11 11:27:04,382 INFO === [new request prefill] stage 1 input preparation ===
+2026-08-11 11:27:04,382 INFO [new request prefill] position_ids: (1, 2) [[0, 1]]
+2026-08-11 11:27:04,382 INFO [new request prefill] stage 1 input embedding: (1, 2) -> (1, 2, 1024)
+2026-08-11 11:27:04,386 INFO [new request prefill] stage 1 RoPE cos/sin: (1, 2, 128) (1, 2, 128)
+2026-08-11 11:27:04,386 INFO [new request prefill] stage 2 decoder.0 input hidden_states: (1, 2, 1024)
+2026-08-11 11:27:04,386 INFO [new request prefill] stage 2 attention RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-11 11:27:04,386 INFO [new request prefill] stage 2 attention input: (1, 2, 1024), mask: (1, 1, 2, 2), cache_position: [0, 1]
+2026-08-11 11:27:04,386 INFO [new request prefill] Q projection: (1, 2, 1024) -> (1, 2, 2048)
+2026-08-11 11:27:04,387 INFO [new request prefill] Q RMSNorm: (1, 2, 16, 128) -> (1, 2, 16, 128)
+2026-08-11 11:27:04,387 INFO [new request prefill] K projection: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-11 11:27:04,387 INFO [new request prefill] K RMSNorm: (1, 2, 8, 128) -> (1, 2, 8, 128)
+2026-08-11 11:27:04,387 INFO [new request prefill] V projection: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-11 11:27:04,387 INFO [new request prefill] stage 2 Q after RoPE: (1, 16, 2, 128)
+2026-08-11 11:27:04,387 INFO [new request prefill] stage 2 K/V after RoPE and cache: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-11 11:27:04,388 INFO [new request prefill] stage 2 attention scores before mask/softmax: (1, 16, 2, 2)
+2026-08-11 11:27:04,388 INFO [new request prefill] stage 2 attention weights after softmax: (1, 16, 2, 2)
+2026-08-11 11:27:04,388 INFO [new request prefill] stage 2 attention context before O projection: (1, 2, 16, 128)
+2026-08-11 11:27:04,388 INFO [new request prefill] attention O projection: (1, 2, 2048) -> (1, 2, 1024)
+2026-08-11 11:27:04,388 INFO [new request prefill] stage 2 self-attention output: (1, 2, 1024)
+2026-08-11 11:27:04,388 INFO [new request prefill] stage 3 MLP RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-11 11:27:04,389 INFO [new request prefill] MLP gate projection: (1, 2, 1024) -> (1, 2, 3072)
+2026-08-11 11:27:04,389 INFO [new request prefill] MLP up projection: (1, 2, 1024) -> (1, 2, 3072)
+2026-08-11 11:27:04,390 INFO [new request prefill] stage 3 MLP SiLU(gate) * up: (1, 2, 3072)
+2026-08-11 11:27:04,390 INFO [new request prefill] stage 3 MLP down projection output: (1, 2, 1024)
+2026-08-11 11:27:04,390 INFO [new request prefill] stage 3 decoder.0 output hidden_states: (1, 2, 1024)
+2026-08-11 11:27:04,453 INFO [new request prefill] stage 4 final RMSNorm: (1, 2, 1024) -> (1, 2, 1024)
+2026-08-11 11:27:04,463 INFO [new request prefill] stage 4 LM head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-11 11:27:04,463 INFO timing new request prefill: 81.478 ms
+2026-08-11 11:27:04,463 INFO new request prefill logits: (1, 1, 151936)
+2026-08-11 11:27:04,463 INFO new request prefill cache layer 0 K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-11 11:27:04,463 INFO new request prefill cache layer last K/V: (1, 8, 2, 128) (1, 8, 2, 128)
+2026-08-11 11:27:04,463 INFO merge KV cache and attention masks along dim=0
+2026-08-11 11:27:04,465 INFO timing new request cache and mask merge: 1.667 ms
+2026-08-11 11:27:04,465 INFO   old cache mask after alignment: (2, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1]]
+2026-08-11 11:27:04,465 INFO   new cache mask after alignment: (1, 6) [[1, 1, 0, 0, 0, 0]]
+2026-08-11 11:27:04,465 INFO   old layer 0 K: (2, 8, 6, 128)
+2026-08-11 11:27:04,465 INFO   new layer 0 K: (1, 8, 2, 128)
+2026-08-11 11:27:04,465 INFO   new layer 0 K after right padding: (1, 8, 6, 128)
+2026-08-11 11:27:04,466 INFO   merged layer 0 K: (3, 8, 6, 128)
+2026-08-11 11:27:04,466 INFO   merged past attention_mask: (3, 6) [[1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1], [1, 1, 0, 0, 0, 0]]
+2026-08-11 11:27:04,466 INFO merged decode input_ids.shape: (3, 1)
+2026-08-11 11:27:04,466 INFO merged decode attention_mask: (3, 7) [[1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 1, 1], [1, 1, 0, 0, 0, 0, 1]]
+2026-08-11 11:27:04,466 INFO === [decode after new request join] stage 1 input preparation ===
+2026-08-11 11:27:04,466 INFO [decode after new request join] position_ids: (3, 1) [[6], [3], [2]]
+2026-08-11 11:27:04,467 INFO [decode after new request join] stage 1 input embedding: (3, 1) -> (3, 1, 1024)
+2026-08-11 11:27:04,470 INFO [decode after new request join] stage 1 RoPE cos/sin: (3, 1, 128) (3, 1, 128)
+2026-08-11 11:27:04,470 INFO [decode after new request join] stage 2 decoder.0 input hidden_states: (3, 1, 1024)
+2026-08-11 11:27:04,471 INFO [decode after new request join] stage 2 attention RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-11 11:27:04,471 INFO [decode after new request join] stage 2 attention input: (3, 1, 1024), mask: (3, 1, 1, 7), cache_position: [6]
+2026-08-11 11:27:04,471 INFO [decode after new request join] Q projection: (3, 1, 1024) -> (3, 1, 2048)
+2026-08-11 11:27:04,471 INFO [decode after new request join] Q RMSNorm: (3, 1, 16, 128) -> (3, 1, 16, 128)
+2026-08-11 11:27:04,471 INFO [decode after new request join] K projection: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-11 11:27:04,471 INFO [decode after new request join] K RMSNorm: (3, 1, 8, 128) -> (3, 1, 8, 128)
+2026-08-11 11:27:04,472 INFO [decode after new request join] V projection: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-11 11:27:04,472 INFO [decode after new request join] stage 2 Q after RoPE: (3, 16, 1, 128)
+2026-08-11 11:27:04,472 INFO [decode after new request join] stage 2 K/V after RoPE and cache: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-11 11:27:04,472 INFO [decode after new request join] stage 2 attention scores before mask/softmax: (3, 16, 1, 7)
+2026-08-11 11:27:04,472 INFO [decode after new request join] stage 2 attention weights after softmax: (3, 16, 1, 7)
+2026-08-11 11:27:04,472 INFO [decode after new request join] stage 2 attention context before O projection: (3, 1, 16, 128)
+2026-08-11 11:27:04,473 INFO [decode after new request join] attention O projection: (3, 1, 2048) -> (3, 1, 1024)
+2026-08-11 11:27:04,473 INFO [decode after new request join] stage 2 self-attention output: (3, 1, 1024)
+2026-08-11 11:27:04,473 INFO [decode after new request join] stage 3 MLP RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-11 11:27:04,473 INFO [decode after new request join] MLP gate projection: (3, 1, 1024) -> (3, 1, 3072)
+2026-08-11 11:27:04,474 INFO [decode after new request join] MLP up projection: (3, 1, 1024) -> (3, 1, 3072)
+2026-08-11 11:27:04,474 INFO [decode after new request join] stage 3 MLP SiLU(gate) * up: (3, 1, 3072)
+2026-08-11 11:27:04,474 INFO [decode after new request join] stage 3 MLP down projection output: (3, 1, 1024)
+2026-08-11 11:27:04,474 INFO [decode after new request join] stage 3 decoder.0 output hidden_states: (3, 1, 1024)
+2026-08-11 11:27:04,538 INFO [decode after new request join] stage 4 final RMSNorm: (3, 1, 1024) -> (3, 1, 1024)
+2026-08-11 11:27:04,551 INFO [decode after new request join] stage 4 LM head: (3, 1, 1024) -> (3, 1, 151936)
+2026-08-11 11:27:04,551 INFO timing decode after new request join: 84.583 ms
+2026-08-11 11:27:04,551 INFO timing new request join total: 169.271 ms
+2026-08-11 11:27:04,551 INFO merged decode logits: (3, 1, 151936)
+2026-08-11 11:27:04,551 INFO merged decode cache layer 0 K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-11 11:27:04,551 INFO merged decode cache layer last K/V: (3, 8, 7, 128) (3, 8, 7, 128)
+2026-08-11 11:27:04,552 INFO === [old standalone decode] stage 1 input preparation ===
+2026-08-11 11:27:04,552 INFO [old standalone decode] position_ids: (2, 1) [[6], [3]]
+2026-08-11 11:27:04,552 INFO [old standalone decode] stage 1 input embedding: (2, 1) -> (2, 1, 1024)
+2026-08-11 11:27:04,556 INFO [old standalone decode] stage 1 RoPE cos/sin: (2, 1, 128) (2, 1, 128)
+2026-08-11 11:27:04,556 INFO [old standalone decode] stage 2 decoder.0 input hidden_states: (2, 1, 1024)
+2026-08-11 11:27:04,556 INFO [old standalone decode] stage 2 attention RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,556 INFO [old standalone decode] stage 2 attention input: (2, 1, 1024), mask: (2, 1, 1, 7), cache_position: [6]
+2026-08-11 11:27:04,556 INFO [old standalone decode] Q projection: (2, 1, 1024) -> (2, 1, 2048)
+2026-08-11 11:27:04,557 INFO [old standalone decode] Q RMSNorm: (2, 1, 16, 128) -> (2, 1, 16, 128)
+2026-08-11 11:27:04,557 INFO [old standalone decode] K projection: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,557 INFO [old standalone decode] K RMSNorm: (2, 1, 8, 128) -> (2, 1, 8, 128)
+2026-08-11 11:27:04,557 INFO [old standalone decode] V projection: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,557 INFO [old standalone decode] stage 2 Q after RoPE: (2, 16, 1, 128)
+2026-08-11 11:27:04,557 INFO [old standalone decode] stage 2 K/V after RoPE and cache: (2, 8, 7, 128) (2, 8, 7, 128)
+2026-08-11 11:27:04,557 INFO [old standalone decode] stage 2 attention scores before mask/softmax: (2, 16, 1, 7)
+2026-08-11 11:27:04,558 INFO [old standalone decode] stage 2 attention weights after softmax: (2, 16, 1, 7)
+2026-08-11 11:27:04,558 INFO [old standalone decode] stage 2 attention context before O projection: (2, 1, 16, 128)
+2026-08-11 11:27:04,558 INFO [old standalone decode] attention O projection: (2, 1, 2048) -> (2, 1, 1024)
+2026-08-11 11:27:04,558 INFO [old standalone decode] stage 2 self-attention output: (2, 1, 1024)
+2026-08-11 11:27:04,558 INFO [old standalone decode] stage 3 MLP RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,559 INFO [old standalone decode] MLP gate projection: (2, 1, 1024) -> (2, 1, 3072)
+2026-08-11 11:27:04,559 INFO [old standalone decode] MLP up projection: (2, 1, 1024) -> (2, 1, 3072)
+2026-08-11 11:27:04,559 INFO [old standalone decode] stage 3 MLP SiLU(gate) * up: (2, 1, 3072)
+2026-08-11 11:27:04,560 INFO [old standalone decode] stage 3 MLP down projection output: (2, 1, 1024)
+2026-08-11 11:27:04,560 INFO [old standalone decode] stage 3 decoder.0 output hidden_states: (2, 1, 1024)
+2026-08-11 11:27:04,622 INFO [old standalone decode] stage 4 final RMSNorm: (2, 1, 1024) -> (2, 1, 1024)
+2026-08-11 11:27:04,635 INFO [old standalone decode] stage 4 LM head: (2, 1, 1024) -> (2, 1, 151936)
+2026-08-11 11:27:04,636 INFO === [new standalone decode] stage 1 input preparation ===
+2026-08-11 11:27:04,636 INFO [new standalone decode] position_ids: (1, 1) [[2]]
+2026-08-11 11:27:04,636 INFO [new standalone decode] stage 1 input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-11 11:27:04,640 INFO [new standalone decode] stage 1 RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-11 11:27:04,640 INFO [new standalone decode] stage 2 decoder.0 input hidden_states: (1, 1, 1024)
+2026-08-11 11:27:04,640 INFO [new standalone decode] stage 2 attention RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-11 11:27:04,640 INFO [new standalone decode] stage 2 attention input: (1, 1, 1024), mask: (1, 1, 1, 3), cache_position: [2]
+2026-08-11 11:27:04,640 INFO [new standalone decode] Q projection: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-11 11:27:04,640 INFO [new standalone decode] Q RMSNorm: (1, 1, 16, 128) -> (1, 1, 16, 128)
+2026-08-11 11:27:04,641 INFO [new standalone decode] K projection: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-11 11:27:04,641 INFO [new standalone decode] K RMSNorm: (1, 1, 8, 128) -> (1, 1, 8, 128)
+2026-08-11 11:27:04,641 INFO [new standalone decode] V projection: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-11 11:27:04,641 INFO [new standalone decode] stage 2 Q after RoPE: (1, 16, 1, 128)
+2026-08-11 11:27:04,641 INFO [new standalone decode] stage 2 K/V after RoPE and cache: (1, 8, 3, 128) (1, 8, 3, 128)
+2026-08-11 11:27:04,641 INFO [new standalone decode] stage 2 attention scores before mask/softmax: (1, 16, 1, 3)
+2026-08-11 11:27:04,641 INFO [new standalone decode] stage 2 attention weights after softmax: (1, 16, 1, 3)
+2026-08-11 11:27:04,642 INFO [new standalone decode] stage 2 attention context before O projection: (1, 1, 16, 128)
+2026-08-11 11:27:04,642 INFO [new standalone decode] attention O projection: (1, 1, 2048) -> (1, 1, 1024)
+2026-08-11 11:27:04,642 INFO [new standalone decode] stage 2 self-attention output: (1, 1, 1024)
+2026-08-11 11:27:04,642 INFO [new standalone decode] stage 3 MLP RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-11 11:27:04,642 INFO [new standalone decode] MLP gate projection: (1, 1, 1024) -> (1, 1, 3072)
+2026-08-11 11:27:04,643 INFO [new standalone decode] MLP up projection: (1, 1, 1024) -> (1, 1, 3072)
+2026-08-11 11:27:04,643 INFO [new standalone decode] stage 3 MLP SiLU(gate) * up: (1, 1, 3072)
+2026-08-11 11:27:04,643 INFO [new standalone decode] stage 3 MLP down projection output: (1, 1, 1024)
+2026-08-11 11:27:04,643 INFO [new standalone decode] stage 3 decoder.0 output hidden_states: (1, 1, 1024)
+2026-08-11 11:27:04,693 INFO [new standalone decode] stage 4 final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-11 11:27:04,703 INFO [new standalone decode] stage 4 LM head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-11 11:27:04,705 INFO validation: merged decode logits match standalone decode logits
+2026-08-11 11:27:04,705 INFO continuous inference timing summary
+2026-08-11 11:27:04,705 INFO   old concurrent prefill: 91.275 ms
+2026-08-11 11:27:04,705 INFO   old concurrent decode: 84.582 ms
+2026-08-11 11:27:04,706 INFO   old concurrent inference total: 177.269 ms
+2026-08-11 11:27:04,706 INFO   new request prefill: 81.478 ms
+2026-08-11 11:27:04,706 INFO   new request cache and mask merge: 1.667 ms
+2026-08-11 11:27:04,706 INFO   decode after new request join: 84.583 ms
+2026-08-11 11:27:04,706 INFO   new request join total: 169.271 ms

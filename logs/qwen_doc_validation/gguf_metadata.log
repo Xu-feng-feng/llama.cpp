@@ -1,0 +1,43 @@
+INFO:gguf-dump:* Loading: qwen3-1.7b/qwen3-1.7B-BF16.gguf
+* File is LITTLE endian, script is running on a LITTLE endian host.
+* Dumping 40 key/value pair(s)
+      1: UINT32     |        1 | GGUF.version = 3
+      2: UINT64     |        1 | GGUF.tensor_count = 311
+      3: UINT64     |        1 | GGUF.kv_count = 37
+      4: STRING     |        1 | general.architecture = 'qwen3'
+      5: STRING     |        1 | general.type = 'model'
+      6: INT32      |        1 | general.sampling.top_k = 20
+      7: FLOAT32    |        1 | general.sampling.top_p = 0.949999988079071
+      8: FLOAT32    |        1 | general.sampling.temp = 0.6000000238418579
+      9: STRING     |        1 | general.name = 'Qwen3 1.7b'
+     10: STRING     |        1 | general.basename = 'qwen3'
+     11: STRING     |        1 | general.size_label = '1.7B'
+     12: STRING     |        1 | general.license = 'apache-2.0'
+     13: STRING     |        1 | general.license.link = 'https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE'
+     14: UINT32     |        1 | general.base_model.count = 1
+     15: STRING     |        1 | general.base_model.0.name = 'Qwen3 1.7B Base'
+     16: STRING     |        1 | general.base_model.0.organization = 'Qwen'
+     17: STRING     |        1 | general.base_model.0.repo_url = 'https://huggingface.co/Qwen/Qwen3-1.7B-Base'
+     18: [STRING]   |        1 | general.tags = ['text-generation']
+     19: UINT32     |        1 | qwen3.block_count = 28
+     20: UINT32     |        1 | qwen3.context_length = 40960
+     21: UINT32     |        1 | qwen3.embedding_length = 2048
+     22: UINT32     |        1 | qwen3.feed_forward_length = 6144
+     23: UINT32     |        1 | qwen3.attention.head_count = 16
+     24: UINT32     |        1 | qwen3.attention.head_count_kv = 8
+     25: FLOAT32    |        1 | qwen3.rope.freq_base = 1000000.0
+     26: FLOAT32    |        1 | qwen3.attention.layer_norm_rms_epsilon = 9.999999974752427e-07
+     27: UINT32     |        1 | qwen3.attention.key_length = 128
+     28: UINT32     |        1 | qwen3.attention.value_length = 128
+     29: UINT32     |        1 | general.file_type = 32
+     30: UINT32     |        1 | general.quantization_version = 2
+     31: STRING     |        1 | tokenizer.ggml.model = 'gpt2'
+     32: STRING     |        1 | tokenizer.ggml.pre = 'qwen2'
+     33: [STRING]   |   151936 | tokenizer.ggml.tokens = ['!', '"', '#', '$', '%', '&', ...]
+     34: [INT32]    |   151936 | tokenizer.ggml.token_type = [1, 1, 1, 1, 1, 1, ...]
+     35: [STRING]   |   151387 | tokenizer.ggml.merges = ['Ġ Ġ', 'ĠĠ ĠĠ', 'i n', 'Ġ t', 'ĠĠĠĠ ĠĠĠĠ', 'e r', ...]
+     36: UINT32     |        1 | tokenizer.ggml.eos_token_id = 151645
+     37: UINT32     |        1 | tokenizer.ggml.padding_token_id = 151643
+     38: UINT32     |        1 | tokenizer.ggml.bos_token_id = 151643
+     39: BOOL       |        1 | tokenizer.ggml.add_bos_token = False
+     40: STRING     |        1 | tokenizer.chat_template = "{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%-..."

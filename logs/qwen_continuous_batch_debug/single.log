@@ -1,0 +1,117 @@
+2026-08-10 19:01:44,251 INFO logging to logs/qwen_continuous_batch_debug/single.log
+2026-08-10 19:01:44,251 INFO run config: mode=single, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:01:44,252 INFO single prefill input_ids: (1, 5)
+2026-08-10 19:01:44,252 INFO single prefill attention_mask: [[1, 1, 1, 1, 1]]
+2026-08-10 19:01:44,252 INFO [single prefill] position_ids: (1, 5) [[0, 1, 2, 3, 4]]
+2026-08-10 19:01:44,252 INFO [single prefill] input embedding: (1, 5) -> (1, 5, 1024)
+2026-08-10 19:01:44,255 INFO [single prefill] RoPE cos/sin: (1, 5, 128) (1, 5, 128)
+2026-08-10 19:01:44,255 INFO [single prefill] decoder.0 input: (1, 5, 1024)
+2026-08-10 19:01:44,255 INFO [single prefill] attention input: (1, 5, 1024), mask: (1, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:01:44,256 INFO [single prefill] q_proj: (1, 5, 1024) -> (1, 5, 2048)
+2026-08-10 19:01:44,256 INFO [single prefill] k_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:01:44,256 INFO [single prefill] v_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:01:44,314 INFO [single prefill] final RMSNorm: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:01:44,325 INFO [single prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:01:44,325 INFO timing single prefill: 72.793 ms
+2026-08-10 19:01:44,325 INFO single prefill logits: (1, 1, 151936)
+2026-08-10 19:01:44,325 INFO single prefill cache layer 0 K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:01:44,325 INFO single prefill cache layer last K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:01:44,325 INFO single decode input_ids: (1, 1)
+2026-08-10 19:01:44,325 INFO single decode attention_mask: (1, 6)
+2026-08-10 19:01:44,325 INFO [single decode] position_ids: (1, 1) [[5]]
+2026-08-10 19:01:44,326 INFO [single decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:01:44,329 INFO [single decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:01:44,329 INFO [single decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:01:44,329 INFO [single decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 6), cache_position: [5]
+2026-08-10 19:01:44,329 INFO [single decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:01:44,329 INFO [single decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,330 INFO [single decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,372 INFO [single decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:01:44,383 INFO [single decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:01:44,383 INFO timing single decode: 57.563 ms
+2026-08-10 19:01:44,383 INFO single decode logits: (1, 1, 151936)
+2026-08-10 19:01:44,383 INFO single decode cache layer 0 K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:01:44,383 INFO single decode cache layer last K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:01:44,383 INFO timing single inference total: 131.161 ms
+2026-08-10 19:01:44,383 INFO single inference timing summary
+2026-08-10 19:01:44,383 INFO   single prefill: 72.793 ms
+2026-08-10 19:01:44,383 INFO   single decode: 57.563 ms
+2026-08-10 19:01:44,383 INFO   single inference total: 131.161 ms
+2026-08-10 19:08:28,440 INFO logging to logs/qwen_continuous_batch_debug/single.log
+2026-08-10 19:08:28,440 INFO run config: mode=single, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:08:28,441 INFO single prefill input_ids: (1, 5)
+2026-08-10 19:08:28,441 INFO single prefill attention_mask: [[1, 1, 1, 1, 1]]
+2026-08-10 19:08:28,441 INFO [single prefill] position_ids: (1, 5) [[0, 1, 2, 3, 4]]
+2026-08-10 19:08:28,441 INFO [single prefill] input embedding: (1, 5) -> (1, 5, 1024)
+2026-08-10 19:08:28,444 INFO [single prefill] RoPE cos/sin: (1, 5, 128) (1, 5, 128)
+2026-08-10 19:08:28,444 INFO [single prefill] decoder.0 input: (1, 5, 1024)
+2026-08-10 19:08:28,444 INFO [single prefill] attention input: (1, 5, 1024), mask: (1, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:08:28,445 INFO [single prefill] q_proj: (1, 5, 1024) -> (1, 5, 2048)
+2026-08-10 19:08:28,445 INFO [single prefill] k_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:08:28,445 INFO [single prefill] v_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:08:28,497 INFO [single prefill] final RMSNorm: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:08:28,508 INFO [single prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:08:28,508 INFO timing single prefill: 67.097 ms
+2026-08-10 19:08:28,508 INFO single prefill logits: (1, 1, 151936)
+2026-08-10 19:08:28,508 INFO single prefill cache layer 0 K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:08:28,508 INFO single prefill cache layer last K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:08:28,509 INFO single decode input_ids: (1, 1)
+2026-08-10 19:08:28,509 INFO single decode attention_mask: (1, 6)
+2026-08-10 19:08:28,509 INFO [single decode] position_ids: (1, 1) [[5]]
+2026-08-10 19:08:28,509 INFO [single decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:08:28,511 INFO [single decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:08:28,511 INFO [single decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:08:28,511 INFO [single decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 6), cache_position: [5]
+2026-08-10 19:08:28,512 INFO [single decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:08:28,512 INFO [single decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,512 INFO [single decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,551 INFO [single decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:08:28,561 INFO [single decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:08:28,561 INFO timing single decode: 52.544 ms
+2026-08-10 19:08:28,561 INFO single decode logits: (1, 1, 151936)
+2026-08-10 19:08:28,561 INFO single decode cache layer 0 K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:08:28,561 INFO single decode cache layer last K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:08:28,561 INFO timing single inference total: 120.477 ms
+2026-08-10 19:08:28,561 INFO single inference timing summary
+2026-08-10 19:08:28,562 INFO   single prefill: 67.097 ms
+2026-08-10 19:08:28,562 INFO   single decode: 52.544 ms
+2026-08-10 19:08:28,562 INFO   single inference total: 120.477 ms
+2026-08-10 19:29:06,350 INFO logging to logs/qwen_continuous_batch_debug/single.log
+2026-08-10 19:29:06,350 INFO run config: mode=single, model=qwen3-0.6b, device=cpu, dtype=torch.float32
+2026-08-10 19:29:06,351 INFO single prefill input_ids.shape: (1, 5)
+2026-08-10 19:29:06,351 INFO single prefill attention_mask: [[1, 1, 1, 1, 1]]
+2026-08-10 19:29:06,351 INFO [single prefill] position_ids: (1, 5) [[0, 1, 2, 3, 4]]
+2026-08-10 19:29:06,351 INFO [single prefill] input embedding: (1, 5) -> (1, 5, 1024)
+2026-08-10 19:29:06,354 INFO [single prefill] RoPE cos/sin: (1, 5, 128) (1, 5, 128)
+2026-08-10 19:29:06,354 INFO [single prefill] decoder.0 input: (1, 5, 1024)
+2026-08-10 19:29:06,354 INFO [single prefill] attention input: (1, 5, 1024), mask: (1, 1, 5, 5), cache_position: [0, 1, 2, 3, 4]
+2026-08-10 19:29:06,355 INFO [single prefill] q_proj: (1, 5, 1024) -> (1, 5, 2048)
+2026-08-10 19:29:06,355 INFO [single prefill] k_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:29:06,355 INFO [single prefill] v_proj: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:29:06,410 INFO [single prefill] final RMSNorm: (1, 5, 1024) -> (1, 5, 1024)
+2026-08-10 19:29:06,421 INFO [single prefill] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:29:06,421 INFO timing single prefill: 70.231 ms
+2026-08-10 19:29:06,421 INFO single prefill logits: (1, 1, 151936)
+2026-08-10 19:29:06,421 INFO single prefill cache layer 0 K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:29:06,421 INFO single prefill cache layer last K/V: (1, 8, 5, 128) (1, 8, 5, 128)
+2026-08-10 19:29:06,421 INFO single decode input_ids.shape: (1, 1)
+2026-08-10 19:29:06,422 INFO single decode attention_mask: (1, 6)
+2026-08-10 19:29:06,422 INFO [single decode] position_ids: (1, 1) [[5]]
+2026-08-10 19:29:06,422 INFO [single decode] input embedding: (1, 1) -> (1, 1, 1024)
+2026-08-10 19:29:06,424 INFO [single decode] RoPE cos/sin: (1, 1, 128) (1, 1, 128)
+2026-08-10 19:29:06,424 INFO [single decode] decoder.0 input: (1, 1, 1024)
+2026-08-10 19:29:06,424 INFO [single decode] attention input: (1, 1, 1024), mask: (1, 1, 1, 6), cache_position: [5]
+2026-08-10 19:29:06,424 INFO [single decode] q_proj: (1, 1, 1024) -> (1, 1, 2048)
+2026-08-10 19:29:06,425 INFO [single decode] k_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,425 INFO [single decode] v_proj: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,464 INFO [single decode] final RMSNorm: (1, 1, 1024) -> (1, 1, 1024)
+2026-08-10 19:29:06,474 INFO [single decode] lm_head: (1, 1, 1024) -> (1, 1, 151936)
+2026-08-10 19:29:06,474 INFO timing single decode: 52.721 ms
+2026-08-10 19:29:06,474 INFO single decode logits: (1, 1, 151936)
+2026-08-10 19:29:06,474 INFO single decode cache layer 0 K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:29:06,474 INFO single decode cache layer last K/V: (1, 8, 6, 128) (1, 8, 6, 128)
+2026-08-10 19:29:06,474 INFO timing single inference total: 123.783 ms
+2026-08-10 19:29:06,474 INFO single inference timing summary
+2026-08-10 19:29:06,475 INFO   single prefill: 70.231 ms
+2026-08-10 19:29:06,475 INFO   single decode: 52.721 ms
+2026-08-10 19:29:06,475 INFO   single inference total: 123.783 ms
