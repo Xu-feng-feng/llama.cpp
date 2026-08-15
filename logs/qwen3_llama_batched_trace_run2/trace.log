@@ -66,7 +66,7 @@
 [kv-write] slots=240,241,242,243
 [tensor] active_k_permuted_layer0       ggml=[128,256,8,1] type=f16 finite=262144 zero=12288 -inf=0 min=-345.5 max=335 mean=0.0131347
 [tensor] attention_scores_layer0        ggml=[256,4,16,1] type=f32 finite=16384 zero=768 -inf=0 min=-104.014 max=359.729 mean=53.3927
-[tensor] attention_mask_layer0          ggml=[256,4,1,1] type=f32 finite=244 zero=244 -inf=780 min=0 max=0 mean=0
+[tensor] attention_mask_layer0          ggml=[256,4,1,1] type=f32 finite=244 zero=244 -inf=780 min=0 max=0 mean=[tensor] attention_mask_layer0          ggml=[256,4,1,1] type=f32 finite=244 zero=244 -inf=780 min=0 max=0 mean=00
 [tensor] attention_probabilities_layer0 ggml=[256,4,16,1] type=f32 finite=16384 zero=12480 -inf=0 min=0 max=0.998619 mean=0.00390625
 [tensor] active_v_permuted_layer0       ggml=[256,128,8,1] type=f16 finite=262144 zero=12288 -inf=0 min=-1.60645 max=0.931152 mean=0.000714602
 [tensor] attention_context_layer0       ggml=[128,4,16,1] type=f32 finite=8192 zero=0 -inf=0 min=-1.36062 max=0.921834 mean=0.00143541

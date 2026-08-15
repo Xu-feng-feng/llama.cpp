@@ -19,6 +19,7 @@ dependencies = [
     "swanlab>=0.7.20",
     "datasets>=5.0.1",
     "nvitop>=1.7.1",
+    "tiktoken>=0.13.0",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

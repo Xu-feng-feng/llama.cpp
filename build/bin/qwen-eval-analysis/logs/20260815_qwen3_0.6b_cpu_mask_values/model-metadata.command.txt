@@ -1,0 +1,1 @@
+python3 /home/qwe/workspace/llama.cpp/gguf-py/gguf/scripts/gguf_dump.py --no-tensors --json /home/qwe/workspace/llama.cpp/qwen3-0.6b/qwen3-0.6B-BF16.gguf > /home/qwe/workspace/llama.cpp/build/bin/qwen-eval-analysis/logs/20260815_qwen3_0.6b_cpu_mask_values/model-metadata.json 2>&1

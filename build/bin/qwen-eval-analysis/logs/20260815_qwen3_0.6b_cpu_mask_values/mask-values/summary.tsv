@@ -1,0 +1,5 @@
+phase	n_kv	n_query	visible_1	blocked_0	finite_nonzero_raw	invalid_raw
+00_prefill_4	256	240	7480	53960	0	0
+01_decode_4	256	4	244	780	0	0
+02_join_new_request	512	24	458	11830	0	0
+03_decode_5	512	5	273	2287	0	0

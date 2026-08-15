@@ -1,0 +1,38 @@
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.01.431.963 I number of input tokens = 1
+common_debug_cb_eval:                     embd = (f32)   GET_ROWS(token_embd.weight{1024, 151936, 1, 1}, inp_tokens{1, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   norm-0 = (f32)   RMS_NORM(embd{1024, 1, 1, 1}, }) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   Qcur-0 = (f32)    MUL_MAT(blk.0.attn_q.weight{1024, 2048, 1, 1}, attn_norm-0{1024, 1, 1, 1}}) = {2048, 1, 1, 1}
+common_debug_cb_eval:                   Qcur-0 = (f32)    RESHAPE(Qcur-0{2048, 1, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval:                   norm-0 = (f32)   RMS_NORM(Qcur-0{128, 16, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval:            Qcur_normed-0 = (f32)        MUL(norm-0{128, 16, 1, 1}, blk.0.attn_q_norm.weight{128, 1, 1, 1}}) = {128, 16, 1, 1}
+common_debug_cb_eval:                   Qcur-0 = (f32)       ROPE(Qcur_normed-0{128, 16, 1, 1}, leaf_6{1, 1, 1, 1}}) = {128, 16, 1, 1}
+common_debug_cb_eval:                   Vcur-0 = (f32)    MUL_MAT(blk.0.attn_v.weight{1024, 1024, 1, 1}, attn_norm-0{1024, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   Vcur-0 = (f32)    RESHAPE(Vcur-0{1024, 1, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)    MUL_MAT(blk.0.attn_k.weight{1024, 1024, 1, 1}, attn_norm-0{1024, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)    RESHAPE(Kcur-0{1024, 1, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:                   norm-0 = (f32)   RMS_NORM(Kcur-0{128, 8, 1, 1}, }) = {128, 8, 1, 1}
+common_debug_cb_eval:            Kcur_normed-0 = (f32)        MUL(norm-0{128, 8, 1, 1}, blk.0.attn_k_norm.weight{128, 1, 1, 1}}) = {128, 8, 1, 1}
+common_debug_cb_eval:                   Kcur-0 = (f32)       ROPE(Kcur_normed-0{128, 8, 1, 1}, leaf_6{1, 1, 1, 1}}) = {128, 8, 1, 1}
+common_debug_cb_eval:            Kcur-0 (view) = (f32)       VIEW(Kcur-0{128, 8, 1, 1}, }) = {1024, 1, 1, 1}
+common_debug_cb_eval:        cache_k_l0 (view) = (f16)   SET_ROWS(Kcur-0 (view){1024, 1, 1, 1}, leaf_10{1, 1, 1, 1}}) = {1024, 256, 1, 1}
+common_debug_cb_eval:        Vcur-0 (reshaped) = (f32)    RESHAPE(Vcur-0{128, 8, 1, 1}, }) = {1024, 1, 1, 1}
+common_debug_cb_eval: Vcur-0 (reshaped) (reshaped) = (f32)    RESHAPE(Vcur-0 (reshaped){1024, 1, 1, 1}, }) = {1, 1024, 1, 1}
+common_debug_cb_eval:    cache_v_l0 (reshaped) = (f16)    RESHAPE(cache_v_l0{1024, 256, 1, 1}, }) = {1, 262144, 1, 1}
+common_debug_cb_eval: cache_v_l0 (reshaped) (view) = (f16)   SET_ROWS(Vcur-0 (reshaped) (reshaped){1, 1024, 1, 1}, leaf_12{1024, 1, 1, 1}}) = {1, 262144, 1, 1}
+common_debug_cb_eval:        cache_v_l0 (view) = (f16)       VIEW(cache_v_l0{1024, 256, 1, 1}, }) = {256, 8, 128, 1}
+common_debug_cb_eval: cache_v_l0 (view) (permuted) = (f16)    PERMUTE(cache_v_l0 (view){256, 8, 128, 1}, }) = {256, 128, 8, 1}
+common_debug_cb_eval:        cache_k_l0 (view) = (f16)       VIEW(cache_k_l0{1024, 256, 1, 1}, }) = {128, 8, 256, 1}
+common_debug_cb_eval: cache_k_l0 (view) (permuted) = (f16)    PERMUTE(cache_k_l0 (view){128, 8, 256, 1}, }) = {128, 256, 8, 1}
+common_debug_cb_eval:            Qcur-0 (view) = (f32)       VIEW(Qcur-0{128, 16, 1, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval: Qcur-0 (view) (permuted) = (f32)    PERMUTE(Qcur-0 (view){128, 16, 1, 1}, }) = {128, 1, 16, 1}
+common_debug_cb_eval:                     kq-0 = (f32)    MUL_MAT(cache_k_l0 (view) (permuted){128, 256, 8, 1}, Qcur-0 (view) (permuted){128, 1, 16, 1}}) = {256, 1, 16, 1}
+common_debug_cb_eval:            kq_soft_max-0 = (f32)   SOFT_MAX(kq-0{256, 1, 16, 1}, attn_inp_kq_mask{256, 1, 1, 1}}) = {256, 1, 16, 1}
+common_debug_cb_eval:                    kqv-0 = (f32)    MUL_MAT(cache_v_l0 (view) (permuted){256, 128, 8, 1}, kq_soft_max-0{256, 1, 16, 1}}) = {128, 1, 16, 1}
+common_debug_cb_eval:         kqv-0 (permuted) = (f32)    PERMUTE(kqv-0{128, 1, 16, 1}, }) = {128, 16, 1, 1}
+common_debug_cb_eval:                kqv_out-0 = (f32)       CONT(kqv-0 (permuted){128, 16, 1, 1}, }) = {2048, 1, 1, 1}
+common_debug_cb_eval:                ffn_inp-0 = (f32)        ADD(node_32{1024, 1, 1, 1}, embd{1024, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:              result_norm = (f32)        MUL(norm{1024, 1, 1, 1}, output_norm.weight{1024, 1, 1, 1}}) = {1024, 1, 1, 1}
+common_debug_cb_eval:            result_output = (f32)    MUL_MAT(output.weight{1024, 151936, 1, 1}, result_norm{1024, 1, 1, 1}}) = {151936, 1, 1, 1}

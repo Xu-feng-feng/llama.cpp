@@ -1,0 +1,1 @@
+/home/qwe/workspace/llama.cpp/build/bin/llama-eval-callback --model /home/qwe/workspace/llama.cpp/qwen3-0.6b/qwen3-0.6B-BF16.gguf --prompt hello --ctx-size 64 --seed 42 --gpu-layers 0 --flash-attn off > /home/qwe/workspace/llama.cpp/build/bin/qwen-eval-analysis/logs/20260815_qwen3_0.6b_cpu_mask_values/eval-callback.full.log 2>&1

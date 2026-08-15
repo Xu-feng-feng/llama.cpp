@@ -14,7 +14,6 @@
 *.gguf
 *.gguf.json
 *.lastModified
-*.log
 !logs/qwen_continuous_batch_debug/continuous_detailed.log
 *.metallib
 *.o
@@ -162,3 +161,7 @@ logs/qwen_tensor_trace/single_prefill/*.npy
 qwen3-0.6b/*
 qwen3-4b/*
 sources/
+logs/qwen_context_concat/tensors/old_standalone_decode/*.npy
+logs/*/*/*.npy
+logs/*/tensors/*/*.npy
+Qwen3_30b_a3b/*
