@@ -165,3 +165,4 @@ logs/qwen_context_concat/tensors/old_standalone_decode/*.npy
 logs/*/*/*.npy
 logs/*/tensors/*/*.npy
 Qwen3_30b_a3b/*
+*.tar.gz
