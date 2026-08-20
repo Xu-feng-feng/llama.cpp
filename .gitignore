@@ -166,3 +166,8 @@ logs/*/*/*.npy
 logs/*/tensors/*/*.npy
 Qwen3_30b_a3b/*
 *.tar.gz
+1.0.05.2-luxi-1.7B-lincal/*
+LFM2.5-8B-A1B/*
+
+lfm25-gpu-report-work/*
+Qwen*-*B/*

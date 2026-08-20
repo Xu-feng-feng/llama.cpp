@@ -257,6 +257,7 @@ TEXT_MODEL_MAP: dict[str, str] = {
     "YoutuVLForConditionalGeneration": "deepseek",
     "modeling_grove_moe.GroveMoeForCausalLM": "grovemoe",
     "modeling_sarvam_moe.SarvamMoEForCausalLM": "bailingmoe",
+    "LincalForCausalLM": "lincal3",
 }
 
 
