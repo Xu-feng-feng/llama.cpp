@@ -1,0 +1,51 @@
+platform,precision,metric,workload,mean,stddev,unit,repetitions,source
+CPU,BF16,prompt_processing_throughput,pp512,161.282901,5.110101,tokens/s,3,raw/cpu_bf16_bench.json
+CPU,BF16,prompt_processing_throughput,pp2048,158.547095,1.387896,tokens/s,3,raw/cpu_bf16_bench.json
+CPU,BF16,token_generation_throughput,tg128,15.430140,0.452686,tokens/s,3,raw/cpu_bf16_bench.json
+CPU,BF16,peak_rss,pp512_pp2048_tg128,4118.531250,,MiB,1,raw/cpu_bf16_bench.stderr.log
+CPU,BF16,average_process_cpu_utilization,pp512_pp2048_tg128,758.000000,,%,1,raw/cpu_bf16_bench.stderr.log
+CPU,BF16,prompt_processing_duration,pp512,3.174546,,s,3,derived from raw/cpu_bf16_bench.json
+CPU,BF16,prompt_processing_duration,pp2048,12.917298,,s,3,derived from raw/cpu_bf16_bench.json
+CPU,BF16,decode_time_per_token,tg128,64.808226,,ms/token,3,derived from raw/cpu_bf16_bench.json
+CPU,Q4_K_M,prompt_processing_throughput,pp512,201.775725,15.965490,tokens/s,3,raw/cpu_q4_k_m_bench.json
+CPU,Q4_K_M,prompt_processing_throughput,pp2048,210.545734,4.821431,tokens/s,3,raw/cpu_q4_k_m_bench.json
+CPU,Q4_K_M,token_generation_throughput,tg128,39.600500,0.600142,tokens/s,3,raw/cpu_q4_k_m_bench.json
+CPU,Q4_K_M,peak_rss,pp512_pp2048_tg128,2096.906250,,MiB,1,raw/cpu_q4_k_m_bench.stderr.log
+CPU,Q4_K_M,average_process_cpu_utilization,pp512_pp2048_tg128,692.000000,,%,1,raw/cpu_q4_k_m_bench.stderr.log
+CPU,Q4_K_M,prompt_processing_duration,pp512,2.537471,,s,3,derived from raw/cpu_q4_k_m_bench.json
+CPU,Q4_K_M,prompt_processing_duration,pp2048,9.727103,,s,3,derived from raw/cpu_q4_k_m_bench.json
+CPU,Q4_K_M,decode_time_per_token,tg128,25.252206,,ms/token,3,derived from raw/cpu_q4_k_m_bench.json
+GPU,BF16,prompt_processing_throughput,pp512,11307.802986,1185.680580,tokens/s,3,raw/gpu_bf16_bench.json
+GPU,BF16,prompt_processing_throughput,pp2048,11663.217879,76.384453,tokens/s,3,raw/gpu_bf16_bench.json
+GPU,BF16,token_generation_throughput,tg128,170.437617,0.882392,tokens/s,3,raw/gpu_bf16_bench.json
+GPU,BF16,incremental_peak_vram,pp512_pp2048_tg128,4056.000000,,MiB,1,raw/gpu_bf16_gpu_samples.csv
+GPU,BF16,active_gpu_utilization,pp512_pp2048_tg128,10.000000,,%,35,raw/gpu_bf16_gpu_samples.csv
+GPU,BF16,active_board_power,pp512_pp2048_tg128,267.628000,,W,35,raw/gpu_bf16_gpu_samples.csv
+GPU,BF16,peak_board_power,pp512_pp2048_tg128,345.940000,,W,35,raw/gpu_bf16_gpu_samples.csv
+GPU,BF16,prompt_processing_duration,pp512,0.045278,,s,3,derived from raw/gpu_bf16_bench.json
+GPU,BF16,prompt_processing_duration,pp2048,0.175595,,s,3,derived from raw/gpu_bf16_bench.json
+GPU,BF16,decode_time_per_token,tg128,5.867249,,ms/token,3,derived from raw/gpu_bf16_bench.json
+GPU,Q4_K_M,prompt_processing_throughput,pp512,13272.594085,1323.882938,tokens/s,3,raw/gpu_q4_k_m_bench.json
+GPU,Q4_K_M,prompt_processing_throughput,pp2048,13886.535573,196.458027,tokens/s,3,raw/gpu_q4_k_m_bench.json
+GPU,Q4_K_M,token_generation_throughput,tg128,327.525984,4.030987,tokens/s,3,raw/gpu_q4_k_m_bench.json
+GPU,Q4_K_M,incremental_peak_vram,pp512_pp2048_tg128,1791.000000,,MiB,1,raw/gpu_q4_k_m_gpu_samples.csv
+GPU,Q4_K_M,active_gpu_utilization,pp512_pp2048_tg128,62.818182,,%,22,raw/gpu_q4_k_m_gpu_samples.csv
+GPU,Q4_K_M,active_board_power,pp512_pp2048_tg128,293.342727,,W,22,raw/gpu_q4_k_m_gpu_samples.csv
+GPU,Q4_K_M,peak_board_power,pp512_pp2048_tg128,334.170000,,W,22,raw/gpu_q4_k_m_gpu_samples.csv
+GPU,Q4_K_M,prompt_processing_duration,pp512,0.038576,,s,3,derived from raw/gpu_q4_k_m_bench.json
+GPU,Q4_K_M,prompt_processing_duration,pp2048,0.147481,,s,3,derived from raw/gpu_q4_k_m_bench.json
+GPU,Q4_K_M,decode_time_per_token,tg128,3.053193,,ms/token,3,derived from raw/gpu_q4_k_m_bench.json
+COMMON,BF16,gguf_file_size,model_artifact,3881.148834,,MiB,1,1.0.05.2-luxi-1.7B-lincal/1.0.05.2-luxi-1.7B-lincal-lincal3-BF16.gguf
+COMMON,Q4_K_M,gguf_file_size,model_artifact,1223.029694,,MiB,1,1.0.05.2-luxi-1.7B-lincal/1.0.05.2-luxi-1.7B-lincal-lincal3-Q4_K_M.gguf
+COMMON,F16_KV,full_attention_kv,ctx512,8.000000,,MiB,1,raw/context_512.log
+COMMON,F16_KV,sliding_attention_kv,ctx512,48.000000,,MiB,1,raw/context_512.log
+COMMON,F16_KV,total_kv,ctx512,56.000000,,MiB,1,raw/context_512.log
+COMMON,F16_KV,full_attention_kv,ctx2048,32.000000,,MiB,1,raw/context_2048.log
+COMMON,F16_KV,sliding_attention_kv,ctx2048,96.000000,,MiB,1,raw/context_2048.log
+COMMON,F16_KV,total_kv,ctx2048,128.000000,,MiB,1,raw/context_2048.log
+COMMON,F16_KV,full_attention_kv,ctx8192,128.000000,,MiB,1,raw/context_8192.log
+COMMON,F16_KV,sliding_attention_kv,ctx8192,96.000000,,MiB,1,raw/context_8192.log
+COMMON,F16_KV,total_kv,ctx8192,224.000000,,MiB,1,raw/context_8192.log
+COMMON,F16_KV,full_attention_kv,ctx40960,640.000000,,MiB,1,raw/context_40960.log
+COMMON,F16_KV,sliding_attention_kv,ctx40960,96.000000,,MiB,1,raw/context_40960.log
+COMMON,F16_KV,total_kv,ctx40960,736.000000,,MiB,1,raw/context_40960.log

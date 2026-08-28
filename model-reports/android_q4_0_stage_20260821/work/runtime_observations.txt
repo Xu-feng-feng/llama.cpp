@@ -1,0 +1,18 @@
+Runtime observations captured through ADB on 2026-08-21 during Qwen3-8B 32k Prefill
+battery_level_percent=1
+battery_status=2
+usb_powered=true
+usb_max_charging_current_uA=500000
+usb_max_charging_voltage_uV=5000000
+battery_voltage_mV=2782
+battery_temperature_tenths_C=344
+cpu_policy0_current_kHz=787200
+cpu_policy0_scaling_max_kHz=2227200
+cpu_policy0_hardware_max_kHz=3628800
+cpu_policy6_current_kHz=883200
+cpu_policy6_scaling_max_kHz=1632000
+cpu_policy6_hardware_max_kHz=4608000
+benchmark_stage=Qwen3-8B_m32897_prefill_text_32768_r1
+last_completed_n_past=28672
+reported_total_time_ms=12926828.27
+termination=Interrupted by user

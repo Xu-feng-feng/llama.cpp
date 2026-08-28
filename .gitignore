@@ -171,3 +171,42 @@ LFM2.5-8B-A1B/*
 
 lfm25-gpu-report-work/*
 Qwen*-*B/*
+
+# Local benchmark and investigation artifacts
+/.codex-work/
+/HG_MODEL/
+/android-i8mm-q4-bench-logs/
+/arm_build/
+/benchmarks/lfm25_gpu_report/.venv/
+/cpu-text-bench-logs/
+/logs/lincal3/
+/reports/.luxillm_report_deps/
+/reports/.luxillm_report_venv/
+
+# KV cache captured runs and extracted data (K1)
+/kv_cache_server_cli_lab/gdb_extract/
+/kv_cache_server_cli_lab/runs/
+/kv_cache_server_cli_lab/latest_run.txt
+/kv_cache_server_cli_lab/historical_trace_validation/run.stdout.log
+/kv_cache_server_cli_lab/historical_trace_validation/summary.json
+/kv_cache_server_cli_lab/historical_trace_validation/validation.tsv
+
+# Report rendering intermediates (R1)
+/model-reports/*/work/libreoffice_profile/
+/model-reports/*/work/pdf_convert/
+/model-reports/*/work/rendered/
+/model-reports/*/work/docx_render*/
+/model-reports/*/work/pdf_render*/
+/reports/.luxillim_new_page-*.png
+/reports/.luxillm_lincal3_cpu_gpu_bf16_q4_k_m_work/pdf_pages/
+/reports/.luxillm_lincal3_cpu_gpu_bf16_q4_k_m_work/pdf_contact_sheet*.png
+
+# Regenerable raw benchmark outputs (O1)
+/outputs/
+
+# Local generated logs and scratch files
+/0
+/LFM2.5-8B-A1B-Q4_K_M-quantize.log
+/llama_gdb_server_session.log
+/llama_gdb_session.log
+/wget-log
