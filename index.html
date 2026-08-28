@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Qwen 与 MiniCPM 开源模型目录：LLM、VLM 与 Omni。" />
+    <title>Model Atlas · Qwen & MiniCPM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+:root{--ink:#17232c;--muted:#718087;--paper:#f5f4ee;--line:#d5d8d1;--acid:#d7ff4f;--orange:#ff7052;--violet:#a993ff;--teal:#66e1c5;--mono:"DM Mono",monospace;--sans:"Manrope","Noto Sans SC",sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);letter-spacing:-.025em}.noise{position:fixed;inset:0;pointer-events:none;opacity:.32;z-index:5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}a{color:inherit}.site-header{height:79px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(22px,4.3vw,76px);position:relative;z-index:1}.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font:500 10px/1.08 var(--mono);letter-spacing:.08em}.brand-mark{width:30px;height:30px;display:grid;place-items:center;background:var(--ink);color:var(--acid);font:500 16px Georgia,serif;border-radius:50%}.header-meta{display:flex;align-items:center;gap:8px;color:#536067;font:10px var(--mono);letter-spacing:.09em}.live-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;box-shadow:0 0 0 4px #66e1c53d}.hero{min-height:525px;padding:clamp(64px,9.8vw,140px) clamp(22px,9vw,148px) 60px;border-bottom:1px solid var(--line);position:relative}.eyebrow,.section-kicker{font:500 11px var(--mono);letter-spacing:.12em;color:#58656c}.eyebrow{display:flex;align-items:center;gap:11px}.eyebrow span{width:22px;height:1px;background:var(--orange)}h1,h2,h3,p{margin:0}h1{font-size:clamp(54px,8vw,130px);line-height:.92;letter-spacing:-.075em;font-weight:800;margin-top:28px;max-width:900px}h1 em{font-family:Georgia,serif;font-weight:400;color:var(--orange);letter-spacing:-.08em}.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-top:46px;max-width:995px}.hero-bottom p{font-size:15px;line-height:1.75;letter-spacing:-.02em;max-width:390px;color:#526067}.jump-link{font:600 12px var(--mono);letter-spacing:.06em;text-decoration:none;border-bottom:1px solid var(--ink);padding:0 0 8px}.jump-link span{font-size:17px;margin-left:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);padding:0 clamp(22px,9vw,148px)}.stats div{padding:28px 20px 26px;border-left:1px solid var(--line);display:flex;align-items:baseline;gap:10px}.stats div:first-child{border:0;padding-left:0}.stats strong{font:700 27px var(--mono);letter-spacing:-.08em}.stats span{font-size:12px;color:var(--muted)}.catalog{padding:clamp(68px,8vw,118px) clamp(22px,9vw,148px) 110px}.catalog-heading{display:flex;align-items:end;justify-content:space-between;gap:20px}.catalog-heading h2,.guide h2,.notes h2{font-size:clamp(34px,4vw,56px);line-height:1;font-weight:800;letter-spacing:-.065em;margin-top:14px}.catalog-heading p{font:11px var(--mono);color:var(--muted);letter-spacing:.04em}.catalog-heading p span{color:var(--ink)}.toolbar{border-top:1px solid var(--ink);margin-top:50px;padding:16px 0 24px;display:flex;gap:18px;justify-content:space-between;align-items:center}.filters{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.filters i{height:20px;width:1px;background:var(--line);margin:0 8px}.filter{appearance:none;border:1px solid transparent;background:transparent;padding:7px 11px;font:500 11px var(--mono);letter-spacing:.02em;color:#647177;cursor:pointer;border-radius:999px;transition:.18s}.filter:hover{color:var(--ink)}.filter.active{background:var(--ink);color:var(--paper)}.search{border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;padding:0 4px 7px;color:var(--muted)}.search span{font:22px Georgia,serif}.search input{width:208px;outline:0;border:0;background:transparent;font:12px var(--sans);color:var(--ink)}.search input::placeholder{color:#98a0a1}.model-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.model-card{min-height:297px;padding:24px 23px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;position:relative;overflow:hidden;cursor:pointer;transition:background .2s,transform .2s}.model-card:hover{background:#edeee7}.model-card:hover .arrow{transform:translate(3px,-3px)}.model-top{display:flex;justify-content:space-between;gap:10px}.tag{padding:5px 8px;border-radius:3px;font:500 9px var(--mono);letter-spacing:.08em}.tag.llm{background:#dbe8ff;color:#31476c}.tag.vlm{background:#dcf7ee;color:#295a4e}.tag.omni{background:#efe6ff;color:#5c488d}.tag.audio{background:#ffe4dc;color:#9d4e3d}.open{font:500 9px var(--mono);letter-spacing:.06em;color:#527a67;display:flex;gap:5px;align-items:center}.open::before{content:"";width:5px;height:5px;border-radius:50%;background:#58af88}.model-card h3{font-size:21px;line-height:1.15;letter-spacing:-.055em;margin:38px 0 10px;overflow-wrap:anywhere}.model-card p{font-size:12px;line-height:1.65;color:#657279;max-width:310px}.model-bottom{margin-top:auto;padding-top:19px;border-top:1px solid #daddd5;display:flex;justify-content:space-between;align-items:end;gap:6px}.params{font:500 12px var(--mono);letter-spacing:-.04em}.family{font:500 9px var(--mono);letter-spacing:.08em;color:#7c898e;text-transform:uppercase}.arrow{font-size:20px;line-height:.7;transition:.2s}.empty{padding:70px 20px;text-align:center;border:1px solid var(--line);border-top:0;color:var(--muted);font-size:14px}.hidden{display:none}.guide{background:var(--ink);color:#eef1e9;padding:clamp(66px,8vw,112px) clamp(22px,9vw,148px) 90px}.guide .section-kicker{color:#aab5b1}.guide-list{display:grid;grid-template-columns:repeat(3,1fr);margin-top:52px;border-top:1px solid #566069}.guide-list article{padding:24px 24px 0 0;min-height:230px;border-right:1px solid #566069;display:flex;flex-direction:column}.guide-list article+article{padding-left:24px}.guide-list article:last-child{border-right:0}.guide-no{font:11px var(--mono);color:var(--acid)}.guide-list h3{font-size:22px;letter-spacing:-.055em;margin:32px 0 9px}.guide-list p{font-size:12px;line-height:1.75;color:#aeb8b6;max-width:275px}.guide-list button{border:0;background:none;padding:0;color:var(--acid);text-align:left;font:11px var(--mono);letter-spacing:.02em;margin-top:auto;cursor:pointer}.guide-list button span{font-size:15px;margin-left:6px}.notes{padding:80px clamp(22px,9vw,148px);display:grid;grid-template-columns:1fr 2fr;gap:34px;border-bottom:1px solid var(--line)}.notes h2{margin-top:0}.notes p{font-size:14px;line-height:1.9;color:#5d6b70;max-width:560px;margin-top:24px}footer{display:flex;justify-content:space-between;gap:18px;padding:22px clamp(22px,4.3vw,76px);font:10px var(--mono);letter-spacing:.05em;color:#667177}footer a{color:var(--ink);text-decoration-color:#bac2bc;text-underline-offset:3px}dialog{width:min(640px,calc(100vw - 34px));border:0;padding:0;background:#f9f8f3;color:var(--ink);box-shadow:0 25px 90px #17232c40}dialog::backdrop{background:#17232cc2;backdrop-filter:blur(4px)}.close{position:absolute;right:16px;top:15px;border:0;background:transparent;font-size:29px;line-height:1;color:var(--ink);cursor:pointer}.dialog-inner{padding:45px}.dialog-inner .tag{display:inline-block}.dialog-inner h2{font-size:38px;letter-spacing:-.07em;margin:22px 0 12px;max-width:500px;overflow-wrap:anywhere}.dialog-summary{font-size:14px;line-height:1.75;color:#56636a;max-width:500px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin:28px 0}.facts div{background:#f9f8f3;padding:13px}.facts small{display:block;font:9px var(--mono);letter-spacing:.08em;color:#7b878a;margin-bottom:5px}.facts span{font-size:12px;line-height:1.45}.capabilities{border-top:1px solid var(--line);padding-top:20px}.capabilities h3{font:10px var(--mono);letter-spacing:.1em;color:#6e7b7f;margin-bottom:10px}.capabilities p{font-size:13px;line-height:1.7}.source-link{display:inline-flex;margin-top:27px;padding:12px 15px;background:var(--ink);color:var(--paper);font:11px var(--mono);text-decoration:none;letter-spacing:.03em}.source-link:hover{background:#35434c}@media(max-width:760px){.header-meta{display:none}.hero{min-height:440px;padding-top:70px}.hero-bottom{display:block}.hero-bottom p{margin-bottom:30px}.stats{padding:0 22px;grid-template-columns:1fr 1fr}.stats div{padding:19px 8px;border-bottom:1px solid var(--line)}.stats div:nth-child(3){border-left:0;padding-left:0;border-bottom:0}.stats div:nth-child(4){border-bottom:0}.stats strong{font-size:22px}.toolbar{align-items:stretch;flex-direction:column}.search{width:100%}.search input{width:100%}.model-grid{grid-template-columns:1fr}.model-card{min-height:254px}.guide-list{grid-template-columns:1fr}.guide-list article,.guide-list article+article{border-right:0;border-bottom:1px solid #566069;padding:22px 0;min-height:205px}.guide-list article:last-child{border-bottom:0}.notes{grid-template-columns:1fr;padding-top:62px;padding-bottom:62px}.catalog-heading{align-items:start;flex-direction:column}.catalog-heading p{margin-top:6px}footer{flex-direction:column}.dialog-inner{padding:38px 24px 26px}.dialog-inner h2{font-size:30px}.facts{grid-template-columns:1fr}}
+    </style>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Model Atlas 首页">
+        <span class="brand-mark">M</span>
+        <span>MODEL<br />ATLAS</span>
+      </a>
+      <div class="header-meta">
+        <span class="live-dot"></span>
+        <span>OPEN MODELS / 2026</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow"><span></span> OPEN WEIGHTS FIELD GUIDE</div>
+        <h1 id="page-title">把开源模型<br /><em>看得更清楚。</em></h1>
+        <div class="hero-bottom">
+          <p>Qwen 3 及以后，与 MiniCPM 的语言、视觉和全模态模型。专为挑选、部署和持续跟踪而做。</p>
+          <a class="jump-link" href="#catalog">浏览目录 <span>↓</span></a>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="目录概览">
+        <div><strong id="totalModels">0</strong><span>模型条目</span></div>
+        <div><strong id="qwenCount">0</strong><span>Qwen</span></div>
+        <div><strong id="miniCount">0</strong><span>MiniCPM</span></div>
+        <div><strong>100%</strong><span>开放权重</span></div>
+      </section>
+
+      <section id="catalog" class="catalog" aria-labelledby="catalog-title">
+        <div class="catalog-heading">
+          <div>
+            <span class="section-kicker">01 / CATALOG</span>
+            <h2 id="catalog-title">模型目录</h2>
+          </div>
+          <p><span id="visibleCount">0</span> 个结果 · 最后核验于 2026-08-19</p>
+        </div>
+
+        <div class="toolbar">
+          <div class="filters" aria-label="模型筛选">
+            <button class="filter active" data-filter="all" data-group="all" aria-pressed="true">全部</button>
+            <button class="filter" data-filter="qwen" data-group="brand" aria-pressed="false">Qwen</button>
+            <button class="filter" data-filter="minicpm" data-group="brand" aria-pressed="false">MiniCPM</button>
+            <i></i>
+            <button class="filter" data-filter="llm" data-group="kind" aria-pressed="false">LLM</button>
+            <button class="filter" data-filter="vlm" data-group="kind" aria-pressed="false">VLM</button>
+            <button class="filter" data-filter="omni" data-group="kind" aria-pressed="false">Omni</button>
+          </div>
+          <label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索模型、能力或参数…" autocomplete="off" /></label>
+        </div>
+
+        <div id="modelGrid" class="model-grid" aria-live="polite"></div>
+        <div id="empty" class="empty hidden">没有匹配的模型。试试换个关键词或筛选条件。</div>
+      </section>
+
+      <section class="guide" aria-labelledby="guide-title">
+        <div class="guide-title">
+          <span class="section-kicker">02 / QUICK MATCH</span>
+          <h2 id="guide-title">从任务出发</h2>
+        </div>
+        <div class="guide-list">
+          <article><span class="guide-no">01</span><h3>本地文字助手</h3><p>优先看 0.6B–4B 的 Dense 模型；追求端侧效率可选择 MiniCPM4 / MiniCPM5。</p><button data-pick="local">看本地优先模型 <span>↗</span></button></article>
+          <article><span class="guide-no">02</span><h3>读图、OCR、视频</h3><p>Qwen3-VL 覆盖从 2B 到 MoE；MiniCPM-V 适合内存受限的视觉端侧部署。</p><button data-pick="vision">看视觉模型 <span>↗</span></button></article>
+          <article><span class="guide-no">03</span><h3>语音与实时交互</h3><p>需要听、说、看、多轮实时交互时，查看 Qwen3-Omni 与 MiniCPM-o 系列。</p><button data-pick="omni">看全模态模型 <span>↗</span></button></article>
+        </div>
+      </section>
+
+      <section class="notes" aria-labelledby="notes-title">
+        <span class="section-kicker">03 / READING NOTES</span>
+        <div><h2 id="notes-title">如何读这张表</h2><p>此目录以“可获取开放权重”为收录标准；“开源”不等于所有数据、训练代码与商用权利均无条件开放。实际落地前，请以对应 Hugging Face 模型卡和仓库中的许可证为准。</p></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>MODEL ATLAS / QWEN + MINICPM</span>
+      <span>资料入口：<a href="https://huggingface.co/Qwen/collections" target="_blank" rel="noreferrer">Qwen</a> · <a href="https://github.com/OpenBMB/MiniCPM" target="_blank" rel="noreferrer">OpenBMB</a></span>
+    </footer>
+
+    <dialog id="modelDialog">
+      <button class="close" aria-label="关闭详情">×</button>
+      <div id="dialogContent"></div>
+    </dialog>
+    <script>
+const models = [
+  {name:'Qwen3-0.6B / 1.7B', brand:'qwen', kind:'llm', params:'0.6B · 1.7B', family:'Qwen3', release:'2025-04', license:'Apache 2.0', inputs:'文本', summary:'轻量 Dense 基座，支持思考 / 非思考模式切换。', abilities:'对话、指令跟随、工具调用、数学与代码；适合资源有限的本地文字任务。', source:'https://huggingface.co/collections/Qwen/qwen3'},
+  {name:'Qwen3-4B / 8B / 14B / 32B', brand:'qwen', kind:'llm', params:'4B → 32B', family:'Qwen3', release:'2025-04', license:'Apache 2.0', inputs:'文本', summary:'Qwen3 Dense 主力序列，覆盖从个人设备到服务器。', abilities:'可控推理、Agent / 工具调用、多语言、代码和长上下文等通用语言能力。', source:'https://huggingface.co/collections/Qwen/qwen3'},
+  {name:'Qwen3-30B-A3B', brand:'qwen', kind:'llm', params:'30B / 3B active', family:'Qwen3 MoE', release:'2025-04', license:'Apache 2.0', inputs:'文本', summary:'总参数 30B、每 token 激活约 3B 的稀疏专家模型。', abilities:'以较低推理成本取得强通用性能；支持思考与非思考模式。', source:'https://huggingface.co/Qwen/Qwen3-30B-A3B'},
+  {name:'Qwen3-235B-A22B', brand:'qwen', kind:'llm', params:'235B / 22B active', family:'Qwen3 MoE', release:'2025-04', license:'Apache 2.0', inputs:'文本', summary:'Qwen3 最大开放权重 MoE 通用语言模型。', abilities:'复杂推理、代码、工具调用和多语言任务；适合大规模 GPU 推理。', source:'https://huggingface.co/Qwen/Qwen3-235B-A22B'},
+  {name:'Qwen3-Instruct 2507', brand:'qwen', kind:'llm', params:'4B · 8B · 14B · 32B', family:'Qwen3', release:'2025-07', license:'Apache 2.0', inputs:'文本', summary:'Qwen3 的后训练 Instruct 更新版，面向直接响应场景。', abilities:'改进通用对话、指令遵循、工具使用与多语言；不以显式思考过程为主要交互。', source:'https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507'},
+  {name:'Qwen3-Next-80B-A3B', brand:'qwen', kind:'llm', params:'80B / 3B active', family:'Qwen3-Next', release:'2025-09', license:'Apache 2.0', inputs:'文本', summary:'面向高吞吐与长上下文的下一代稀疏架构。', abilities:'Instruct 与 Thinking 两种版本；适合高效率长文档理解、Agent 和推理服务。', source:'https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct'},
+  {name:'Qwen3-Coder', brand:'qwen', kind:'llm', params:'30B-A3B · 480B-A35B', family:'Qwen3 Coder', release:'2025-07', license:'Apache 2.0', inputs:'文本 / 代码', summary:'面向 agentic coding 的 Qwen3 专项代码模型。', abilities:'代码生成、仓库级理解、工具调用与软件工程 Agent；有不同 MoE 规模。', source:'https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct'},
+  {name:'Qwen3-VL-2B / 4B / 8B', brand:'qwen', kind:'vlm', params:'2B · 4B · 8B', family:'Qwen3-VL', release:'2025-10', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'小到中等规模的视觉语言模型，含 Instruct 与 Thinking 版本。', abilities:'图像和多图理解、OCR、文档 / 图表阅读、视频理解和视觉推理。', source:'https://huggingface.co/collections/Qwen/qwen3-vl'},
+  {name:'Qwen3-VL-32B', brand:'qwen', kind:'vlm', params:'32B', family:'Qwen3-VL', release:'2025-10', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'Qwen3-VL Dense 大尺寸模型。', abilities:'高质量视觉理解、复杂图表和文档推理；提供 Instruct 与 Thinking 版本。', source:'https://huggingface.co/Qwen/Qwen3-VL-32B-Instruct'},
+  {name:'Qwen3-VL MoE', brand:'qwen', kind:'vlm', params:'30B-A3B · 235B-A22B', family:'Qwen3-VL', release:'2025-11', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'Qwen3-VL 的高性能稀疏专家版本。', abilities:'面向复杂多模态推理、长视频理解、细粒度视觉感知和高并发部署。', source:'https://huggingface.co/collections/Qwen/qwen3-vl'},
+  {name:'Qwen3-Omni-30B-A3B', brand:'qwen', kind:'omni', params:'30B / 3B active', family:'Qwen3-Omni', release:'2025-09', license:'Apache 2.0', inputs:'文本 / 图像 / 音频 / 视频', summary:'任意模态输入、文本和语音输出的全模态 MoE。', abilities:'视觉、音频、视频理解；语音对话和 captioning。Instruct 与 Captioner 可分别使用。', source:'https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct'},
+  {name:'Qwen3-ASR', brand:'qwen', kind:'audio', params:'0.6B · 1.7B', family:'Qwen3 Audio', release:'2026', license:'Apache 2.0', inputs:'音频 → 文本', summary:'基于 Qwen3 的开放自动语音识别模型。', abilities:'多语言转写、时间戳和语音理解任务。', source:'https://huggingface.co/Qwen'},
+  {name:'Qwen3-TTS', brand:'qwen', kind:'audio', params:'多尺寸', family:'Qwen3 Audio', release:'2026', license:'Apache 2.0', inputs:'文本 → 语音', summary:'Qwen3 系列的开放文本转语音模型。', abilities:'高保真语音合成、音色和语气控制；适合本地语音交互管线。', source:'https://huggingface.co/Qwen/collections'},
+  {name:'Qwen3.5-0.8B / 2B / 4B / 9B', brand:'qwen', kind:'vlm', params:'0.8B → 9B', family:'Qwen3.5', release:'2026-03', license:'Apache 2.0', inputs:'文本 / 图片', summary:'Qwen3 之后的小型原生视觉语言模型，提供 Base 与指令版本。', abilities:'图文问答、OCR、文档与图表阅读；覆盖个人设备到单卡部署。', source:'https://huggingface.co/collections/Qwen/qwen35'},
+  {name:'Qwen3.5-27B', brand:'qwen', kind:'vlm', params:'27B', family:'Qwen3.5', release:'2026-04', license:'Apache 2.0', inputs:'文本 / 图片', summary:'Qwen3.5 的大尺寸 Dense 视觉语言模型。', abilities:'复杂图像理解、文档解析、视觉推理和多步骤任务。', source:'https://huggingface.co/Qwen/Qwen3.5-27B'},
+  {name:'Qwen3.5 MoE', brand:'qwen', kind:'vlm', params:'35B-A3B · 122B-A10B · 397B-A17B', family:'Qwen3.5 MoE', release:'2026-04', license:'Apache 2.0', inputs:'文本 / 图片', summary:'Qwen3.5 的大规模稀疏专家多模态系列。', abilities:'图文理解与高阶推理；以较小激活参数覆盖高性能多模态服务。', source:'https://huggingface.co/collections/Qwen/qwen35'},
+  {name:'Qwen3.6-35B-A3B', brand:'qwen', kind:'vlm', params:'35B / 3B active', family:'Qwen3.6', release:'2026-04', license:'Apache 2.0', inputs:'文本 / 图片', summary:'Qwen3 系列后续的开放权重多模态稀疏专家模型。', abilities:'图文问答、视觉推理、文档理解与高吞吐部署。', source:'https://huggingface.co/Qwen/Qwen3.6-35B-A3B'},
+  {name:'MiniCPM4', brand:'minicpm', kind:'llm', params:'0.5B · 1.5B · 3B', family:'MiniCPM4', release:'2025-06', license:'Apache 2.0', inputs:'文本', summary:'专为端侧推理效率设计的轻量语言模型系列。', abilities:'高效本地文本生成、长上下文与移动 / 嵌入式部署；提供多个端侧尺寸。', source:'https://github.com/OpenBMB/MiniCPM'},
+  {name:'MiniCPM4.1', brand:'minicpm', kind:'llm', params:'1.5B · 3B', family:'MiniCPM4.1', release:'2025', license:'Apache 2.0', inputs:'文本', summary:'MiniCPM4 的效率与推理能力迭代。', abilities:'利用稀疏与推测采样等技术，兼顾端侧速度、推理和长文本处理。', source:'https://github.com/OpenBMB/MiniCPM'},
+  {name:'MiniCPM5-1B', brand:'minicpm', kind:'llm', params:'1B', family:'MiniCPM5', release:'2026', license:'Apache 2.0', inputs:'文本', summary:'1B 级别的新一代开放权重语言模型。', abilities:'面向极小资源的知识、推理、代码、指令遵循与 Agent 工具调用。', source:'https://github.com/OpenBMB/MiniCPM'},
+  {name:'MiniCPM-V 4.0', brand:'minicpm', kind:'vlm', params:'4.1B', family:'MiniCPM-V', release:'2025', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'小型端侧视觉语言模型，基于 SigLIP2 与 MiniCPM4。', abilities:'单图、多图、视频理解与 OCR；可在移动设备侧流畅运行。', source:'https://github.com/OpenBMB/MiniCPM-V/blob/main/docs/minicpm_v4_en.md'},
+  {name:'MiniCPM-V 4.5', brand:'minicpm', kind:'vlm', params:'8B', family:'MiniCPM-V', release:'2025-08', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'面向高质量视觉理解的 MiniCPM-V 更新。', abilities:'多图与视频理解、OCR、文档和图表任务；提供多种推理框架支持。', source:'https://github.com/OpenBMB/MiniCPM-V'},
+  {name:'MiniCPM-V 4.6', brand:'minicpm', kind:'vlm', params:'~1.2B', family:'MiniCPM-V', release:'2026', license:'Apache 2.0', inputs:'文本 / 图片 / 视频', summary:'MiniCPM-V 中最轻量、面向边缘部署的版本。', abilities:'混合视觉 token 压缩，支持单图、多图、视频理解；含 Thinking 变体与 GGUF。', source:'https://github.com/OpenBMB/MiniCPM-V'},
+  {name:'MiniCPM-o 2.6', brand:'minicpm', kind:'omni', params:'8B', family:'MiniCPM-o', release:'2025-01', license:'Apache 2.0', inputs:'文本 / 图片 / 音频 / 视频', summary:'早期端侧 Omni 模型，可处理视觉、语音与文本。', abilities:'多模态输入、语音 / 文本输出与实时交互，面向单卡和端侧体验。', source:'https://github.com/OpenBMB/MiniCPM-V'},
+  {name:'MiniCPM-o 4.5', brand:'minicpm', kind:'omni', params:'8B', family:'MiniCPM-o', release:'2026-02', license:'Apache 2.0', inputs:'文本 / 图片 / 音频 / 视频', summary:'支持全双工实时多模态流式交互的开放权重 Omni 模型。', abilities:'看、听、说与实时对话；重点覆盖语音和视觉的低延迟场景。', source:'https://github.com/OpenBMB/MiniCPM-V'}
+];
+
+const grid = document.querySelector('#modelGrid');
+const empty = document.querySelector('#empty');
+const search = document.querySelector('#search');
+const dialog = document.querySelector('#modelDialog');
+const dialogContent = document.querySelector('#dialogContent');
+const activeFilters = {brands: new Set(), kinds: new Set()};
+
+const kindLabel = {llm:'LLM', vlm:'VLM', omni:'OMNI', audio:'AUDIO'};
+const brandLabel = {qwen:'Qwen', minicpm:'MiniCPM'};
+
+function card(model, index) {
+  return `<article class="model-card" data-index="${index}" tabindex="0" role="button" aria-label="查看 ${model.name} 详情">
+    <div class="model-top"><span class="tag ${model.kind}">${kindLabel[model.kind]}</span><span class="open">OPEN WEIGHTS</span></div>
+    <h3>${model.name}</h3><p>${model.summary}</p>
+    <div class="model-bottom"><div><div class="params">${model.params}</div><div class="family">${brandLabel[model.brand]} / ${model.family}</div></div><span class="arrow">↗</span></div>
+  </article>`;
+}
+
+function render() {
+  const query = search.value.trim().toLowerCase();
+  const indexes = models.map((m, index) => ({m,index})).filter(({m}) => {
+    const matchesBrand = activeFilters.brands.size === 0 || activeFilters.brands.has(m.brand);
+    const matchesKind = activeFilters.kinds.size === 0 || activeFilters.kinds.has(m.kind);
+    const matchesFilter = matchesBrand && matchesKind;
+    return matchesFilter && `${m.name} ${m.summary} ${m.abilities} ${m.params} ${m.family}`.toLowerCase().includes(query);
+  });
+  grid.innerHTML = indexes.map(({m,index}) => card(m,index)).join('');
+  empty.classList.toggle('hidden', indexes.length !== 0);
+  document.querySelector('#visibleCount').textContent = indexes.length;
+  grid.querySelectorAll('.model-card').forEach(el => {
+    el.addEventListener('click', () => openModel(models[el.dataset.index]));
+    el.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openModel(models[el.dataset.index]); } });
+  });
+}
+
+function openModel(model) {
+  dialogContent.innerHTML = `<div class="dialog-inner"><span class="tag ${model.kind}">${kindLabel[model.kind]} · ${brandLabel[model.brand]}</span>
+    <h2>${model.name}</h2><p class="dialog-summary">${model.summary}</p>
+    <div class="facts"><div><small>参数规模</small><span>${model.params}</span></div><div><small>首次发布</small><span>${model.release}</span></div><div><small>输入模态</small><span>${model.inputs}</span></div><div><small>许可证</small><span>${model.license}</span></div></div>
+    <div class="capabilities"><h3>适用能力</h3><p>${model.abilities}</p></div>
+    <a class="source-link" href="${model.source}" target="_blank" rel="noreferrer">查看官方模型卡 / 仓库 ↗</a></div>`;
+  dialog.showModal();
+}
+
+function syncFilterButtons() {
+  const isEverything = activeFilters.brands.size === 0 && activeFilters.kinds.size === 0;
+  document.querySelectorAll('.filter').forEach(button => {
+    const {filter, group} = button.dataset;
+    const isActive = group === 'all' ? isEverything : group === 'brand' ? activeFilters.brands.has(filter) : activeFilters.kinds.has(filter);
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+function setFilters(brands = [], kinds = []) {
+  activeFilters.brands = new Set(brands);
+  activeFilters.kinds = new Set(kinds);
+  syncFilterButtons();
+  render();
+}
+
+document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+  const {filter, group} = button.dataset;
+  if (group === 'all') {
+    setFilters();
+    return;
+  }
+  const target = group === 'brand' ? activeFilters.brands : activeFilters.kinds;
+  target.has(filter) ? target.delete(filter) : target.add(filter);
+  syncFilterButtons();
+  render();
+}));
+search.addEventListener('input', render);
+document.querySelector('.close').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+document.querySelectorAll('[data-pick]').forEach(button => button.addEventListener('click', () => {
+  const picks = {local:'llm', vision:'vlm', omni:'omni'};
+  const next = picks[button.dataset.pick];
+  setFilters([], [next]);
+  document.querySelector('#catalog').scrollIntoView({behavior:'smooth', block:'start'});
+}));
+
+document.querySelector('#totalModels').textContent = models.length;
+document.querySelector('#qwenCount').textContent = models.filter(m => m.brand === 'qwen').length;
+document.querySelector('#miniCount').textContent = models.filter(m => m.brand === 'minicpm').length;
+render();
+    </script>
+  </body>
+</html>
